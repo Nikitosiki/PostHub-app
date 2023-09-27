@@ -5,3 +5,4 @@ I use:
 - React;
 - NextUI;
 - Framer Motion;
+- TailwindCSS;
