@@ -1,15 +1,14 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Footer from "src/modules/Footer";
+import Header from "src/modules/Header";
 
 function Layout() {
   return (
     <>
-      <header>
-        <Link to="/">home</Link>
-        <Link to="/post">post</Link>
-        <Link to="/nikita">nikita</Link>
-      </header>
+      <Header />
       <Outlet />
+      <Footer />
     </>
   );
 }

@@ -1,7 +1,7 @@
-function Homepage() {
+function Tagspage() {
   return (
     <>
-      <div>Home</div>
+      <div>Tags</div>
       <span>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam
         risus mauris, auctor feugiat dui commodo quis. Maecenas felis erat,
@@ -57,4 +57,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Tagspage;
