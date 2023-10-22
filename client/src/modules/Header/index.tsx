@@ -69,7 +69,10 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">PostHub</p>
+          <div className="flex flex-wrap items-center justify-center gap-5">
+            <img className="w-10" src="/logo.png" alt="Site logo"></img>
+            <p className="font-bold text-inherit">PostHub</p>
+          </div>
         </NavbarBrand>
       </NavbarContent>
 
