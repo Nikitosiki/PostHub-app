@@ -29,11 +29,23 @@ export default {
       defaultExtendTheme: "light", // default theme to extend on custom themes
       themes: {
         light: {
-          layout: {}, // light theme layout tokens
+          layout: {},
           colors: {
-            background: "#FFFFFF", // the page background color
             foreground: "#0E1F2C", // the page text color
-
+            background: {
+              DEFAULT: "#FFFFFF",
+              50: "#f9fafb",
+              100: "#f3f4f6",
+              200: "#e5e7eb",
+              300: "#d1d5db",
+              400: "#9ca3af",
+              500: "#6b7280",
+              600: "#4b5563",
+              700: "#374151",
+              800: "#1f2937",
+              900: "#111827",
+              950: "#030712",
+            },
             primary: {
               foreground: "#FFFFFF",
               DEFAULT: "#4B9CD3",
@@ -64,7 +76,20 @@ export default {
         dark: {
           layout: {}, // dark theme layout tokens
           colors: {
-            background: "#232730", // the page background color
+            background: {
+              DEFAULT: "#232730",
+              50: "#292c34",
+              100: "#32363d",
+              200: "#3e424a",
+              300: "#494d56",
+              400: "#5b5f68",
+              500: "#6d727a",
+              600: "#7f848c",
+              700: "#91969e",
+              800: "#a3a8b1",
+              900: "#b5bbbc",
+              950: "#c7ccce",
+            },
             foreground: "#FFF5F1", // the page text color
 
             primary: {

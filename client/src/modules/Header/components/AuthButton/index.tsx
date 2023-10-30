@@ -2,7 +2,6 @@ import React from "react";
 import {
   Modal,
   ModalContent,
-  ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
@@ -12,13 +11,8 @@ import {
   Link,
   Tabs,
   Tab,
-  Card,
-  CardBody,
-  CardHeader,
   Spacer,
 } from "@nextui-org/react";
-import { MailIcon } from "./MailIcon.jsx";
-import { LockIcon } from "./LockIcon.jsx";
 
 export default function AuthButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
