@@ -1,4 +1,4 @@
-import { IPost, IPosts } from "src/interfaces";
+import { IPosts } from "src/interfaces";
 import Post from "src/modules/Post";
 
 const posts: IPosts = [

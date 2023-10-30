@@ -10,6 +10,15 @@ export default {
   ],
   theme: {
     extend: {},
+    // fontSize: {
+    //   sm: "1rem", // 0.8
+    //   base: "1.25rem", // 1
+    //   xl: "1.5rem", // 1.25
+    //   "2xl": "1.563rem", // 1.563
+    //   "3xl": "1.953rem", // 1.953
+    //   "4xl": "2.441rem", // 2.441
+    //   "5xl": "3.052rem", // 3.052
+    // },
   },
   darkMode: "class",
   plugins: [

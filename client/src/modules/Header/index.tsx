@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Navbar as NavbarUI,
@@ -9,21 +9,13 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Link,
-  Button,
   Tabs,
   Tab,
-  Input,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  Avatar,
 } from "@nextui-org/react";
-import { useNavigate, useLocation, Location } from "react-router-dom";
 import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
-import { SearchIcon } from "./components/SearchIcon";
+import { useStateTabs } from "./hooks/useStateTabs";
 
 const menuItems = [
   {
@@ -48,31 +40,9 @@ const menuItems = [
   },
 ];
 
-type MenuItem =
-  | {
-      name: string;
-      path: string;
-    }
-  | undefined;
-
-const getSelectedTab = (location: Location): string => {
-  const link: string = location.pathname;
-  const clearLink: string = link.substring(0, link.indexOf("/", 1));
-  const name: MenuItem = menuItems.find((value) => {
-    return value.path === clearLink;
-  });
-  if (name) return name.name;
-  return menuItems[0].name;
-};
-
 export default function Header() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<React.Key>(
-    getSelectedTab(location),
-  );
+  const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
 
   // <header>
@@ -81,13 +51,6 @@ export default function Header() {
   //   <Link to="/nikita">nikita</Link>
   // </header>
 
-  const toSelectedTab = (name: React.Key) => {
-    setSelectedTab(name);
-    const path: MenuItem = menuItems.find((value) => {
-      return value.name === name;
-    });
-    if (path) navigate(path.path);
-  };
 
   return (
     <NavbarUI

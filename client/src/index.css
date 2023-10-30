@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    /* font-family: Calibri, "Trebuchet MS", sans-serif; */
+    /* font-family: "Open Sans", sans-serif; */
+    /* font-family: "Outfit", sans-serif; */
+
+    font-family: "Open Sans", sans-serif;
+    font-family: "Outfit", sans-serif;
+    font-family: "Roboto", sans-serif;
+  }
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
