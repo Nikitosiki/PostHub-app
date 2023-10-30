@@ -26,7 +26,13 @@ export default function AuthButton() {
 
   return (
     <>
-      <Button as={Link} color="primary" variant="flat" onPress={onOpen}>
+      <Button
+        as={Link}
+        color="primary"
+        variant="flat"
+        onPress={onOpen}
+        radius="full"
+      >
         Login
       </Button>
       <Modal

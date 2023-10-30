@@ -21,7 +21,7 @@ export default function ThemeSwitch(props: SwitchProps) {
       <div
         {...getWrapperProps()}
         className={slots.wrapper({
-          class: ["h-8 w-8", "flex items-center justify-center"],
+          class: ["h-10 w-10", "flex items-center justify-center", "mr-0"],
         })}
       >
         {isSelected ? <SunIcon /> : <MoonIcon />}

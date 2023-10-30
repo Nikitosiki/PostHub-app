@@ -12,49 +12,81 @@ import {
   Button,
   Tabs,
   Tab,
+  Input,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
 } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Location } from "react-router-dom";
 import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
+import { SearchIcon } from "./components/SearchIcon";
+
+const menuItems = [
+  {
+    name: "News",
+    path: "/news",
+  },
+  {
+    name: "Tops",
+    path: "/tops",
+  },
+  {
+    name: "Tags",
+    path: "/tags",
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+  },
+  {
+    name: "Log Out",
+    path: "/",
+  },
+];
+
+type MenuItem =
+  | {
+      name: string;
+      path: string;
+    }
+  | undefined;
+
+const getSelectedTab = (location: Location): string => {
+  const link: string = location.pathname;
+  const clearLink: string = link.substring(0, link.indexOf("/", 1));
+  const name: MenuItem = menuItems.find((value) => {
+    return value.path === clearLink;
+  });
+  if (name) return name.name;
+  return menuItems[0].name;
+};
 
 export default function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<React.Key>("News");
+  const [selectedTab, setSelectedTab] = useState<React.Key>(
+    getSelectedTab(location),
+  );
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
 
-  const menuItems = ["News", "Tops", "Tags", "Profile", "Log Out"];
-  const navigate = useNavigate();
-
-  //   <header>
+  // <header>
   //   <Link to="/">home</Link>
   //   <Link to="/post">post</Link>
   //   <Link to="/nikita">nikita</Link>
   // </header>
 
-  const toSelectedTab = (value: React.Key) => {
-    setSelectedTab(value);
-    switch (value) {
-      case "News":
-        navigate("/news");
-        break;
-
-      case "Tops":
-        navigate("/tops");
-        break;
-
-      case "Tags":
-        navigate("/tags");
-        break;
-
-      case "Profile":
-        navigate("/profile");
-        break;
-
-      default:
-        navigate("/");
-        break;
-    }
+  const toSelectedTab = (name: React.Key) => {
+    setSelectedTab(name);
+    const path: MenuItem = menuItems.find((value) => {
+      return value.name === name;
+    });
+    if (path) navigate(path.path);
   };
 
   return (
@@ -93,15 +125,8 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem>
-          <ThemeSwitch
-            isSelected={isDarkTheme}
-            onValueChange={setIsDarkTheme}
-          />
-        </NavbarItem>
-        <NavbarItem>
-          <AuthButton />
-        </NavbarItem>
+        <AuthButton />
+        <ThemeSwitch isSelected={isDarkTheme} onValueChange={setIsDarkTheme} />
       </NavbarContent>
 
       <NavbarMenu>
@@ -119,7 +144,7 @@ export default function Header() {
               href="#"
               size="lg"
             >
-              {item}
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}
