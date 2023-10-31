@@ -28,7 +28,9 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
             {post.title}
           </div>
         </div>
-        <ScrollShadow hideScrollBar className="max-h-[300px] overflow-hidden">
+        <ScrollShadow hideScrollBar className="max-h-[300px]">
+          {" "}
+          {/* overflow-hidden */}
           <div className="mb-2">{post.content}</div>
         </ScrollShadow>
         <div className="text-sm">{post.views} views</div>
