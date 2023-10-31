@@ -23,8 +23,8 @@ const menuItems = [
     path: "/news",
   },
   {
-    name: "Tops",
-    path: "/tops",
+    name: "Hots",
+    path: "/hots",
   },
   {
     name: "Tags",
@@ -51,7 +51,6 @@ export default function Header() {
   //   <Link to="/nikita">nikita</Link>
   // </header>
 
-
   return (
     <NavbarUI
       onMenuOpenChange={setIsMobileMenuOpen}
@@ -64,7 +63,7 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <div className="flex flex-wrap items-center justify-center gap-5">
+          <div className="flex items-center justify-center gap-4">
             <img className="w-10" src="/logo.png" alt="Site logo"></img>
             <p className="font-bold text-inherit">PostHub</p>
           </div>
@@ -80,9 +79,40 @@ export default function Header() {
             selectedKey={selectedTab}
             onSelectionChange={toSelectedTab}
           >
-            <Tab key="News" title="News" className="text-base" />
-            <Tab key="Tops" title="Tops" className="text-base" />
-            <Tab key="Tags" title="Tags" className="text-base" />
+            <Tab
+              key="News"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span className="material-symbols-rounded">
+                    release_alert
+                  </span>
+                  <span>News</span>
+                </div>
+              }
+              className="text-base"
+            />
+            <Tab
+              key="Hots"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span className="material-symbols-rounded mb-1">
+                    local_fire_department
+                  </span>
+                  <span>Hots</span>
+                </div>
+              }
+              className="text-base"
+            />
+            <Tab
+              key="Tags"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span className="material-symbols-rounded">style</span>
+                  <span>Tags</span>
+                </div>
+              }
+              className="text-base"
+            />
           </Tabs>
         </NavbarItem>
       </NavbarContent>
