@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <>
       <footer className="bottom-0">
-        <hr className="mt-8 h-px border-0 bg-background-200 bg-ba"></hr>
+        <hr className="mt-8 h-px border-0 bg-background-200"></hr>
         <div className="container mx-auto">
           <div className="flex flex-wrap justify-between py-2">
             <div className="w-full text-center">

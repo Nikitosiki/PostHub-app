@@ -1,6 +1,7 @@
 import { FC, useRef, useEffect } from "react";
 import { User } from "@nextui-org/react";
 import { IPost } from "src/interfaces";
+import { useStateWindowSize } from "src/hooks";
 
 export interface IPostProps {
   post: IPost;
@@ -10,6 +11,7 @@ export interface IPostProps {
 const Post: FC<IPostProps> = ({ post, onClick }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
+  const windowSize = useStateWindowSize();
 
   useEffect(() => {
     const contentElement = contentRef.current;
@@ -24,7 +26,7 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
       shadowElement.style.display =
         contentElement.offsetHeight < maxHeightContent ? "none" : "block";
     }
-  }, [post.content]);
+  }, [post.content, windowSize]);
 
   return (
     <>
@@ -42,21 +44,21 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
             }}
             className="mb-4"
           />
-          <div className="mb-2 items-center text-xl font-bold text-primary-500">
+          <p className="mb-2 items-center text-xl font-bold text-primary-500">
             {post.title}
-          </div>
+          </p>
         </div>
         <div
           ref={contentRef}
           className="relative max-h-[330px] overflow-hidden"
         >
-          <div className="mb-2 whitespace-pre-wrap">{post.content}</div>
+          <p className="mb-2 whitespace-pre-wrap">{post.content}</p>
           <div
             ref={shadowRef}
             className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
           ></div>
         </div>
-        <div className="text-sm">{post.views} views</div>
+        <p className="text-sm">{post.views} views</p>
       </div>
     </>
   );

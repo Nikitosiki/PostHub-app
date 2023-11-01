@@ -5,11 +5,15 @@ import Header from "src/modules/Header";
 function Layout() {
   return (
     <>
-      <Header />
-      <div className="bg-background-100">
-        <div className="container mx-auto max-w-[1024px]">
-          <Outlet />
-          <Footer />
+      <div className="min-h-screen">
+        <Header />
+        <div className="bg-background-100">
+          <div className="container mx-auto max-w-[1024px]">
+            <div className="flex-grow">
+              <Outlet />
+              <Footer />
+            </div>
+          </div>
         </div>
       </div>
     </>
