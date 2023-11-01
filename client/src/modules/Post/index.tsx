@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useRef, useEffect } from "react";
 import { User } from "@nextui-org/react";
 import { IPost } from "src/interfaces";
 
@@ -8,6 +8,24 @@ export interface IPostProps {
 }
 
 const Post: FC<IPostProps> = ({ post, onClick }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const shadowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const contentElement = contentRef.current;
+    const shadowElement = shadowRef.current;
+
+    if (contentElement && shadowElement) {
+      const maxHeightContent = parseInt(
+        window.getComputedStyle(contentElement).getPropertyValue("max-height"),
+        10,
+      );
+
+      shadowElement.style.display =
+        contentElement.offsetHeight < maxHeightContent ? "none" : "block";
+    }
+  }, [post.content]);
+
   return (
     <>
       {/* border border-background-200 */}
@@ -28,9 +46,15 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
             {post.title}
           </div>
         </div>
-        <div className="relative max-h-[330px] overflow-hidden">
-          <div className="mb-2">{post.content}</div>
-          <div className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"></div>
+        <div
+          ref={contentRef}
+          className="relative max-h-[330px] overflow-hidden"
+        >
+          <div className="mb-2 whitespace-pre-wrap">{post.content}</div>
+          <div
+            ref={shadowRef}
+            className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
+          ></div>
         </div>
         <div className="text-sm">{post.views} views</div>
       </div>

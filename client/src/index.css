@@ -14,6 +14,11 @@
   }
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
 .material-symbols-rounded {
   font-variation-settings:
     "FILL" 0,

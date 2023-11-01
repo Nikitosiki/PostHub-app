@@ -64,7 +64,7 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link to="/news" className="flex items-center justify-center gap-4">
+          <Link to="/news" className="flex items-center justify-center gap-4 focus:outline-none">
             <img className="w-10" src="/logo.png" alt="Site logo"></img>
             <p className="font-bold text-inherit">PostHub</p>
           </Link>

@@ -12,6 +12,13 @@ const posts: IPosts = [
     views: 5,
   },
   {
+    id: 11,
+    title: "Hi",
+    content:
+      "Nikita Savenko\nNikitosiki · he/him\nnikita.savenko.dev@gmail.com",
+    views: 5,
+  },
+  {
     id: 2,
     title: "Exploring the Wonders of Deep Learning",
     content:
