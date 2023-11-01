@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { User, ScrollShadow } from "@nextui-org/react";
+import { User } from "@nextui-org/react";
 import { IPost } from "src/interfaces";
 
 export interface IPostProps {
@@ -28,11 +28,10 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
             {post.title}
           </div>
         </div>
-        <ScrollShadow hideScrollBar className="max-h-[300px]">
-          {" "}
-          {/* overflow-hidden */}
+        <div className="relative max-h-[330px] overflow-hidden">
           <div className="mb-2">{post.content}</div>
-        </ScrollShadow>
+          <div className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"></div>
+        </div>
         <div className="text-sm">{post.views} views</div>
       </div>
     </>

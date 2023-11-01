@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Navbar as NavbarUI,
@@ -8,7 +9,7 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
+  Link as LinkUI,
   Tabs,
   Tab,
 } from "@nextui-org/react";
@@ -63,10 +64,10 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <div className="flex items-center justify-center gap-4">
+          <Link to="/news" className="flex items-center justify-center gap-4">
             <img className="w-10" src="/logo.png" alt="Site logo"></img>
             <p className="font-bold text-inherit">PostHub</p>
-          </div>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -125,7 +126,7 @@ export default function Header() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
+            <LinkUI
               className="w-full"
               color={
                 index === 0
@@ -138,7 +139,7 @@ export default function Header() {
               size="lg"
             >
               {item.name}
-            </Link>
+            </LinkUI>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
