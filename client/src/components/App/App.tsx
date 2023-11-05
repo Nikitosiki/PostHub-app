@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 
 // Pages
-import Layout from "./components/Layout/Layout";
+import Layout from "../Layout/Layout";
 import Postpage from "src/pages/Postpage";
 import Notfoundpage from "src/pages/Notfoundpage";
 import Newspage from "src/pages/Newspage";
 import Tagspage from "src/pages/Tags";
-import Hotspage from "./pages/Hotspage";
+import Hotspage from "../../pages/Hotspage";
 
 function App() {
   return (
