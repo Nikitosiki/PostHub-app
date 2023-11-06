@@ -5,7 +5,7 @@ import Layout from "../Layout/Layout";
 import Postpage from "src/pages/Postpage";
 import Notfoundpage from "src/pages/Notfoundpage";
 import Newspage from "src/pages/Newspage";
-import Tagspage from "src/pages/Tags";
+import Tagspage from "src/pages/Tagspage";
 import Hotspage from "../../pages/Hotspage";
 
 function App() {

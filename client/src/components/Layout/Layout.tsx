@@ -10,7 +10,9 @@ function Layout() {
         <div className="bg-background-100">
           <div className="container mx-auto max-w-[1024px]">
             <div className="flex-grow">
-              <Outlet />
+              <div className="min-h-[calc(100vh-170px)]">
+                <Outlet />
+              </div>
               <Footer />
             </div>
           </div>
