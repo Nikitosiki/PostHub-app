@@ -1,10 +1,7 @@
 import { FC } from "react";
 import {
   Card,
-  CardHeader,
-  CardBody,
   CardFooter,
-  User,
   Avatar,
   Image,
 } from "@nextui-org/react";
