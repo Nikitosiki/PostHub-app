@@ -1,9 +1,7 @@
 import { FC, useRef, useEffect } from "react";
 import {
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
   User,
 } from "@nextui-org/react";
 import { IPost } from "src/interfaces";

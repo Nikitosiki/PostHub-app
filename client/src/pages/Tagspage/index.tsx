@@ -1,6 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-
-import { Button, Card, CardHeader, CardBody } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { ITags } from "src/interfaces";
 import Bigtag from "src/modules/Bigtag";
