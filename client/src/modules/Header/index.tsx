@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   Navbar as NavbarUI,
@@ -45,6 +45,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
+  const navigate = useNavigate();
 
   // <header>
   //   <Link to="/">home</Link>
@@ -126,20 +127,22 @@ export default function Header() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <LinkUI
-              className="w-full"
-              color={
-                index === 0
-                  ? "warning"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
+            <Link to={item.path} className="text-lg">
+              {/* <LinkUI
+                className="w-full"
+                color={
+                  index === 0
+                    ? "warning"
+                    : index === menuItems.length - 1
+                    ? "danger"
+                    : "foreground"
+                }
+                size="lg"
+              >
+                {item.name}
+              </LinkUI> */}
               {item.name}
-            </LinkUI>
+            </Link>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
