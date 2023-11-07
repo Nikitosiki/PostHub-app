@@ -54,7 +54,6 @@ export default function Header() {
   return (
     <NavbarUI
       onMenuOpenChange={setIsMobileMenuOpen}
-      disableAnimation
       isBordered
     >
       <NavbarContent>
