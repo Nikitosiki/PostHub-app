@@ -9,7 +9,6 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link as LinkUI,
   Tabs,
   Tab,
 } from "@nextui-org/react";
@@ -55,7 +54,6 @@ export default function Header() {
   return (
     <NavbarUI
       onMenuOpenChange={setIsMobileMenuOpen}
-      disableAnimation
       isBordered
     >
       <NavbarContent>
@@ -64,7 +62,7 @@ export default function Header() {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link to="/news" className="flex items-center justify-center gap-4 focus:outline-none">
+          <Link to="/news" className="flex items-center justify-center gap-4">
             <img className="w-10" src="/logo.png" alt="Site logo"></img>
             <p className="font-bold text-inherit">PostHub</p>
           </Link>
@@ -126,20 +124,22 @@ export default function Header() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <LinkUI
-              className="w-full"
-              color={
-                index === 0
-                  ? "warning"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
+            <Link to={item.path} className="text-lg">
+              {/* <LinkUI
+                className="w-full"
+                color={
+                  index === 0
+                    ? "warning"
+                    : index === menuItems.length - 1
+                    ? "danger"
+                    : "foreground"
+                }
+                size="lg"
+              >
+                {item.name}
+              </LinkUI> */}
               {item.name}
-            </LinkUI>
+            </Link>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>
