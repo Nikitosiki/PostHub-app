@@ -26,7 +26,7 @@ const Bigtag: FC<ITagProps> = ({ tag, onClick }) => {
           removeWrapper
           alt="Card background"
           className="z-0 h-full w-full object-cover"
-          src={tag.imageUrl}
+          src={tag.image_url}
         />
         <div className="absolute inset-x-0 -bottom-[1px] h-24 bg-gradient-to-b from-transparent to-background-500 to-95%"></div>
         <CardFooter className="absolute bottom-0 z-10 flex-col !items-start">
