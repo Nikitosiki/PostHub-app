@@ -14,7 +14,7 @@ import {
   Spacer,
 } from "@nextui-org/react";
 
-export default function AuthButton() {
+const AuthButton = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState<React.Key>("login");
 
@@ -24,7 +24,7 @@ export default function AuthButton() {
         as={Link}
         color="primary"
         variant="flat"
-        onPress={onOpen}
+        onClick={onOpen}
         radius="full"
       >
         Login
@@ -32,7 +32,7 @@ export default function AuthButton() {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        placement="top-center"
+        placement="center"
         backdrop="opaque"
         hideCloseButton
       >
@@ -144,4 +144,6 @@ export default function AuthButton() {
       </Modal>
     </>
   );
-}
+};
+
+export default AuthButton;
