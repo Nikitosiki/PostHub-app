@@ -10,6 +10,8 @@ interface IReaction {
   count: number;
 }
 
+interface IReactions extends Array<IReaction> {}
+
 export interface IPost {
   id: number;
   title: string;
@@ -18,7 +20,7 @@ export interface IPost {
   author: IUser;
   age_rating: IRating | null;
   tags: ITags;
-  reaction: IReaction;
+  reaction: IReactions;
   comments: IComments | null;
   views: number;
   published_at: Date;
