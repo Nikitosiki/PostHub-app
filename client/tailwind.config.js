@@ -48,14 +48,14 @@ export default {
             },
             primary: {
               foreground: "#FFFFFF",
-              DEFAULT: "#4B9CD3",
+              // DEFAULT: "#4B9CD3",
             },
 
-            secondary: {
-              //icons color
-              foreground: "#75757C",
-              DEFAULT: "#FFFFFF",
-            },
+            // secondary: {
+            //   //icons color
+            //   foreground: "#75757C",
+            //   // DEFAULT: "#FFFFFF",
+            // },
             // secondary: "#",
             // default: {
             //   foreground: "#0E1F2C", // "dark blue"
@@ -94,14 +94,14 @@ export default {
 
             primary: {
               foreground: "#FFFFFF",
-              DEFAULT: "#4B9CD3",
+              // DEFAULT: "#4B9CD3",
             },
 
-            secondary: {
-              //icons color
-              foreground: "#81828A",
-              DEFAULT: "#232730",
-            },
+            // secondary: {
+            //   //icons color
+            //   foreground: "#81828A",
+            //   DEFAULT: "#232730",
+            // },
             // secondary: "#",
             // default: {
             //   foreground: "#ececee",

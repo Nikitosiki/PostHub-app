@@ -13,7 +13,7 @@ const Notfound = () => {
           <CardBody className="px-8 py-4">
             <div className="flex flex-row flex-wrap justify-center gap-4">
               <div className="flex items-center">
-                <div className="text-2xl font-bold text-primary-500">
+                <div className="text-2xl font-bold text-primary">
                   <p>404</p>
                 </div>
               </div>
