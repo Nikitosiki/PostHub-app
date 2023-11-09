@@ -9,7 +9,7 @@ export const posts: IPosts = [
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam risus mauris, auctor feugiat dui commodo quis. Maecenas felis erat, cursus a velit sit amet, interdum vestibulum est. Suspendisse aliquet, nisi ac imperdiet euismod, nulla ante bibendum felis, id varius orci libero quis risus. Proin nec magna ut eros varius mollis. Nulla facilisi. Mauris pretium neque et dapibus hendrerit. Quisque aliquam risus sit amet ligula dignissim, id sodales lorem laoreet. Duis gravida, metus sed maximus tempus, lectus tellus viverra risus, eu aliquet sem purus nec leo. Morbi facilisis odio a posuere vehicula. Suspendisse quis varius metus. Fusce ornare ipsum turpis, at vestibulum ligula tincidunt fringilla. Phasellus tristique odio sed mi malesuada volutpat. Aliquam sodales turpis sed justo dapibus ullamcorper. Cras hendrerit eros id lectus lacinia, vitae congue nunc facilisis. Duis interdum ante at tellus varius semper. Proin gravida interdum nibh a placerat. Donec congue egestas vulputate. Etiam vestibulum ante ut mauris sollicitudin sodales. Aliquam dictum urna enim. Quisque sed semper mauris. Praesent nec ultrices justo, non tempus augue. Vestibulum vestibulum lorem sed tempor molestie. Sed fermentum nibh sit amet nibh gravida euismod.",
     image_url: null,
-    author: users[1],
+    author: users[0],
     age_rating: null,
     tags: [tags[2], tags[3], tags[0]],
     reaction: [
@@ -72,7 +72,7 @@ export const posts: IPosts = [
     content:
       "Sustainable gardening is not just a trend; it's a way of life that promotes environmental consciousness. Learn how to create a thriving garden while reducing your ecological footprint. Discover tips for composting, water conservation, and choosing native plants to support local wildlife. Sustainable gardening is all about creating a harmonious ecosystem in your own backyard. It's a holistic approach that takes into consideration the environmental impact of every gardening decision. Composting is a key component of sustainability, as it reduces waste and enriches the soil naturally. Additionally, water conservation practices, such as collecting rainwater, can save both resources and money. Choosing native plants is another essential aspect of sustainable gardening, as they require less maintenance and provide habitat for local wildlife. By adopting these practices, you can be a steward of the environment right in your own garden.",
     image_url: null,
-    author: users[1],
+    author: users[0],
     age_rating: null,
     tags: [tags[2], tags[3], tags[0]],
     reaction: [
@@ -135,7 +135,7 @@ export const posts: IPosts = [
     content:
       "Traveling alone can be a transformative experience. Discover the freedom and self-discovery that come with solo adventures. We share personal stories, safety tips, and suggestions for destinations that are perfect for solo travelers. Embrace the world on your terms. Solo travel is an opportunity for personal growth and self-discovery. It offers the freedom to explore the world on your terms, make new connections, and step out of your comfort zone. We'll share personal stories from solo travelers who have encountered kindness and camaraderie in unexpected places. Safety is paramount when traveling alone, so we'll provide practical tips to help you stay secure and enjoy your journey. Additionally, we'll recommend some of the best destinations for solo travelers, whether you seek adventure, relaxation, or cultural immersion. Embrace the adventure, and see the world from a new perspective.",
     image_url: null,
-    author: users[1],
+    author: users[5],
     age_rating: null,
     tags: [tags[2], tags[3], tags[0]],
     reaction: [

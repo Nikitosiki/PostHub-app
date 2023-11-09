@@ -1,14 +1,12 @@
 import { FC, useRef, useEffect } from "react";
 import { Card, CardBody, User } from "@nextui-org/react";
+import { Link } from "react-router-dom";
+
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
+import { getShortFormattedDate, nullToUndefined } from "src/utils";
 
-export interface IPostProps {
-  post: IPost;
-  onClick: () => void;
-}
-
-const Post: FC<IPostProps> = ({ post, onClick }) => {
+const Post: FC<{ post: IPost }> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
   const windowSize = useStateWindowSize();
@@ -28,6 +26,8 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
     }
   }, [post.content, windowSize]);
 
+  console.log(post.published_at.toString());
+
   return (
     <>
       {/* border border-background-200 */}
@@ -36,34 +36,43 @@ const Post: FC<IPostProps> = ({ post, onClick }) => {
         shadow="none"
         key={post.id}
         isPressable
-        onPress={onClick}
       >
-        <CardBody>
-          <div className="flex flex-wrap items-center gap-6">
-            <User
-              name="Nikita Savenko"
-              avatarProps={{
-                src: "https://i.pravatar.cc/150?u=a04258114e29026703d",
-                size: "sm",
-              }}
-              className="mb-4"
-            />
-            <p className="mb-2 items-center text-xl font-bold text-primary-500">
-              {post.title}
-            </p>
-          </div>
-          <div
-            ref={contentRef}
-            className="relative max-h-[330px] overflow-hidden"
-          >
-            <p className="mb-2 whitespace-pre-wrap">{post.content}</p>
+        <Link to={`/post/${post.id}`}>
+          <CardBody>
+            <div className="flex flex-wrap items-center gap-6">
+              <Link to={`/author/${post.author.id}`}>
+                <User
+                  name={post.author.name}
+                  description={`Posted on ${getShortFormattedDate(
+                    post.published_at,
+                  )}`}
+                  avatarProps={{
+                    src: nullToUndefined(post.author.image_url),
+                    classNames: {
+                      base: "",
+                    },
+                    size: "sm",
+                  }}
+                  className="mb-4"
+                />
+              </Link>
+              <p className="mb-2 items-center text-xl font-bold text-primary-500">
+                {post.title}
+              </p>
+            </div>
             <div
-              ref={shadowRef}
-              className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
-            ></div>
-          </div>
-          <p className="text-sm">{post.views} views</p>
-        </CardBody>
+              ref={contentRef}
+              className="relative max-h-[330px] overflow-hidden"
+            >
+              <p className="mb-2 whitespace-pre-wrap">{post.content}</p>
+              <div
+                ref={shadowRef}
+                className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
+              ></div>
+            </div>
+            <p className="text-sm">{post.views} views</p>
+          </CardBody>
+        </Link>
       </Card>
     </>
   );
