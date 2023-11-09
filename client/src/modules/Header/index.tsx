@@ -53,6 +53,7 @@ export default function Header() {
 
   return (
     <NavbarUI
+      isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
     >
@@ -124,20 +125,20 @@ export default function Header() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link to={item.path} className="text-lg">
-              {/* <LinkUI
-                className="w-full"
-                color={
-                  index === 0
-                    ? "warning"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                size="lg"
-              >
-                {item.name}
-              </LinkUI> */}
+            <Link
+              to={item.path}
+              className={`text-lg ${
+                item.name === selectedTab
+                  ? "text-primary"
+                  : index === menuItems.length - 1
+                  ? "text-danger"
+                  : "text-foreground"
+              }`}
+              onClick={() => {
+                toSelectedTab(item.name);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
+            >
               {item.name}
             </Link>
           </NavbarMenuItem>

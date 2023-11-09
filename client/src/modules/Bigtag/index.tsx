@@ -1,10 +1,5 @@
 import { FC } from "react";
-import {
-  Card,
-  CardFooter,
-  Avatar,
-  Image,
-} from "@nextui-org/react";
+import { Card, CardFooter, Avatar, Image } from "@nextui-org/react";
 import { ITag } from "src/interfaces";
 
 export interface ITagProps {
@@ -16,19 +11,23 @@ const Bigtag: FC<ITagProps> = ({ tag, onClick }) => {
   return (
     <>
       <Card
-        className="col-span-12 h-[180px] border-none drop-shadow-lg hover:drop-shadow-xl sm:col-span-4"
+        className="col-span-12 h-[180px] w-full border-none drop-shadow-lg hover:drop-shadow-xl sm:col-span-4"
         shadow="none"
         key={tag.id}
         isPressable
         onPress={onClick}
       >
-        <Image
-          removeWrapper
-          alt="Card background"
-          className="z-0 h-full w-full object-cover"
-          src={tag.imageUrl}
-        />
-        <div className="absolute inset-x-0 -bottom-[1px] h-24 bg-gradient-to-b from-transparent to-background-500 to-95%"></div>
+        {tag.image_url !== null ? (
+          <Image
+            removeWrapper
+            alt="Card background"
+            className="z-0 h-full w-full object-cover"
+            src={tag.image_url}
+          />
+        ) : (
+          <div className="z-0 h-full w-full bg-primary object-cover" />
+        )}
+        <div className="absolute inset-x-0 -bottom-[1px] h-24 bg-gradient-to-b from-transparent to-background-500 to-95%" />
         <CardFooter className="absolute bottom-0 z-10 flex-col !items-start">
           <p className="text-tiny font-bold uppercase text-white ">
             {tag.title}

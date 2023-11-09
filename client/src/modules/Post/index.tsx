@@ -1,9 +1,5 @@
 import { FC, useRef, useEffect } from "react";
-import {
-  Card,
-  CardBody,
-  User,
-} from "@nextui-org/react";
+import { Card, CardBody, User } from "@nextui-org/react";
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 
