@@ -13,7 +13,6 @@ import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
 import Author from "src/modules/Author";
 import Tag from "src/modules/Tag";
-import { getTagById } from "src/api/preview";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);

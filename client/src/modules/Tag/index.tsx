@@ -6,7 +6,7 @@ import { ITag } from "src/interfaces";
 
 type TypeTagProps = {
   tag: ITag;
-  className: string;
+  className?: string;
 };
 
 const Tag: FC<TypeTagProps> = ({ tag, className }) => {
