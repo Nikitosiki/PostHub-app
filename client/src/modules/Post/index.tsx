@@ -1,10 +1,11 @@
 import { FC, useRef, useEffect } from "react";
-import { Card, CardBody, User } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
-import { getShortFormattedDate, nullToUndefined } from "src/utils";
+import { getShortFormattedDate } from "src/utils";
+import Author from "../Author";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -40,22 +41,12 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
         <Link to={`/post/${post.id}`}>
           <CardBody>
             <div className="flex flex-wrap items-center gap-6">
-              <Link to={`/author/${post.author.id}`}>
-                <User
-                  name={post.author.name}
-                  description={`Posted on ${getShortFormattedDate(
-                    post.published_at,
-                  )}`}
-                  avatarProps={{
-                    src: nullToUndefined(post.author.image_url),
-                    classNames: {
-                      base: "",
-                    },
-                    size: "sm",
-                  }}
-                  className="mb-4"
-                />
-              </Link>
+              <Author
+                author={post.author}
+                description={`Posted on ${getShortFormattedDate(
+                  post.published_at,
+                )}`}
+              />
               <p className="mb-2 items-center text-xl font-bold text-primary-500">
                 {post.title}
               </p>
