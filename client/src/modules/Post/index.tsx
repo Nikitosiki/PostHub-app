@@ -1,11 +1,19 @@
 import { FC, useRef, useEffect } from "react";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  ScrollShadow,
+} from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
-import Author from "../Author";
+import Author from "src/modules/Author";
+import Tag from "src/modules/Tag";
+import { getTagById } from "src/api/preview";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -27,19 +35,16 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
     }
   }, [post.content, windowSize]);
 
-  console.log(post.published_at.toString());
-
   return (
     <>
-      {/* border border-background-200 */}
       <Card
         className="border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
         shadow="none"
         key={post.id}
         isPressable
       >
-        <Link to={`/post/${post.id}`}>
-          <CardHeader className="gap- flex-col items-start gap-2 pb-2">
+        <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
+          <CardHeader className="flex-col items-start gap-2 pb-2">
             <Author
               author={post.author}
               description={`Posted on ${getShortFormattedDate(
@@ -47,9 +52,26 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               )}`}
             />
             <h2 className="text-left text-xl font-bold text-primary">
-              {post.title}
+              # {post.title}
             </h2>
           </CardHeader>
+
+          <CardHeader className="pb-3 pt-0">
+            <ScrollShadow
+              hideScrollBar
+              orientation="horizontal"
+              className="flex flex-row gap-2"
+            >
+              {post.tags.map((tag) => (
+                <Tag
+                  key={tag.id}
+                  tag={tag}
+                  className="whitespace-nowrap text-xs"
+                />
+              ))}
+            </ScrollShadow>
+          </CardHeader>
+
           <CardBody className="pt-0">
             <div
               ref={contentRef}
@@ -62,6 +84,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               ></div>
             </div>
           </CardBody>
+
           <CardFooter className="pt-0">
             <p className="text-sm">{post.views} views</p>
           </CardFooter>

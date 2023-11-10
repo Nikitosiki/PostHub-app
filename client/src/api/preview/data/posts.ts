@@ -11,7 +11,7 @@ export const posts: IPosts = [
     image_url: null,
     author: users[0],
     age_rating: null,
-    tags: [tags[2], tags[3], tags[0]],
+    tags: [tags[20], tags[3], tags[7], tags[14], tags[0], tags[0], tags[0]],
     reaction: [
       { grade: 1, count: 1 },
       { grade: 2, count: 0 },

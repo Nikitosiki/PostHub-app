@@ -1,11 +1,10 @@
-import { Card, CardBody } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
-import Bigtag from "src/modules/Bigtag";
-
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import { getBigTags } from "src/api/preview";
+import { getBigTags, getTags } from "src/api/preview";
+import Bigtag from "src/modules/Bigtag";
+import Tag from "src/modules/Tag";
 
 const responsive = {
   superLargeDesktop: {
@@ -28,12 +27,6 @@ const responsive = {
 };
 
 function Tagspage() {
-  const navigate = useNavigate();
-
-  const handleTagClick = (tagId: number) => {
-    navigate(`/tag/${tagId}`);
-  };
-
   return (
     <>
       <div className="container mx-auto p-2">
@@ -46,11 +39,7 @@ function Tagspage() {
               <Carousel responsive={responsive} infinite={true}>
                 {getBigTags().map((tag) => (
                   <div className="m-2">
-                    <Bigtag
-                      key={tag.id}
-                      tag={tag}
-                      onClick={() => handleTagClick(tag.id)}
-                    />
+                    <Bigtag key={tag.id} tag={tag} />
                   </div>
                 ))}
               </Carousel>
@@ -61,7 +50,16 @@ function Tagspage() {
             className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
             shadow="none"
           >
-            dsadasdas
+            <CardHeader>
+              <p>All tags</p>
+            </CardHeader>
+            <CardBody className="flex-row flex-wrap">
+              {getTags().map((tag) => (
+                <div className="m-2">
+                  <Tag key={tag.id} tag={tag} />
+                </div>
+              ))}
+            </CardBody>
           </Card>
         </div>
       </div>
