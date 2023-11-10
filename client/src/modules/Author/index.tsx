@@ -29,7 +29,6 @@ const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
             // author.gender === "male" ? "ring-blue-400" : "ring-pink-400",
             // size: "sm",
           }}
-          className="mb-4"
           {...rest}
         />
       </Link>

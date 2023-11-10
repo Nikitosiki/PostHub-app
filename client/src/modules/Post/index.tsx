@@ -1,5 +1,5 @@
 import { FC, useRef, useEffect } from "react";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
@@ -39,30 +39,32 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
         isPressable
       >
         <Link to={`/post/${post.id}`}>
-          <CardBody>
-            <div className="flex flex-wrap items-center gap-6">
-              <Author
-                author={post.author}
-                description={`Posted on ${getShortFormattedDate(
-                  post.published_at,
-                )}`}
-              />
-              <p className="mb-2 items-center text-xl font-bold text-primary-500">
-                {post.title}
-              </p>
-            </div>
+          <CardHeader className="gap- flex-col items-start gap-2 pb-2">
+            <Author
+              author={post.author}
+              description={`Posted on ${getShortFormattedDate(
+                post.published_at,
+              )}`}
+            />
+            <h2 className="text-left text-xl font-bold text-primary">
+              {post.title}
+            </h2>
+          </CardHeader>
+          <CardBody className="pt-0">
             <div
               ref={contentRef}
               className="relative max-h-[330px] overflow-hidden"
             >
-              <p className="mb-2 whitespace-pre-wrap">{post.content}</p>
+              <p className="whitespace-pre-wrap">{post.content}</p>
               <div
                 ref={shadowRef}
                 className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
               ></div>
             </div>
-            <p className="text-sm">{post.views} views</p>
           </CardBody>
+          <CardFooter className="pt-0">
+            <p className="text-sm">{post.views} views</p>
+          </CardFooter>
         </Link>
       </Card>
     </>
