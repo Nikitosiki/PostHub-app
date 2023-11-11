@@ -56,6 +56,7 @@ export default function Header() {
       isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
+      // shouldHideOnScroll
     >
       <NavbarContent>
         <NavbarMenuToggle

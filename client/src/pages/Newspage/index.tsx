@@ -1,15 +1,15 @@
 import Post from "src/modules/Post";
 import Search from "src/modules/Search";
 
-import { getPost } from "src/api/preview";
+import { getPosts } from "src/api/preview";
 
 function Newspage() {
   return (
     <>
-      <div className="container mx-auto p-2">
-        <div className="flex flex-col gap-6">
+      <div className="container mx-auto">
+        <div className="flex flex-col gap-4">
           <Search />
-          {getPost().map((post) => (
+          {getPosts().map((post) => (
             <Post key={post.id} post={post} />
           ))}
         </div>

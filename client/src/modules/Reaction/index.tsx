@@ -10,9 +10,9 @@ const icon = (iconNumber: number): string => {
     case 3:
       return "😊";
     case 4:
-      return "😄";
+      return "🤣"; //😄
     case 5:
-      return "🤪";
+      return "🤪"; //🤪
 
     default:
       return "❌";

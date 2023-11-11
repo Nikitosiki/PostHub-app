@@ -13,7 +13,7 @@ const Tag: FC<TypeTagProps> = ({ tag, className }) => {
   return (
     <>
       <Link to={`/tag/${tag.id}`}>
-        <Chip className={`bg-default-300 ${className}`}>{tag.title}</Chip>
+        <Chip className={`bg-default-200 ${className}`}>{tag.title}</Chip>
       </Link>
     </>
   );

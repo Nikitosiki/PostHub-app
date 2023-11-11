@@ -45,18 +45,26 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
       >
         <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
           <CardHeader className="flex-col items-start gap-2 pb-2">
-            <Author
-              author={post.author}
-              description={`Posted on ${getShortFormattedDate(
-                post.published_at,
-              )}`}
-            />
+            <div className="flex w-full flex-row justify-between">
+              <Author
+                author={post.author}
+                description={`Posted on ${getShortFormattedDate(
+                  post.published_at,
+                )}`}
+              />
+              <div className="flex text-default-500">
+                <span className="material-symbols-rounded -mt-[3px] mr-1 text-base">
+                  visibility
+                </span>
+                <p className="font-sans text-xs">{post.views}</p>
+              </div>
+            </div>
             <h2 className="text-left text-xl font-bold text-primary">
               # {post.title}
             </h2>
           </CardHeader>
 
-          <CardHeader className="pb-3 pt-0">
+          {/* <CardHeader className="pb-3 pt-0">
             <ScrollShadow
               hideScrollBar
               orientation="horizontal"
@@ -70,7 +78,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                 />
               ))}
             </ScrollShadow>
-          </CardHeader>
+          </CardHeader> */}
 
           <CardBody className="pt-0">
             <div
@@ -84,6 +92,22 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
               ></div>
             </div>
           </CardBody>
+
+          <CardFooter className="pb-3 pt-0">
+            <ScrollShadow
+              hideScrollBar
+              orientation="horizontal"
+              className="flex flex-row gap-2"
+            >
+              {post.tags.map((tag) => (
+                <Tag
+                  key={tag.id}
+                  tag={tag}
+                  className="whitespace-nowrap text-xs"
+                />
+              ))}
+            </ScrollShadow>
+          </CardFooter>
 
           <CardFooter className="flex flex-row gap-2 pt-0">
             {post.reaction

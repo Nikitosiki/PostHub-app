@@ -29,8 +29,8 @@ const responsive = {
 function Tagspage() {
   return (
     <>
-      <div className="container mx-auto p-2">
-        <div className="flex flex-col gap-6">
+      <div className="container mx-auto">
+        <div className="flex flex-col gap-4">
           <Card
             className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
             shadow="none"

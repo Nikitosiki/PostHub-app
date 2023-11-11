@@ -3,7 +3,7 @@ import { Input } from "@nextui-org/react";
 const Search = () => {
   return (
     <>
-      <div className="mt-4 w-full cursor-pointer rounded-2xl bg-background drop-shadow-lg hover:drop-shadow-xl">
+      <div className="w-full cursor-pointer rounded-2xl bg-background drop-shadow-lg hover:drop-shadow-xl">
         <Input
           isClearable
           radius="lg"
