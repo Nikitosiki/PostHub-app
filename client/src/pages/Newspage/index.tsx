@@ -10,7 +10,7 @@ function Newspage() {
         <div className="flex flex-col gap-6">
           <Search />
           {getPost().map((post) => (
-            <Post post={post} />
+            <Post key={post.id} post={post} />
           ))}
         </div>
       </div>

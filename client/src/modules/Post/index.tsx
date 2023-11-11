@@ -12,6 +12,7 @@ import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
 import Author from "src/modules/Author";
+import Reaction from "src/modules/Reaction";
 import Tag from "src/modules/Tag";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
@@ -84,8 +85,18 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
             </div>
           </CardBody>
 
-          <CardFooter className="pt-0">
-            <p className="text-sm">{post.views} views</p>
+          <CardFooter className="flex flex-row gap-2 pt-0">
+            {post.reaction
+              .filter((reaction) => reaction.count > 0)
+              .map((reaction) => (
+                <Reaction
+                  key={reaction.grade}
+                  iconNumber={reaction.grade}
+                  number={reaction.count}
+                />
+              ))}
+
+            {/* <p className="text-sm">{post.views} views</p> */}
           </CardFooter>
         </Link>
       </Card>

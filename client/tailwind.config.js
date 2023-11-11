@@ -9,7 +9,13 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        default: "'Roboto', sans-serif",
+        noto: "'Noto Emoji', sans-serif",
+        notocolor: "'Noto Color Emoji', sans-serif",
+      },
+    },
     // fontSize: {
     //   sm: "1rem", // 0.8
     //   base: "1.25rem", // 1
@@ -29,7 +35,14 @@ export default {
       defaultExtendTheme: "light", // default theme to extend on custom themes
       themes: {
         light: {
-          layout: {},
+          layout: {
+            // fontSize: {
+            //   tiny: "0.75rem", // text-tiny
+            //   small: "0.875rem", // text-small
+            //   medium: "1rem", // text-medium
+            //   large: "1.125rem", // text-large
+            // },
+          },
           colors: {
             foreground: "#0E1F2C", // the page text color
             background: {

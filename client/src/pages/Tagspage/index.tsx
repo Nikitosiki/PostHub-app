@@ -38,8 +38,8 @@ function Tagspage() {
             <CardBody className="p-0">
               <Carousel responsive={responsive} infinite={true}>
                 {getBigTags().map((tag) => (
-                  <div className="m-2">
-                    <Bigtag key={tag.id} tag={tag} />
+                  <div key={tag.id} className="m-2">
+                    <Bigtag tag={tag} />
                   </div>
                 ))}
               </Carousel>
@@ -55,8 +55,8 @@ function Tagspage() {
             </CardHeader>
             <CardBody className="flex-row flex-wrap">
               {getTags().map((tag) => (
-                <div className="m-2">
-                  <Tag key={tag.id} tag={tag} />
+                <div key={tag.id} className="m-2">
+                  <Tag tag={tag} />
                 </div>
               ))}
             </CardBody>
