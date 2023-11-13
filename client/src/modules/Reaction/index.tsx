@@ -1,31 +1,13 @@
 import { FC } from "react";
 import { Chip } from "@nextui-org/react";
-
-const icon = (iconNumber: number): string => {
-  switch (iconNumber) {
-    case 1:
-      return "🤨";
-    case 2:
-      return "🫡";
-    case 3:
-      return "😊";
-    case 4:
-      return "🤣"; //😄
-    case 5:
-      return "🤪"; //🤪
-
-    default:
-      return "❌";
-  }
-};
+import { getReactionIcon } from "src/utils";
+import { IReaction } from "src/interfaces";
 
 type TypeReactionProps = {
-  iconNumber: number;
-  number: number;
   className?: string;
-};
+} & IReaction;
 
-const Reaction: FC<TypeReactionProps> = ({ iconNumber, number, className }) => {
+const Reaction: FC<TypeReactionProps> = ({ grade, count, className }) => {
   return (
     <>
       <Chip
@@ -33,9 +15,9 @@ const Reaction: FC<TypeReactionProps> = ({ iconNumber, number, className }) => {
       >
         <div className="flex flex-row gap-1">
           <div className="font-notocolor dark:font-noto">
-            {icon(iconNumber)}
+            {getReactionIcon(grade)}
           </div>
-          <div>{number}</div>
+          <div>{count}</div>
         </div>
       </Chip>
     </>

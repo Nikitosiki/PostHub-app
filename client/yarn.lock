@@ -2882,6 +2882,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tinymce/tinymce-react@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "@tinymce/tinymce-react@npm:4.3.0"
+  dependencies:
+    prop-types: "npm:^15.6.2"
+    tinymce: "npm:^6.3.1"
+  peerDependencies:
+    react: ^18.0.0 || ^17.0.1 || ^16.7.0
+    react-dom: ^18.0.0 || ^17.0.1 || ^16.7.0
+  checksum: 60e857cad77cd8fa05d79ffa9eda579a2cec09777ca986c7629c905d608cb1e3e1b6f1527ae6adbc6f197b8482aedb767d41642c27cbe4b2e234b05bbe26225f
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12":
   version: 7.0.14
   resolution: "@types/json-schema@npm:7.0.14"
@@ -3357,6 +3370,7 @@ __metadata:
   resolution: "client@workspace:."
   dependencies:
     "@nextui-org/react": "npm:^2.2.8"
+    "@tinymce/tinymce-react": "npm:^4.3.0"
     "@types/react": "npm:^18.2.15"
     "@types/react-dom": "npm:^18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
@@ -4476,7 +4490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -4743,7 +4757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:^4.0.1":
+"object-assign@npm:^4.0.1, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: 1f4df9945120325d041ccf7b86f31e8bcc14e73d29171e37a7903050e96b81323784ec59f93f102ec635bcf6fa8034ba3ea0a8c7e69fa202b87ae3b6cec5a414
@@ -5056,6 +5070,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prop-types@npm:^15.6.2":
+  version: 15.8.1
+  resolution: "prop-types@npm:15.8.1"
+  dependencies:
+    loose-envify: "npm:^1.4.0"
+    object-assign: "npm:^4.1.1"
+    react-is: "npm:^16.13.1"
+  checksum: 59ece7ca2fb9838031d73a48d4becb9a7cc1ed10e610517c7d8f19a1e02fa47f7c27d557d8a5702bec3cfeccddc853579832b43f449e54635803f277b1c78077
+  languageName: node
+  linkType: hard
+
 "punycode@npm:^2.1.0":
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
@@ -5088,6 +5113,13 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 95e837e11ece80cc39ef1beac026d10f96cd7e567afc718e717517beb35b82dd59307a758c10b3a449dc15d6682d6551ecc630b2821d9365819af921fa279a73
+  languageName: node
+  linkType: hard
+
+"react-is@npm:^16.13.1":
+  version: 16.13.1
+  resolution: "react-is@npm:16.13.1"
+  checksum: 33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
   languageName: node
   linkType: hard
 
@@ -5589,6 +5621,13 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^6.3.1":
+  version: 6.7.2
+  resolution: "tinymce@npm:6.7.2"
+  checksum: cc1a9646cdf35eccf51ec25857ce10e4951aa3a2714f486c57302becceb08b1029f62a52010cd798d2e17c8f070f577417fe9240e9fdbf1b2debe55e491fe470
   languageName: node
   linkType: hard
 

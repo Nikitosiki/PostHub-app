@@ -13,6 +13,7 @@ import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
 import Author from "src/modules/Author";
 import Reaction from "src/modules/Reaction";
+import Reactions from "src/modules/Reactions";
 import Tag from "src/modules/Tag";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
@@ -53,10 +54,10 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                 )}`}
               />
               <div className="flex text-default-500">
-                <span className="material-symbols-rounded -mt-[3px] mr-1 text-base">
+                <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
                   visibility
                 </span>
-                <p className="font-sans text-xs">{post.views}</p>
+                <p className="font-sans text-sm">{post.views}</p>
               </div>
             </div>
             <h2 className="text-left text-xl font-bold text-primary">
@@ -93,7 +94,7 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
             </div>
           </CardBody>
 
-          <CardFooter className="pb-3 pt-0">
+          <CardFooter className="flex flex-row justify-between gap-4 pb-3 pt-1">
             <ScrollShadow
               hideScrollBar
               orientation="horizontal"
@@ -107,21 +108,20 @@ const Post: FC<{ post: IPost }> = ({ post }) => {
                 />
               ))}
             </ScrollShadow>
+            <Reactions reactions={post.reactions} />
           </CardFooter>
 
-          <CardFooter className="flex flex-row gap-2 pt-0">
-            {post.reaction
+          {/* <CardFooter className="flex flex-row gap-2 pt-0">
+            {post.reactions
               .filter((reaction) => reaction.count > 0)
               .map((reaction) => (
                 <Reaction
                   key={reaction.grade}
-                  iconNumber={reaction.grade}
-                  number={reaction.count}
+                  grade={reaction.grade}
+                  count={reaction.count}
                 />
               ))}
-
-            {/* <p className="text-sm">{post.views} views</p> */}
-          </CardFooter>
+          </CardFooter> */}
         </Link>
       </Card>
     </>

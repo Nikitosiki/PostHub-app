@@ -110,6 +110,12 @@ export default {
               // DEFAULT: "#4B9CD3",
             },
 
+            default: {
+              50: "#292D36",
+              100: "#2F333C",
+              200: "#3B3F48",
+            },
+
             // secondary: {
             //   //icons color
             //   foreground: "#81828A",

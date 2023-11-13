@@ -2,7 +2,7 @@ import { posts } from "./data/posts";
 
 export const getPosts = () => {
   return posts.sort((a, b) => {
-    return a.id < b.id ? 1 : -1;
+    return a.id > b.id ? 1 : -1;
   });
 };
 

@@ -1,16 +1,9 @@
-import { IComments, ITags, IUser } from ".";
+import { IComments, ITags, IUser, IReactions } from ".";
 
 interface IRating {
   age: number;
   name: string;
 }
-
-interface IReaction {
-  grade: number;
-  count: number;
-}
-
-interface IReactions extends Array<IReaction> {}
 
 export interface IPost {
   id: number;
@@ -20,7 +13,7 @@ export interface IPost {
   author: IUser;
   age_rating: IRating | null;
   tags: ITags;
-  reaction: IReactions;
+  reactions: IReactions;
   comments: IComments | null;
   views: number;
   published_at: Date;
