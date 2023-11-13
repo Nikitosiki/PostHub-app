@@ -6,7 +6,8 @@ import Postpage from "src/pages/Postpage";
 import Notfoundpage from "src/pages/Notfoundpage";
 import Newspage from "src/pages/Newspage";
 import Tagspage from "src/pages/Tagspage";
-import Hotspage from "../../pages/Hotspage";
+import Hotspage from "src/pages/Hotspage";
+import CreatePostpage from "src/pages/CreatePostpage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="hots" element={<Hotspage />} />
           <Route path="tags" element={<Tagspage />} />
           <Route path="post" element={<Postpage />} />
+          <Route path="post/create" element={<CreatePostpage />} />
           <Route path="*" element={<Notfoundpage />} />
         </Route>
       </Routes>

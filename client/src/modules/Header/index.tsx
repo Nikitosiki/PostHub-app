@@ -34,6 +34,10 @@ const menuItems = [
     name: "Profile",
     path: "/profile",
   },
+  // {
+  //   name: "Create post",
+  //   path: "/post/create",
+  // },
   {
     name: "Log Out",
     path: "/",
