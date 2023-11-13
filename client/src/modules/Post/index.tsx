@@ -12,7 +12,6 @@ import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
 import Author from "src/modules/Author";
-import Reaction from "src/modules/Reaction";
 import Reactions from "src/modules/Reactions";
 import Tag from "src/modules/Tag";
 
