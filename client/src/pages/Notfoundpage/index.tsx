@@ -1,4 +1,4 @@
-import Notfound from "src/modules/Notfound";
+import Notfound from "src/components/Notfound";
 
 function Notfoundpage() {
   return (

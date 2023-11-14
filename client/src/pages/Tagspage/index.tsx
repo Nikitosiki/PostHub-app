@@ -4,7 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 
 import { getBigTags, getTags } from "src/api/preview";
 import Bigtag from "src/modules/Bigtag";
-import Tag from "src/modules/Tag";
+import Tag from "src/components/Tag";
 
 const responsive = {
   superLargeDesktop: {

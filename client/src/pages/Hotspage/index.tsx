@@ -1,5 +1,5 @@
 import Post from "src/modules/Post";
-import Search from "src/modules/Search";
+import Search from "src/components/Search";
 
 import { getHotPosts } from "src/api/preview";
 

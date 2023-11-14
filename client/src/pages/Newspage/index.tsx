@@ -1,5 +1,5 @@
 import Post from "src/modules/Post";
-import Search from "src/modules/Search";
+import Search from "src/components/Search";
 
 import { getPosts } from "src/api/preview";
 import { Button } from "@nextui-org/react";
