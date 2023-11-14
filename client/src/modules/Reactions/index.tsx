@@ -9,19 +9,23 @@ type TypeReactionsProps = {
 };
 
 const Reactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
+  let reactionsCount: number = 0;
+
   return (
     <>
-      {/* border-1 border-primary-200 */}
       <Chip className={`bg-default-100 p-1 text-base ${className}`}>
         <div className="flex flex-row">
           {reactions
             .filter((reaction) => reaction.count > 0)
-            .map((reaction) => (
-              <div className="-ml-2 h-6 w-6 rounded-full bg-default-100 font-notocolor dark:font-noto">
-                {getReactionIcon(reaction.grade)}
-              </div>
-            ))}
-          <div className="ml-1 mt-[0.125rem] text-sm">{13}</div>
+            .map((reaction) => {
+              reactionsCount += reaction.count;
+              return (
+                <div className="-ml-2 h-6 w-6 rounded-full bg-default-100 font-notocolor dark:font-noto">
+                  {getReactionIcon(reaction.grade)}
+                </div>
+              );
+            })}
+          <div className="ml-1 mt-[0.125rem] text-sm">{reactionsCount}</div>
         </div>
       </Chip>
     </>
