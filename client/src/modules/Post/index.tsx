@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 import { getShortFormattedDate } from "src/utils";
-import Author from "src/components/Author";
-import Reactions from "src/components/Reactions";
-import Tag from "src/components/Tag";
+import Author from "src/modules/Author";
+import Reactions from "src/modules/Reactions";
+import Tag from "src/modules/Tag";
 
 const Post: FC<{ post: IPost }> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);

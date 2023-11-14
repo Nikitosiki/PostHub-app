@@ -3,7 +3,7 @@ import Search from "src/components/Search";
 
 import { getHotPosts } from "src/api/preview";
 
-function Hotspage() {
+function Hots() {
   return (
     <>
       <div className="container mx-auto">
@@ -18,4 +18,4 @@ function Hotspage() {
   );
 }
 
-export default Hotspage;
+export default Hots;

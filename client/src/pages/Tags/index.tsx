@@ -26,7 +26,7 @@ const responsive = {
   },
 };
 
-function Tagspage() {
+function Tags() {
   return (
     <>
       <div className="container mx-auto">
@@ -67,4 +67,4 @@ function Tagspage() {
   );
 }
 
-export default Tagspage;
+export default Tags;

@@ -5,7 +5,7 @@ import { getPosts } from "src/api/preview";
 import { Button } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
-function Newspage() {
+function News() {
   return (
     <>
       <div className="container mx-auto">
@@ -27,4 +27,4 @@ function Newspage() {
   );
 }
 
-export default Newspage;
+export default News;
