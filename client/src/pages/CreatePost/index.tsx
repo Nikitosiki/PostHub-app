@@ -11,10 +11,16 @@ import {
 import Editor from "src/components/Editor";
 
 const CreatePost = () => {
-  const [inputLength, setInputLength] = useState<number>(0);
+  const [titleLength, setTitleLength] = useState<number>(0);
+  const [descriptionValue, setDescriptionValue] = useState<string>("");
+  const [visiblePublic, setVisiblePublic] = useState<boolean>(false);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputLength(event.currentTarget.value.length);
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitleLength(event.currentTarget.value.length);
+  };
+
+  const submitPost = (): void => {
+    setVisiblePublic(true);
   };
 
   return (
@@ -29,7 +35,7 @@ const CreatePost = () => {
         </CardHeader>
         <CardBody>
           <Input
-            onChange={handleInputChange}
+            onChange={handleTitleChange}
             variant="bordered"
             label="Title"
             classNames={{
@@ -39,22 +45,46 @@ const CreatePost = () => {
             endContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-small text-default-400">
-                  {inputLength}/300
+                  {titleLength}/300
                 </span>
               </div>
             }
           />
         </CardBody>
         <CardBody>
-          <Editor />
+          <Editor
+            value={descriptionValue}
+            onEditorChange={(value: string) => {
+              setDescriptionValue(value);
+            }}
+          />
         </CardBody>
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
             <Button>Cancel</Button>
-            <Button color="primary">Public</Button>
+            <Button
+              color="primary"
+              onClick={() => {
+                submitPost();
+              }}
+            >
+              Public
+            </Button>
           </div>
         </CardFooter>
       </Card>
+
+      {visiblePublic && (
+        <Card
+          className="mt-4 w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
+          shadow="none"
+        >
+          <CardHeader>Public View:</CardHeader>
+          <CardBody>
+            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+          </CardBody>
+        </Card>
+      )}
     </>
   );
 };
