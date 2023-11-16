@@ -30,10 +30,10 @@ const menuItems = [
     name: "Tags",
     path: "/tags",
   },
-  {
-    name: "Profile",
-    path: "/profile",
-  },
+  // {
+  //   name: "Profile",
+  //   path: "/profile",
+  // },
   // {
   //   name: "Create post",
   //   path: "/post/create",
@@ -118,7 +118,6 @@ const Header = () => {
               }
               className="text-base"
             />
-            <Tab key="Profile" />
           </Tabs>
         </NavbarItem>
       </NavbarContent>
