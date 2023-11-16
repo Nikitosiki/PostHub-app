@@ -3381,6 +3381,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.3"
     framer-motion: "npm:^10.16.4"
+    material-symbols: "npm:^0.14.0"
     postcss: "npm:^8.4.30"
     prettier: "npm:^3.0.3"
     prettier-plugin-tailwindcss: "npm:^0.5.4"
@@ -4533,6 +4534,13 @@ __metadata:
     promise-retry: "npm:^2.0.1"
     ssri: "npm:^10.0.0"
   checksum: 43b9f6dcbc6fe8b8604cb6396957c3698857a15ba4dbc38284f7f0e61f248300585ef1eb8cc62df54e9c724af977e45b5cdfd88320ef7f53e45070ed3488da55
+  languageName: node
+  linkType: hard
+
+"material-symbols@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "material-symbols@npm:0.14.0"
+  checksum: 5a3b03e5086ae445a5b7fa7d42d91da0f272eaf965cba98bce12c869ddca478940cb239fc22cca4d62495987702dd665f4a4232a7a6b4b4735e455b41ad1573e
   languageName: node
   linkType: hard
 

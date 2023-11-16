@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   Navbar as NavbarUI,
   NavbarBrand,
@@ -12,6 +11,7 @@ import {
   Tabs,
   Tab,
 } from "@nextui-org/react";
+
 import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
