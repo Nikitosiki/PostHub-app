@@ -1,4 +1,8 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  ScrollRestoration,
+} from "react-router-dom";
 
 // Pages
 import Layout from "src/components/Layout";
@@ -16,7 +20,12 @@ import { IPost } from "./interfaces";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <>
+        <Layout />
+        <ScrollRestoration />
+      </>
+    ),
     errorElement: <Notfound />,
     children: [
       {
