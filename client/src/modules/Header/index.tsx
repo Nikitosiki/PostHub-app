@@ -118,6 +118,7 @@ const Header = () => {
               }
               className="text-base"
             />
+            <Tab key="Profile" />
           </Tabs>
         </NavbarItem>
       </NavbarContent>
