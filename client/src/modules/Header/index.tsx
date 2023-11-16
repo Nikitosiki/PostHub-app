@@ -16,8 +16,9 @@ import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
 import { useStateTabs } from "./hooks/useStateTabs";
+import { MenuItem } from "./types/MenuItem";
 
-const menuItems = [
+const menuItems: MenuItem[] = [
   {
     name: "News",
     path: "/news",
@@ -30,19 +31,22 @@ const menuItems = [
     name: "Tags",
     path: "/tags",
   },
-  // {
-  //   name: "Profile",
-  //   path: "/profile",
-  // },
-  // {
-  //   name: "Create post",
-  //   path: "/post/create",
-  // },
+];
+
+const mobileMenuItems: MenuItem[] = menuItems.concat([
+  {
+    name: "Create",
+    path: "/post/create",
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+  },
   {
     name: "Log Out",
     path: "/",
   },
-];
+]);
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -128,14 +132,14 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {mobileMenuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               to={item.path}
               className={`text-lg ${
                 item.name === selectedTab
                   ? "text-primary"
-                  : index === menuItems.length - 1
+                  : index === mobileMenuItems.length - 1
                   ? "text-danger"
                   : "text-foreground"
               }`}
