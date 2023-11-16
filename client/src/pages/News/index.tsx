@@ -13,7 +13,7 @@ const News = () => {
           <Search />
           <Link to="/post/create" className="h-auto">
             <Button color="primary" className="h-full">
-              +
+              <span className="material-symbols-rounded">add</span>
             </Button>
           </Link>
         </div>
