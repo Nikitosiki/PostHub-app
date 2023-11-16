@@ -9,7 +9,13 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        default: "'Roboto', sans-serif",
+        noto: "'Noto Emoji', sans-serif",
+        notocolor: "'Noto Color Emoji', sans-serif",
+      },
+    },
     // fontSize: {
     //   sm: "1rem", // 0.8
     //   base: "1.25rem", // 1
@@ -29,7 +35,14 @@ export default {
       defaultExtendTheme: "light", // default theme to extend on custom themes
       themes: {
         light: {
-          layout: {},
+          layout: {
+            // fontSize: {
+            //   tiny: "0.75rem", // text-tiny
+            //   small: "0.875rem", // text-small
+            //   medium: "1rem", // text-medium
+            //   large: "1.125rem", // text-large
+            // },
+          },
           colors: {
             foreground: "#0E1F2C", // the page text color
             background: {
@@ -48,14 +61,14 @@ export default {
             },
             primary: {
               foreground: "#FFFFFF",
-              DEFAULT: "#4B9CD3",
+              // DEFAULT: "#4B9CD3",
             },
 
-            secondary: {
-              //icons color
-              foreground: "#75757C",
-              DEFAULT: "#FFFFFF",
-            },
+            // secondary: {
+            //   //icons color
+            //   foreground: "#75757C",
+            //   // DEFAULT: "#FFFFFF",
+            // },
             // secondary: "#",
             // default: {
             //   foreground: "#0E1F2C", // "dark blue"
@@ -94,14 +107,20 @@ export default {
 
             primary: {
               foreground: "#FFFFFF",
-              DEFAULT: "#4B9CD3",
+              // DEFAULT: "#4B9CD3",
             },
 
-            secondary: {
-              //icons color
-              foreground: "#81828A",
-              DEFAULT: "#232730",
+            default: {
+              50: "#292D36",
+              100: "#2F333C",
+              200: "#3B3F48",
             },
+
+            // secondary: {
+            //   //icons color
+            //   foreground: "#81828A",
+            //   DEFAULT: "#232730",
+            // },
             // secondary: "#",
             // default: {
             //   foreground: "#ececee",

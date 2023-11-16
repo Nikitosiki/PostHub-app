@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useLocation, Location } from "react-router-dom";
-import { TabItem } from "../types/TabItem";
+import { MenuItem } from "../types/MenuItem";
 
-export function useStateTabs(menuItems: TabItem[]) {
+export function useStateTabs(menuItems: MenuItem[]) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -14,7 +14,7 @@ export function useStateTabs(menuItems: TabItem[]) {
 
     const clearLink: string = getBaseTag(location.pathname);
 
-    const name: TabItem = menuItems.find((value) => {
+    const name: MenuItem | undefined = menuItems.find((value) => {
       return value?.path === clearLink;
     });
 
@@ -28,7 +28,7 @@ export function useStateTabs(menuItems: TabItem[]) {
 
   const toSelectedTab = (name: React.Key) => {
     setSelectedTab(name);
-    const path: TabItem = menuItems.find((value) => {
+    const path: MenuItem | undefined = menuItems.find((value) => {
       return value?.name === name;
     });
     if (path) navigate(path.path);

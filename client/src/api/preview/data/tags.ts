@@ -192,4 +192,13 @@ export const tags: ITags = [
     image_url: null,
     created_at: new Date(),
   },
+  {
+    id: 21,
+    title: "Bio",
+    description:
+      "This is your bio.",
+    author: users[0],
+    image_url: null,
+    created_at: new Date(),
+  },
 ];

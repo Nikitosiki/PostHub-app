@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { useSwitch, VisuallyHidden, SwitchProps } from "@nextui-org/react";
 import { MoonIcon } from "./MoonIcon";
 import { SunIcon } from "./SunIcon";
 
-export default function ThemeSwitch(props: SwitchProps) {
+const ThemeSwitch: FC<SwitchProps> = (props) => {
   const {
     Component,
     slots,
@@ -27,4 +28,6 @@ export default function ThemeSwitch(props: SwitchProps) {
       </div>
     </Component>
   );
-}
+};
+
+export default ThemeSwitch;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   Navbar as NavbarUI,
   NavbarBrand,
@@ -12,12 +11,14 @@ import {
   Tabs,
   Tab,
 } from "@nextui-org/react";
+
 import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
 import { useStateTabs } from "./hooks/useStateTabs";
+import { MenuItem } from "./types/MenuItem";
 
-const menuItems = [
+const menuItems: MenuItem[] = [
   {
     name: "News",
     path: "/news",
@@ -30,6 +31,13 @@ const menuItems = [
     name: "Tags",
     path: "/tags",
   },
+];
+
+const mobileMenuItems: MenuItem[] = menuItems.concat([
+  {
+    name: "Create",
+    path: "/post/create",
+  },
   {
     name: "Profile",
     path: "/profile",
@@ -38,9 +46,9 @@ const menuItems = [
     name: "Log Out",
     path: "/",
   },
-];
+]);
 
-export default function Header() {
+const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
@@ -56,6 +64,7 @@ export default function Header() {
       isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
+      // shouldHideOnScroll
     >
       <NavbarContent>
         <NavbarMenuToggle
@@ -123,14 +132,14 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {mobileMenuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
               to={item.path}
               className={`text-lg ${
                 item.name === selectedTab
                   ? "text-primary"
-                  : index === menuItems.length - 1
+                  : index === mobileMenuItems.length - 1
                   ? "text-danger"
                   : "text-foreground"
               }`}
@@ -146,4 +155,6 @@ export default function Header() {
       </NavbarMenu>
     </NavbarUI>
   );
-}
+};
+
+export default Header;

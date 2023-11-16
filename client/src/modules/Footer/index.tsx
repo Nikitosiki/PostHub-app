@@ -1,4 +1,4 @@
-export default function Footer() {
+const Footer = () => {
   return (
     <>
       <footer className="bottom-0">
@@ -39,4 +39,6 @@ export default function Footer() {
       </footer>
     </>
   );
-}
+};
+
+export default Footer;
