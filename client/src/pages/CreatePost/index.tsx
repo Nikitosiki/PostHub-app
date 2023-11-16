@@ -37,9 +37,9 @@ const CreatePost = () => {
           <Input
             onChange={handleTitleChange}
             variant="bordered"
-            label="Title"
+            placeholder="Title"
             classNames={{
-              input: "",
+              input: "text-lg",
               inputWrapper: "shadow-none border-default-200/75",
             }}
             endContent={
@@ -61,7 +61,7 @@ const CreatePost = () => {
         </CardBody>
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
-            <Button>Cancel</Button>
+            <Button onClick={() => history.back()}>Cancel</Button>
             <Button
               color="primary"
               onClick={() => {

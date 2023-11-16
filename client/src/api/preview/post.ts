@@ -11,3 +11,7 @@ export const getHotPosts = () => {
     return a.views < b.views ? 1 : -1;
   });
 };
+
+export const getPostById = (id: number) => {
+  return posts.find((post) => post.id === id) || null;
+};

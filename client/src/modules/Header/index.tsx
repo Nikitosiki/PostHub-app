@@ -44,7 +44,7 @@ const menuItems = [
   },
 ];
 
-export default function Header() {
+const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
@@ -151,4 +151,6 @@ export default function Header() {
       </NavbarMenu>
     </NavbarUI>
   );
-}
+};
+
+export default Header;

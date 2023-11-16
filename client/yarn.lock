@@ -3388,7 +3388,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-icons: "npm:^4.11.0"
     react-multi-carousel: "npm:^2.8.4"
-    react-router-dom: "npm:^6.16.0"
+    react-router-dom: "npm:^6.18.0"
     tailwindcss: "npm:^3.3.3"
     typescript: "npm:^5.2.2"
     vite: "npm:^4.4.5"
@@ -5165,7 +5165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.16.0":
+"react-router-dom@npm:^6.18.0":
   version: 6.18.0
   resolution: "react-router-dom@npm:6.18.0"
   dependencies:

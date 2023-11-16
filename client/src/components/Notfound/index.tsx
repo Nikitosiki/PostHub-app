@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody } from "@nextui-org/react";
 
-const Notfound = () => {
+const Notfound: FC<{ value?: string }> = ({value}) => {
   return (
     <>
       <Card
@@ -19,7 +20,7 @@ const Notfound = () => {
               </div>
               <div className="border-x border-default-500"></div>
               <div className="flex cursor-pointer flex-col">
-                <p className="text-left">Not found</p>
+                <p className="text-left">{value ?? "Not found"}</p>
                 <p className="text-left text-xs text-default-500">
                   return home
                 </p>

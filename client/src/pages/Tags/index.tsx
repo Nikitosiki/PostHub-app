@@ -26,45 +26,43 @@ const responsive = {
   },
 };
 
-function Tags() {
+const Tags = () => {
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex flex-col gap-4">
-          <Card
-            className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
-            shadow="none"
-          >
-            <CardBody className="p-0">
-              <Carousel responsive={responsive} infinite={true}>
-                {getBigTags().map((tag) => (
-                  <div key={tag.id} className="m-2">
-                    <Bigtag tag={tag} />
-                  </div>
-                ))}
-              </Carousel>
-            </CardBody>
-          </Card>
-
-          <Card
-            className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
-            shadow="none"
-          >
-            <CardHeader>
-              <p>All tags</p>
-            </CardHeader>
-            <CardBody className="flex-row flex-wrap">
-              {getTags().map((tag) => (
+      <div className="flex w-full flex-col gap-4">
+        <Card
+          className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
+          shadow="none"
+        >
+          <CardBody className="p-0">
+            <Carousel responsive={responsive} infinite={true}>
+              {getBigTags().map((tag) => (
                 <div key={tag.id} className="m-2">
-                  <Tag tag={tag} />
+                  <Bigtag tag={tag} />
                 </div>
               ))}
-            </CardBody>
-          </Card>
-        </div>
+            </Carousel>
+          </CardBody>
+        </Card>
+
+        <Card
+          className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
+          shadow="none"
+        >
+          <CardHeader>
+            <p>All tags</p>
+          </CardHeader>
+          <CardBody className="flex-row flex-wrap">
+            {getTags().map((tag) => (
+              <div key={tag.id} className="m-2">
+                <Tag tag={tag} />
+              </div>
+            ))}
+          </CardBody>
+        </Card>
       </div>
     </>
   );
-}
+};
 
 export default Tags;
