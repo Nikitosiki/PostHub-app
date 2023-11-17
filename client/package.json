@@ -12,6 +12,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.8",
     "@tinymce/tinymce-react": "^4.3.0",
+    "axios": "^1.6.2",
     "framer-motion": "^10.16.4",
     "material-symbols": "^0.14.0",
     "react": "^18.2.0",
