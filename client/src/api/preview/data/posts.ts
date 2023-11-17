@@ -7,11 +7,21 @@ export const posts: IPosts = [
     id: 1,
     title: "This is my first post",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam risus mauris, auctor feugiat dui commodo quis. Maecenas felis erat, cursus a velit sit amet, interdum vestibulum est. Suspendisse aliquet, nisi ac imperdiet euismod, nulla ante bibendum felis, id varius orci libero quis risus. Proin nec magna ut eros varius mollis. Nulla facilisi. Mauris pretium neque et dapibus hendrerit. Quisque aliquam risus sit amet ligula dignissim, id sodales lorem laoreet. Duis gravida, metus sed maximus tempus, lectus tellus viverra risus, eu aliquet sem purus nec leo. Morbi facilisis odio a posuere vehicula. Suspendisse quis varius metus. Fusce ornare ipsum turpis, at vestibulum ligula tincidunt fringilla. Phasellus tristique odio sed mi malesuada volutpat. Aliquam sodales turpis sed justo dapibus ullamcorper. Cras hendrerit eros id lectus lacinia, vitae congue nunc facilisis. Duis interdum ante at tellus varius semper. Proin gravida interdum nibh a placerat. Donec congue egestas vulputate. Etiam vestibulum ante ut mauris sollicitudin sodales. Aliquam dictum urna enim. Quisque sed semper mauris. Praesent nec ultrices justo, non tempus augue. Vestibulum vestibulum lorem sed tempor molestie. Sed fermentum nibh sit amet nibh gravida euismod.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam risus mauris, auctor feugiat dui commodo quis. Maecenas felis erat, cursus a velit sit amet, interdum vestibulum est. Suspendisse aliquet, nisi ac imperdiet euismod, nulla ante bibendum felis, id varius orci libero quis risus. Proin nec magna ut eros varius mollis. Nulla facilisi. Mauris pretium neque et dapibus hendrerit. Quisque aliquam risus sit amet ligula dignissim, id sodales lorem laoreet. Duis gravida, metus sed maximus tempus, lectus tellus viverra risus, eu aliquet sem purus nec leo. Morbi facilisis odio a posuere vehicula. Suspendisse quis varius metus. Fusce ornare ipsum turpis, at vestibulum ligula tincidunt fringilla. Phasellus tristique odio sed mi malesuada volutpat. Aliquam sodales turpis sed justo dapibus ullamcorper. Cras hendrerit eros id lectus lacinia, vitae congue nunc facilisis. Duis interdum ante at tellus varius semper. Proin gravida interdum nibh a placerat. Donec congue egestas vulputate. Etiam vestibulum ante ut mauris sollicitudin sodales. Aliquam dictum urna enim. Quisque sed semper mauris. Praesent nec ultrices justo, non tempus augue. Vestibulum vestibulum lorem sed tempor molestie. Sed fermentum nibh sit amet nibh gravida euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam risus mauris, auctor feugiat dui commodo quis. Maecenas felis erat, cursus a velit sit amet, interdum vestibulum est. Suspendisse aliquet, nisi ac imperdiet euismod, nulla ante bibendum felis, id varius orci libero quis risus. Proin nec magna ut eros varius mollis. Nulla facilisi. Mauris pretium neque et dapibus hendrerit. Quisque aliquam risus sit amet ligula dignissim, id sodales lorem laoreet. Duis gravida, metus sed maximus tempus, lectus tellus viverra risus, eu aliquet sem purus nec leo. Morbi facilisis odio a posuere vehicula. Suspendisse quis varius metus. Fusce ornare ipsum turpis, at vestibulum ligula tincidunt fringilla. Phasellus tristique odio sed mi malesuada volutpat. Aliquam sodales turpis sed justo dapibus ullamcorper. Cras hendrerit eros id lectus lacinia, vitae congue nunc facilisis. Duis interdum ante at tellus varius semper. Proin gravida interdum nibh a placerat. Donec congue egestas vulputate. Etiam vestibulum ante ut mauris sollicitudin sodales. Aliquam dictum urna enim. Quisque sed semper mauris. Praesent nec ultrices justo, non tempus augue. Vestibulum vestibulum lorem sed tempor molestie. Sed fermentum nibh sit amet nibh gravida euismod.",
     image_url: null,
     author: users[0],
     age_rating: null,
-    tags: [tags[20], tags[3], tags[7], tags[14], tags[0], tags[0], tags[0]],
+    tags: [
+      tags[20],
+      tags[3],
+      tags[7],
+      tags[14],
+      tags[0],
+      tags[1],
+      tags[8],
+      tags[9],
+      tags[10],
+    ],
     reactions: [
       { grade: 1, count: 4 },
       { grade: 2, count: 0 },

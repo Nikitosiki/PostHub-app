@@ -56,6 +56,99 @@ const Post: FC<IMainProps & IActiveParts> = ({
     }
   }, [post.content, windowSize]);
 
+  const thisContent = (
+    <>
+      <CardHeader className="flex-col items-start gap-2 pb-2">
+        <div className="flex w-full flex-row justify-between">
+          <Author
+            author={post.author}
+            description={`Posted on ${getShortFormattedDate(
+              post.published_at,
+            )}`}
+          />
+          {countViewVisible && (
+            <div className="flex text-default-500">
+              <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
+                visibility
+              </span>
+              <p className="font-sans text-sm">{post.views}</p>
+            </div>
+          )}
+        </div>
+        <h2 className="text-left text-xl font-bold text-primary">
+          # {post.title}
+        </h2>
+      </CardHeader>
+
+      {/* <CardHeader className="pb-3 pt-0">
+        <ScrollShadow
+          hideScrollBar
+          orientation="horizontal"
+          className="flex flex-row gap-2"
+        >
+          {post.tags.map((tag) => (
+            <Tag key={tag.id} tag={tag} className="whitespace-nowrap text-xs" />
+          ))}
+        </ScrollShadow>
+      </CardHeader> */}
+
+      {/* ---------- Content part ---------- */}
+
+      <CardBody className="pt-0">
+        {fullContent ? (
+          <p className="whitespace-pre-wrap">{post.content}</p>
+        ) : (
+          <div
+            ref={contentRef}
+            className="relative max-h-[330px] overflow-hidden"
+          >
+            <p className="whitespace-pre-wrap">{post.content}</p>
+            <div
+              ref={shadowRef}
+              className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
+            ></div>
+          </div>
+        )}
+      </CardBody>
+
+      {/* ---------- Tags and reactions ---------- */}
+
+      {(tagsVisible || reactionVisible) && (
+        <CardFooter className="flex flex-row justify-between gap-4 pb-3 pt-1">
+          <ScrollShadow
+            hideScrollBar
+            orientation="horizontal"
+            className="flex flex-row gap-2"
+          >
+            {tagsVisible &&
+              post.tags.map((tag) => (
+                <Tag
+                  key={tag.id}
+                  tag={tag}
+                  className="whitespace-nowrap text-xs"
+                />
+              ))}
+          </ScrollShadow>
+          {reactionVisible && <Reactions reactions={post.reactions} />}
+        </CardFooter>
+      )}
+
+      {children}
+
+      {/* <CardFooter className="flex flex-row gap-2 pt-0">
+        {post.reactions
+          .filter((reaction) => reaction.count > 0)
+          .map((reaction) => (
+            <Reaction
+              key={reaction.grade}
+              grade={reaction.grade}
+              count={reaction.count}
+            />
+          ))}
+      </CardFooter> */}
+    </>
+  );
+
   return (
     <>
       <Card
@@ -64,100 +157,13 @@ const Post: FC<IMainProps & IActiveParts> = ({
         key={post.id}
         isPressable={isPressable}
       >
-        <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
-          <CardHeader className="flex-col items-start gap-2 pb-2">
-            <div className="flex w-full flex-row justify-between">
-              <Author
-                author={post.author}
-                description={`Posted on ${getShortFormattedDate(
-                  post.published_at,
-                )}`}
-              />
-              {countViewVisible && (
-                <div className="flex text-default-500">
-                  <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
-                    visibility
-                  </span>
-                  <p className="font-sans text-sm">{post.views}</p>
-                </div>
-              )}
-            </div>
-            <h2 className="text-left text-xl font-bold text-primary">
-              # {post.title}
-            </h2>
-          </CardHeader>
-
-          {/* <CardHeader className="pb-3 pt-0">
-            <ScrollShadow
-              hideScrollBar
-              orientation="horizontal"
-              className="flex flex-row gap-2"
-            >
-              {post.tags.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  tag={tag}
-                  className="whitespace-nowrap text-xs"
-                />
-              ))}
-            </ScrollShadow>
-          </CardHeader> */}
-
-          {/* ---------- Content part ---------- */}
-
-          <CardBody className="pt-0">
-            {fullContent ? (
-              <p className="whitespace-pre-wrap">{post.content}</p>
-            ) : (
-              <div
-                ref={contentRef}
-                className="relative max-h-[330px] overflow-hidden"
-              >
-                <p className="whitespace-pre-wrap">{post.content}</p>
-                <div
-                  ref={shadowRef}
-                  className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
-                ></div>
-              </div>
-            )}
-          </CardBody>
-
-          {/* ---------- Tags and reactions ---------- */}
-
-          {(tagsVisible || reactionVisible) && (
-            <CardFooter className="flex flex-row justify-between gap-4 pb-3 pt-1">
-              <ScrollShadow
-                hideScrollBar
-                orientation="horizontal"
-                className="flex flex-row gap-2"
-              >
-                {tagsVisible &&
-                  post.tags.map((tag) => (
-                    <Tag
-                      key={tag.id}
-                      tag={tag}
-                      className="whitespace-nowrap text-xs"
-                    />
-                  ))}
-              </ScrollShadow>
-              {reactionVisible && <Reactions reactions={post.reactions} />}
-            </CardFooter>
-          )}
-
-          {children}
-
-          {/* <CardFooter className="flex flex-row gap-2 pt-0">
-            {post.reactions
-              .filter((reaction) => reaction.count > 0)
-              .map((reaction) => (
-                <Reaction
-                  key={reaction.grade}
-                  grade={reaction.grade}
-                  count={reaction.count}
-                />
-              ))}
-          </CardFooter> */}
-        </Link>
+        {isPressable ? (
+          <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
+            {thisContent}
+          </Link>
+        ) : (
+          thisContent
+        )}
       </Card>
     </>
   );
