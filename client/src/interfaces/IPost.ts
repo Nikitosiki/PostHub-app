@@ -1,4 +1,4 @@
-import { IComments, ITags, IUser, IReactions } from ".";
+import { ITags, IUser, IReactions } from ".";
 
 interface IRating {
   age: number;
@@ -14,7 +14,6 @@ export interface IPost {
   age_rating: IRating | null;
   tags: ITags;
   reactions: IReactions;
-  comments: IComments | null;
   views: number;
   published_at: Date;
   updated_at: Date | null;
