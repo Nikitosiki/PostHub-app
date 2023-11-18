@@ -12,11 +12,11 @@ type TypeReactionsProps = {
 
 const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
   const [selectReaction, changeSelect] = useState<number | null>(null);
-  let reactionsCount: number = 0;
+  // let reactionsCount: number = 0;
 
-  reactions.forEach((reaction) => {
-    reactionsCount += reaction.count;
-  });
+  // reactions.forEach((reaction) => {
+  //   reactionsCount += reaction.count;
+  // });
 
   const handleReactionClick = (reactionNumber: number) => {
     reactionNumber !== selectReaction
@@ -26,10 +26,10 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
 
   return (
     <div className={`flex flex-col items-center ${className}`}>
-      <h3 className="text-lg">What do you think?</h3>
+      {/* <h3 className="text-lg">What do you think?</h3> */}
 
       <div className="rounded-full bg-background-200 px-8 text-center">
-        <h6 className="mt-2">{reactionsCount} Responses</h6>
+        {/* <h6 className="mt-2">{reactionsCount} Responses</h6> */}
         <div className="mt-4 flex flex-row gap-2">
           {reactions.map((reaction) => {
             return (
@@ -43,7 +43,7 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
                 className="mr-[4px] border-none"
               >
                 <div
-                  className="h-12 w-12 text-center font-notocolor text-3xl dark:font-noto"
+                  className="h-12 w-12 cursor-pointer text-center font-notocolor text-3xl dark:font-noto"
                   onClick={() => {
                     handleReactionClick(reaction.grade);
                   }}
