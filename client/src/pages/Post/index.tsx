@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { CardBody } from "@nextui-org/react";
+import { Card, CardBody, Select, SelectItem } from "@nextui-org/react";
 
 import { default as PostComponent } from "src/modules/Post";
 import { IPost } from "src/interfaces";
@@ -36,6 +36,7 @@ const Post = () => {
             <FullReactions reactions={post.reactions} />
           </CardBody>
 
+          {/* ---------- Comment editor ---------- */}
           <CardBody>
             <p className="text-sm">
               Comment as{" "}
@@ -46,7 +47,32 @@ const Post = () => {
             <EditorComment />
           </CardBody>
 
-          <CardBody> Comments </CardBody>
+          {/* ---------- Comments header ---------- */}
+          <CardBody>
+            <div className="flex w-full flex-row justify-between">
+              <h6 className="my-auto">{`${5} comments`}</h6>
+              <Select
+                size="sm"
+                className="max-w-[12rem]"
+                defaultSelectedKeys={["Recent"]}
+                startContent={
+                  <span className="material-symbols-rounded">sort</span>
+                }
+                classNames={{
+                  trigger: "bg-transparent shadow-none",
+                  value: "pl-1",
+                  // value: "text-right pr-2",
+                }}
+              >
+                <SelectItem key={"Interesting"}>Interesting first</SelectItem>
+                <SelectItem key={"Recent"}>Recent first</SelectItem>
+              </Select>
+            </div>
+          </CardBody>
+
+          {/* ---------- Comments ---------- */}
+          <CardBody>Comments</CardBody>
+          
         </PostComponent>
       </div>
     </>

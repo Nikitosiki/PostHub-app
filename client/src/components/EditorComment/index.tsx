@@ -11,7 +11,7 @@ const EditorComment: FC<IAllProps> = (props) => {
     <EditorTiny
       apiKey={import.meta.env.VITE_TinyMCE_apiKey}
       init={{
-        // height: 500,
+        height: 250,
         menubar: false,
         forced_root_block: "div",
         skin: isDarkTheme ? "oxide-dark" : "oxide",
