@@ -28,6 +28,7 @@ export default {
   },
   darkMode: "class",
   plugins: [
+    require('@tailwindcss/typography'),
     nextui({
       prefix: "nextui", // prefix for themes variables
       addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").

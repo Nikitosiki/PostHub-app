@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
+/* @layer base { */
+  /* html { */
     /* font-family: Calibri, "Trebuchet MS", sans-serif; */
     /* font-family: "Open Sans", sans-serif; */
     /* font-family: "Outfit", sans-serif; */
@@ -11,8 +11,9 @@
     /* font-family: "Open Sans", sans-serif;
     font-family: "Outfit", sans-serif; */
     /* font-family: "Roboto", sans-serif; */
-  }
-}
+  /* } */
+/* } */
+
 
 * {
   -webkit-tap-highlight-color: transparent;

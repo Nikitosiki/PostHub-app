@@ -81,7 +81,10 @@ const CreatePost = () => {
         >
           <CardHeader>Public View:</CardHeader>
           <CardBody>
-            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+            <div
+              className="prose prose-gray dark:prose-invert" //prose-sm sm:prose-base
+              dangerouslySetInnerHTML={{ __html: descriptionValue }}
+            />
           </CardBody>
         </Card>
       )}
