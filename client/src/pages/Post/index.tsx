@@ -1,5 +1,12 @@
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { CardBody, Select, SelectItem } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  CardBody,
+  Select,
+  SelectItem,
+} from "@nextui-org/react";
 
 import { default as PostComponent } from "src/modules/Post";
 import { IPost } from "src/interfaces";
@@ -10,6 +17,7 @@ import Comments from "src/modules/Comments";
 import { getComments } from "src/api/preview";
 
 const Post = () => {
+  const [isCommentFormVisible, setCommentFormVisibility] = useState(false);
   const post = useLoaderData() as IPost;
 
   return (
@@ -40,18 +48,22 @@ const Post = () => {
           </CardBody>
 
           {/* ---------- Comment editor ---------- */}
-          <CardBody>
-            <p className="text-sm">
-              Comment as{" "}
-              <Link className="text-primary" to={`/author/${post.author.id}`}>
-                {post.author.name} ******
-              </Link>
-            </p>
-            <EditorComment />
-          </CardBody>
+          {isCommentFormVisible && (
+            <CardBody>
+              {/* <div className="hidden sm:block"> */}
+              <p className="text-sm">
+                Comment as{" "}
+                <Link className="text-primary" to={`/author/${post.author.id}`}>
+                  {post.author.name} ******
+                </Link>
+              </p>
+              <EditorComment />
+              {/* </div> */}
+            </CardBody>
+          )}
 
           {/* ---------- Comments header ---------- */}
-          <CardBody>
+          <CardBody className="pb-0">
             <div className="flex w-full flex-row justify-between">
               <h6 className="my-auto">{`${5} comments`}</h6>
               <Select
@@ -75,6 +87,28 @@ const Post = () => {
 
           {/* ---------- Comments ---------- */}
           <CardBody>
+            {/* -------- Create Comment -------- */}
+            {!isCommentFormVisible && (
+              <div className="mb-4 flex items-center">
+                <Avatar size="sm" name={"Your"} />
+                <Button
+                  size="sm"
+                  color="primary"
+                  variant="light"
+                  className="ml-2 mr-auto"
+                  startContent={
+                    <span className="material-symbols-rounded">
+                      stylus_note
+                    </span>
+                  }
+                  onClick={() => {
+                    setCommentFormVisibility(true);
+                  }}
+                >
+                  Leave a comment
+                </Button>
+              </div>
+            )}
             <Comments comments={getComments()} />
           </CardBody>
         </PostComponent>
