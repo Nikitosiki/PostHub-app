@@ -25,12 +25,14 @@ interface IActiveParts {
 interface IMainProps {
   post: IPost;
   children?: ReactNode;
+  cardClassName?: string;
   isPressable?: boolean;
 }
 
 const Post: FC<IMainProps & IActiveParts> = ({
   post,
   children,
+  cardClassName,
   isPressable = true,
   fullContent = false,
   tagsVisible = true,
@@ -152,7 +154,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
   return (
     <>
       <Card
-        className="border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
+        className={`border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${cardClassName}`}
         shadow="none"
         key={post.id}
         isPressable={isPressable}

@@ -29,7 +29,7 @@ const responsive = {
 const Tags = () => {
   return (
     <>
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 p-2">
         <Card
           className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
           shadow="none"

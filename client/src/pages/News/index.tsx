@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const News = () => {
   return (
     <>
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 p-2">
         <div className="flex flex-row gap-2">
           <Search />
           <Link to="/post/create" className="h-auto">

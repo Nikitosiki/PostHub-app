@@ -24,9 +24,9 @@ const CreatePost = () => {
   };
 
   return (
-    <>
+    <div className="sm:p-2">
       <Card
-        className="w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
+        className="w-full rounded-t-none border-none bg-background drop-shadow-lg hover:drop-shadow-xl sm:rounded-t-large sm:p-1"
         shadow="none"
       >
         <CardHeader className="flex flex-col">
@@ -88,7 +88,7 @@ const CreatePost = () => {
           </CardBody>
         </Card>
       )}
-    </>
+    </div>
   );
 };
 

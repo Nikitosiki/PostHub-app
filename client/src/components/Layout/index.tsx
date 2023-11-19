@@ -9,12 +9,10 @@ const Layout = () => {
         <Header />
         <div className="bg-background-100">
           <div className="container mx-auto max-w-[1024px]">
-            <div className="flex-grow p-2">
-              <div className="min-h-[calc(100vh-186px)]"> 
-                <Outlet />
-              </div>
-              <Footer />
+            <div className="min-h-[calc(100vh-170px)]">
+              <Outlet />
             </div>
+            <Footer />
           </div>
         </div>
       </div>

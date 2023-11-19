@@ -1,24 +1,27 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { Card, CardBody, Select, SelectItem } from "@nextui-org/react";
+import { CardBody, Select, SelectItem } from "@nextui-org/react";
 
 import { default as PostComponent } from "src/modules/Post";
 import { IPost } from "src/interfaces";
 import Tag from "src/components/Tag";
 import FullReactions from "src/components/FullReactions";
 import EditorComment from "src/components/EditorComment";
+import Comments from "src/modules/Comments";
+import { getComments } from "src/api/preview";
 
 const Post = () => {
   const post = useLoaderData() as IPost;
 
   return (
     <>
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 sm:p-2">
         <PostComponent
           post={post}
           fullContent
           isPressable={false}
           tagsVisible={false}
           reactionVisible={false}
+          cardClassName="rounded-t-none sm:rounded-t-large"
         >
           <CardBody>
             <div className="flex flex-row flex-wrap gap-2">
@@ -41,7 +44,7 @@ const Post = () => {
             <p className="text-sm">
               Comment as{" "}
               <Link className="text-primary" to={`/author/${post.author.id}`}>
-                {post.author.name}
+                {post.author.name} ******
               </Link>
             </p>
             <EditorComment />
@@ -71,8 +74,9 @@ const Post = () => {
           </CardBody>
 
           {/* ---------- Comments ---------- */}
-          <CardBody>Comments</CardBody>
-          
+          <CardBody>
+            <Comments comments={getComments()} />
+          </CardBody>
         </PostComponent>
       </div>
     </>
