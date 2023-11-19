@@ -14,6 +14,7 @@ const Editor: FC<IAllProps> = (props) => {
       init={{
         // height: 500,
         menubar: false,
+        paste_data_images: false,
         skin: isDarkTheme ? "oxide-dark" : "oxide",
         content_css: isDarkTheme ? "dark" : "default",
         plugins: [
