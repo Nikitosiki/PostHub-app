@@ -59,6 +59,16 @@ const CreatePost = () => {
             }}
           />
         </CardBody>
+        <CardBody>
+          <Button
+            size={"sm"}
+            radius="full"
+            className="mr-auto"
+            startContent={<span className="material-symbols-rounded">add</span>}
+          >
+            Add tag
+          </Button>
+        </CardBody>
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
             <Button onClick={() => history.back()}>Cancel</Button>
