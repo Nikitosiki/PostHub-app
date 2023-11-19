@@ -26,7 +26,7 @@ export const comments: IComments = [
       {
         id: 6,
         content:
-          "This topic is fascinating! Would love to see more articles like this.",
+          "This topic is fascinating! Would love to see more articles like this. I have a question about the topic. Can you elaborate?",
         author: users[2],
         child_comments: null,
         created_at: new Date("2023-01-06T08:45:00Z"),
