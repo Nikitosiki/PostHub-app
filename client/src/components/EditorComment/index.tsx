@@ -9,7 +9,7 @@ const EditorComment: FC<IAllProps> = (props) => {
 
   return (
     <EditorTiny
-      apiKey={import.meta.env.VITE_TinyMCE_apiKey}
+      apiKey={import.meta.env.VITE_TINYMCE_KEY}
       init={{
         height: 250,
         menubar: false,
