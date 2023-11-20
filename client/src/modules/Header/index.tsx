@@ -64,6 +64,7 @@ const Header = () => {
       isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
+      // isBlurred={false}
       // shouldHideOnScroll
     >
       <NavbarContent>

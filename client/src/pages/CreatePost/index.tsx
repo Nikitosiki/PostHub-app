@@ -60,14 +60,17 @@ const CreatePost = () => {
           />
         </CardBody>
         <CardBody>
-          <Button
-            size={"sm"}
-            radius="full"
-            className="mr-auto"
-            startContent={<span className="material-symbols-rounded">add</span>}
-          >
-            Add tag
-          </Button>
+          <div className="flex flex-row flex-wrap items-start gap-2">
+            <Button
+              size={"sm"}
+              radius="full"
+              startContent={
+                <span className="material-symbols-rounded">add</span>
+              }
+            >
+              Add tag
+            </Button>
+          </div>
         </CardBody>
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
