@@ -1,20 +1,9 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "github": {
-    "ignoreBuildStep": "git diff --quiet HEAD^ HEAD -- ':!package.json' && echo '🛑 - Build cancelled' || vercel-build"
-  },
-  "build": {
-    "env": {
-      "VERCEL_GIT_COMMIT_REF": "${VERCEL_GIT_COMMIT_REF}"
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "dev": true
     }
-  },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "buildCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" = \"main\" -o \"$VERCEL_GIT_COMMIT_REF\" = \"dev\" ] && npm run build || echo 'Skipping build step'"
-      }
-    }
-  ]
+  }
 }
