@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.8",
+    "@nextui-org/react": "^2.2.9",
     "@supabase/supabase-js": "^2.38.4",
     "@tinymce/tinymce-react": "^4.3.0",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.5",
     "material-symbols": "^0.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

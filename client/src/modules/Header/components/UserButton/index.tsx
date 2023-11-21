@@ -11,8 +11,10 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "src/contexts/Auth/AuthContext";
+import { useSwitchTheme } from "src/hooks";
 
 const UserButton = () => {
+  const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
   const { user, logOut } = useContext(AuthContext);
 
   return (
@@ -87,8 +89,19 @@ const UserButton = () => {
                 <p>Create Post</p>
               </Link>
             </DropdownItem>
-            <DropdownItem key="theme">
-              <p>Theme:</p>
+            <DropdownItem
+              key="theme"
+              closeOnSelect={false}
+              onClick={() => {
+                setIsDarkTheme(!isDarkTheme);
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <span>Theme</span>
+                <span className="material-symbols-rounded">
+                  {isDarkTheme ? "dark_mode" : "light_mode"}
+                </span>
+              </div>
             </DropdownItem>
             <DropdownItem key="settings">
               <Link to="/profile/settings">
