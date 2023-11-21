@@ -1,10 +1,4 @@
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { FC, ReactNode, createContext, useEffect, useState } from "react";
 
 import {
   signInGoogle,
@@ -48,11 +42,15 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       await client.auth.getUser().then((value) => {
         if (value.data.user === null) {
           setUser(null);
+          console.log(12);
           return;
         }
+        console.log(value.data.user);
         setUser({
           id: value.data.user.id,
-          name: value.data.user.user_metadata.user_name,
+          name:
+            value.data.user.user_metadata.user_name ??
+            value.data.user.user_metadata.name,
           role: "user",
           email: value.data.user.email ?? "",
           gender: null,

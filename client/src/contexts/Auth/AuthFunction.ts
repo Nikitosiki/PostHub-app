@@ -10,7 +10,11 @@ export const client = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY,
 );
 
-export const signInGoogle = async () => {};
+export const signInGoogle = async (): TypeSignIn => {
+  return await client.auth.signInWithOAuth({
+    provider: "google",
+  });
+};
 
 export const signInGithub = async (): TypeSignIn => {
   return await client.auth.signInWithOAuth({
