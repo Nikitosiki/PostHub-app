@@ -8,85 +8,89 @@ import {
   User,
 } from "@nextui-org/react";
 import { useContext } from "react";
-
 import { AuthContext } from "src/contexts/Auth/AuthContext";
-
-const disabledKeys = ["user"];
 
 const UserButton = () => {
   const { user, logOut } = useContext(AuthContext);
 
   return (
-    <Dropdown
-      radius="sm"
-      classNames={{
-        content: "p-0 border-small border-divider bg-background",
-      }}
-    >
-      <DropdownTrigger>
-        <Button
-          color="primary"
-          variant="light"
-          className="hidden p-0 text-foreground sm:block"
-        >
-          <User
-            name={user?.name}
-            avatarProps={{
-              src: user?.image_url ?? "",
-              size: "sm",
-            }}
-          />
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        disabledKeys={disabledKeys}
-        aria-label="Custom item styles"
-        className="p-3"
-        itemClasses={{
-          base: [
-            "rounded-md",
-            "text-default-500",
-            "transition-opacity",
-            "data-[hover=true]:text-foreground",
-            "data-[hover=true]:bg-default-100",
-            "dark:data-[hover=true]:bg-default-50",
-            "data-[selectable=true]:focus:bg-default-50",
-            "data-[pressed=true]:opacity-70",
-            "data-[focus-visible=true]:ring-default-500",
-          ],
+    <>
+      <Dropdown
+        placement="bottom-end"
+        classNames={{
+          content: "border-divider bg-background",
         }}
       >
-        <DropdownSection aria-label="Profile & Actions" showDivider>
-          <DropdownItem
-            isReadOnly
-            key="user"
-            textValue="user"
-            className="opacity-100"
+        <DropdownTrigger>
+          <Button
+            color="primary"
+            variant="light"
+            className="justify-end px-2 text-foreground"
           >
             <User
               name={user?.name}
               avatarProps={{
                 src: user?.image_url ?? "",
                 size: "sm",
+                isBordered: true,
+                color: "primary",
+              }}
+              classNames={{
+                base: "gap-0",
+                name: "hidden sm:block sm:pl-4 sm:max-w-[10rem] truncate",
               }}
             />
-          </DropdownItem>
-          <DropdownItem key="profile" textValue="profile">
-            {/* <Link href={`/user/${user?.uid}`}>
-              <div>Profile</div>
-            </Link> */}
-          </DropdownItem>
-          <DropdownItem key="settings" textValue="settings">
-            Settings
-          </DropdownItem>
-        </DropdownSection>
-        <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="logout" textValue="logout" onClick={logOut}>
-            <span className="text-danger">Log Out</span>
-          </DropdownItem>
-        </DropdownSection>
-      </DropdownMenu>
-    </Dropdown>
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          aria-label="Custom item styles"
+          className="p-2"
+          itemClasses={{
+            base: [
+              "rounded-md",
+              "text-default-600",
+              "transition-opacity",
+              "data-[hover=true]:text-foreground",
+              "data-[hover=true]:bg-default-100",
+              "dark:data-[hover=true]:bg-default-50",
+              "data-[selectable=true]:focus:bg-default-50",
+              "data-[pressed=true]:opacity-70",
+              "data-[focus-visible=true]:ring-default-500",
+            ],
+          }}
+        >
+          <DropdownSection
+            aria-label="Profile"
+            showDivider
+            dividerProps={{
+              className: "h-[1px] mt-1",
+            }}
+          >
+            <DropdownItem key="user" className="text-default-500">
+              {user?.name}
+            </DropdownItem>
+          </DropdownSection>
+
+          <DropdownSection
+            aria-label="Actions"
+            showDivider
+            dividerProps={{
+              className: "h-[1.5px] mt-1",
+            }}
+          >
+            <DropdownItem key="create">Create Post</DropdownItem>
+            <DropdownItem key="theme">Theme:</DropdownItem>
+            <DropdownItem key="settings">Settings</DropdownItem>
+          </DropdownSection>
+
+          <DropdownSection aria-label="Help & Feedback" className="mb-0">
+            <DropdownItem key="logout" onClick={logOut}>
+              <span className="text-danger">Log Out</span>
+            </DropdownItem>
+          </DropdownSection>
+        </DropdownMenu>
+      </Dropdown>
+    </>
   );
 };
 

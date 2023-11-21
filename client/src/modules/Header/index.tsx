@@ -36,18 +36,18 @@ const menuItems: MenuItem[] = [
 ];
 
 const mobileMenuItems: MenuItem[] = menuItems.concat([
-  {
-    name: "Create",
-    path: "/post/create",
-  },
-  {
-    name: "Profile",
-    path: "/profile",
-  },
-  {
-    name: "Log Out",
-    path: "/",
-  },
+  // {
+  //   name: "Create",
+  //   path: "/post/create",
+  // },
+  // {
+  //   name: "Profile",
+  //   path: "/profile",
+  // },
+  // {
+  //   name: "Log Out",
+  //   path: "/",
+  // },
 ]);
 
 const Header = () => {
@@ -132,7 +132,7 @@ const Header = () => {
 
       <NavbarContent justify="end">
         {user ? <UserButton /> : <AuthButton />}
-        <ThemeSwitch isSelected={isDarkTheme} onValueChange={setIsDarkTheme} />
+        {!user && <ThemeSwitch isSelected={isDarkTheme} onValueChange={setIsDarkTheme} />}
       </NavbarContent>
 
       <NavbarMenu>
@@ -143,8 +143,8 @@ const Header = () => {
               className={`text-lg ${
                 item.name === selectedTab
                   ? "text-primary"
-                  : index === mobileMenuItems.length - 1
-                  ? "text-danger"
+                  // : index === mobileMenuItems.length - 1
+                  // ? "text-danger"
                   : "text-foreground"
               }`}
               onClick={() => {
