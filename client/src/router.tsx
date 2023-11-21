@@ -50,6 +50,14 @@ const router = createBrowserRouter([
         element: <CreatePost />,
       },
       {
+        path: "/profile",
+        element: <div/>,
+      },
+      {
+        path: "/profile/settings",
+        element: <div/>,
+      },
+      {
         path: "/post/:id",
         element: <Post />,
         errorElement: <Notfound value="Post is not found" />,
@@ -58,6 +66,16 @@ const router = createBrowserRouter([
           if (!data) throw new Response("Not Found", { status: 404 });
           return data;
         },
+      },
+      {
+        path: "/author/:id",
+        element: <div/>,
+        errorElement: <Notfound value="User is not found" />,
+      },
+      {
+        path: "/tag/:id",
+        element: <div/>,
+        errorElement: <Notfound value="Tag is not found" />,
       },
       {
         path: "*",
