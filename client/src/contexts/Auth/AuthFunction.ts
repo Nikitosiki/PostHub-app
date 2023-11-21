@@ -3,7 +3,7 @@ import { AuthError, OAuthResponse, createClient } from "@supabase/supabase-js";
 export type TypeSignIn = Promise<OAuthResponse>;
 export type TypeLogOut = Promise<{
   error: AuthError | null;
-}>
+}>;
 
 export const client = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -30,5 +30,7 @@ export const signInEmailAndPassword = async (
 };
 
 export const logOut = async (): TypeLogOut => {
-  return await client.auth.signOut();
+  const result = await client.auth.signOut();
+  document.location.reload();
+  return result;
 };
