@@ -8,6 +8,8 @@ import {
   User,
 } from "@nextui-org/react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import { AuthContext } from "src/contexts/Auth/AuthContext";
 
 const UserButton = () => {
@@ -66,8 +68,10 @@ const UserButton = () => {
               className: "h-[1px] mt-1",
             }}
           >
-            <DropdownItem key="user" className="text-default-500">
-              {user?.name}
+            <DropdownItem key="user" className="max-w-[15rem] text-default-500">
+              <Link to="/profile">
+                <p className="whitespace-normal">{user?.name}</p>
+              </Link>
             </DropdownItem>
           </DropdownSection>
 
@@ -78,14 +82,24 @@ const UserButton = () => {
               className: "h-[1.5px] mt-1",
             }}
           >
-            <DropdownItem key="create">Create Post</DropdownItem>
-            <DropdownItem key="theme">Theme:</DropdownItem>
-            <DropdownItem key="settings">Settings</DropdownItem>
+            <DropdownItem key="create">
+              <Link to="/post/create">
+                <p>Create Post</p>
+              </Link>
+            </DropdownItem>
+            <DropdownItem key="theme">
+              <p>Theme:</p>
+            </DropdownItem>
+            <DropdownItem key="settings">
+              <Link to="/profile/settings">
+                <p>Settings</p>
+              </Link>
+            </DropdownItem>
           </DropdownSection>
 
           <DropdownSection aria-label="Help & Feedback" className="mb-0">
             <DropdownItem key="logout" onClick={logOut}>
-              <span className="text-danger">Log Out</span>
+              <p className="text-danger">Log Out</p>
             </DropdownItem>
           </DropdownSection>
         </DropdownMenu>
