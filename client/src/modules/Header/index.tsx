@@ -132,7 +132,12 @@ const Header = () => {
 
       <NavbarContent justify="end">
         {user ? <UserButton /> : <AuthButton />}
-        {!user && <ThemeSwitch isSelected={isDarkTheme} onValueChange={setIsDarkTheme} />}
+        {!user && (
+          <ThemeSwitch
+            isSelected={isDarkTheme}
+            onValueChange={setIsDarkTheme}
+          />
+        )}
       </NavbarContent>
 
       <NavbarMenu>
@@ -143,9 +148,9 @@ const Header = () => {
               className={`text-lg ${
                 item.name === selectedTab
                   ? "text-primary"
-                  // : index === mobileMenuItems.length - 1
-                  // ? "text-danger"
-                  : "text-foreground"
+                  : // : index === mobileMenuItems.length - 1
+                    // ? "text-danger"
+                    "text-foreground"
               }`}
               onClick={() => {
                 toSelectedTab(item.name);
