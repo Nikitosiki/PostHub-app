@@ -3,6 +3,7 @@ import { FC, ReactNode, createContext, useEffect, useState } from "react";
 import {
   signInGoogle,
   signInGithub,
+  signInFacebook,
   signInEmailAndPassword,
   logOut,
   TypeSignIn,
@@ -17,6 +18,7 @@ type AuthContextPops = {
   user: UserAuthType;
   signInGoogle(): TypeSignIn | Promise<void>;
   signInGithub(): TypeSignIn | Promise<void>;
+  signInFacebook(): TypeSignIn | Promise<void>;
   signInEmailAndPassword(
     email: string,
     password: string,
@@ -28,6 +30,7 @@ export const AuthContext = createContext<AuthContextPops>({
   user: null,
   signInGoogle: async () => {},
   signInGithub: async () => {},
+  signInFacebook: async () => {},
   signInEmailAndPassword: async () => {},
   logOut: async () => {},
 });
@@ -42,7 +45,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
       await client.auth.getUser().then((value) => {
         if (value.data.user === null) {
           setUser(null);
-          console.log(12);
+
           return;
         }
         console.log(value.data.user);
@@ -68,6 +71,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         user,
         signInGoogle,
         signInGithub,
+        signInFacebook,
         signInEmailAndPassword,
         logOut,
       }}

@@ -29,7 +29,7 @@ const UserButton = () => {
           <Button
             color="primary"
             variant="light"
-            className="justify-end px-2 text-foreground"
+            className="min-w-[3rem] justify-end px-2 text-foreground"
           >
             <User
               name={user?.name}
