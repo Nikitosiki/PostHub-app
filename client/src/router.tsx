@@ -1,4 +1,8 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  ScrollRestoration,
+} from "react-router-dom";
 
 // Pages
 import Layout from "src/components/Layout";
@@ -16,7 +20,12 @@ import { IPost } from "./interfaces";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <>
+        <Layout />
+        <ScrollRestoration />
+      </>
+    ),
     errorElement: <Notfound />,
     children: [
       {
@@ -41,6 +50,14 @@ const router = createBrowserRouter([
         element: <CreatePost />,
       },
       {
+        path: "/profile",
+        element: <div/>,
+      },
+      {
+        path: "/profile/settings",
+        element: <div/>,
+      },
+      {
         path: "/post/:id",
         element: <Post />,
         errorElement: <Notfound value="Post is not found" />,
@@ -49,6 +66,16 @@ const router = createBrowserRouter([
           if (!data) throw new Response("Not Found", { status: 404 });
           return data;
         },
+      },
+      {
+        path: "/author/:id",
+        element: <div/>,
+        errorElement: <Notfound value="User is not found" />,
+      },
+      {
+        path: "/tag/:id",
+        element: <div/>,
+        errorElement: <Notfound value="Tag is not found" />,
       },
       {
         path: "*",

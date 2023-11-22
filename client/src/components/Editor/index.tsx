@@ -10,10 +10,11 @@ const Editor: FC<IAllProps> = (props) => {
 
   return (
     <EditorTiny
-      apiKey={import.meta.env.VITE_TinyMCE_apiKey}
+      apiKey={import.meta.env.VITE_TINYMCE_KEY}
       init={{
         // height: 500,
         menubar: false,
+        paste_data_images: false,
         skin: isDarkTheme ? "oxide-dark" : "oxide",
         content_css: isDarkTheme ? "dark" : "default",
         plugins: [

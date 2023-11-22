@@ -24,9 +24,9 @@ const CreatePost = () => {
   };
 
   return (
-    <>
+    <div className="sm:p-2">
       <Card
-        className="w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
+        className="w-full rounded-t-none border-none bg-background drop-shadow-lg hover:drop-shadow-xl sm:rounded-t-large sm:p-1"
         shadow="none"
       >
         <CardHeader className="flex flex-col">
@@ -59,6 +59,19 @@ const CreatePost = () => {
             }}
           />
         </CardBody>
+        <CardBody>
+          <div className="flex flex-row flex-wrap items-start gap-2">
+            <Button
+              size={"sm"}
+              radius="full"
+              startContent={
+                <span className="material-symbols-rounded">add</span>
+              }
+            >
+              Add tag
+            </Button>
+          </div>
+        </CardBody>
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
             <Button onClick={() => history.back()}>Cancel</Button>
@@ -81,11 +94,14 @@ const CreatePost = () => {
         >
           <CardHeader>Public View:</CardHeader>
           <CardBody>
-            <div dangerouslySetInnerHTML={{ __html: descriptionValue }} />
+            <div
+              className="prose prose-gray dark:prose-invert" //prose-sm sm:prose-base
+              dangerouslySetInnerHTML={{ __html: descriptionValue }}
+            />
           </CardBody>
         </Card>
       )}
-    </>
+    </div>
   );
 };
 

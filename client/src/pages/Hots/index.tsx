@@ -6,7 +6,7 @@ import { getHotPosts } from "src/api/preview";
 const Hots = () => {
   return (
     <>
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-4 p-2">
         <Search />
         {getHotPosts().map((post) => (
           <Post key={post.id} post={post} />
