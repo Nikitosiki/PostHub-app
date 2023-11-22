@@ -1,5 +1,6 @@
 import {
   AuthError,
+  AuthResponse,
   AuthTokenResponse,
   OAuthResponse,
   createClient,
@@ -53,6 +54,7 @@ export const signUpEmailAndPassword = async (
     email: email,
     password: password,
   });
+  console.log(name)
   // there should be an addition to the database here
 };
 
