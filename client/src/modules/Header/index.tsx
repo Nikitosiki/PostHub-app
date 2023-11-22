@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Navbar as NavbarUI,
@@ -17,6 +17,8 @@ import AuthButton from "./components/AuthButton";
 import { useSwitchTheme } from "src/hooks";
 import { useStateTabs } from "./hooks/useStateTabs";
 import { MenuItem } from "./types/MenuItem";
+import { AuthContext } from "src/contexts/Auth/AuthContext";
+import UserButton from "./components/UserButton";
 
 const menuItems: MenuItem[] = [
   {
@@ -34,24 +36,25 @@ const menuItems: MenuItem[] = [
 ];
 
 const mobileMenuItems: MenuItem[] = menuItems.concat([
-  {
-    name: "Create",
-    path: "/post/create",
-  },
-  {
-    name: "Profile",
-    path: "/profile",
-  },
-  {
-    name: "Log Out",
-    path: "/",
-  },
+  // {
+  //   name: "Create",
+  //   path: "/post/create",
+  // },
+  // {
+  //   name: "Profile",
+  //   path: "/profile",
+  // },
+  // {
+  //   name: "Log Out",
+  //   path: "/",
+  // },
 ]);
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
+  const { user } = useContext(AuthContext);
 
   // <header>
   //   <Link to="/">home</Link>
@@ -128,8 +131,13 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <AuthButton />
-        <ThemeSwitch isSelected={isDarkTheme} onValueChange={setIsDarkTheme} />
+        {user ? <UserButton /> : <AuthButton />}
+        {!user && (
+          <ThemeSwitch
+            isSelected={isDarkTheme}
+            onValueChange={setIsDarkTheme}
+          />
+        )}
       </NavbarContent>
 
       <NavbarMenu>
@@ -140,9 +148,9 @@ const Header = () => {
               className={`text-lg ${
                 item.name === selectedTab
                   ? "text-primary"
-                  : index === mobileMenuItems.length - 1
-                  ? "text-danger"
-                  : "text-foreground"
+                  : // : index === mobileMenuItems.length - 1
+                    // ? "text-danger"
+                    "text-foreground"
               }`}
               onClick={() => {
                 toSelectedTab(item.name);

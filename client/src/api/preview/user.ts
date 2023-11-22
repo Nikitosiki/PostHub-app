@@ -1,6 +1,6 @@
 import { users } from "./data/users";
 
-export const getUserById = (id: number) => {
+export const getUserById = (id: string) => {
   return users.find((user) => user.id === id) || null;
 };
 

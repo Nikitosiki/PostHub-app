@@ -24,7 +24,7 @@ const ThemeSwitch: FC<SwitchProps> = (props) => {
           class: ["h-10 w-10", "flex items-center justify-center", "mr-0"],
         })}
       >
-        {isSelected ? <SunIcon /> : <MoonIcon />}
+        {isSelected ? <MoonIcon /> : <SunIcon />}
       </div>
     </Component>
   );
