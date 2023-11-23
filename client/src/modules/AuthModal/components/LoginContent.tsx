@@ -42,6 +42,7 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({ onSwitchSel
       });
     } else {
       closeAuthModal();
+      location.reload();
     }
     console.log(data, error)
   };

@@ -40,7 +40,7 @@ const CreatePost = () => {
             placeholder="Title"
             classNames={{
               input: "text-lg",
-              inputWrapper: "shadow-none border-default-200/75",
+              inputWrapper: "shadow-none", //border-default-200/75 group-data-[focus=true]:border-default-200/75
             }}
             endContent={
               <div className="pointer-events-none flex items-center">
