@@ -1,4 +1,5 @@
 import { FC, ReactNode, createContext, useEffect, useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
 
 import {
   signInGoogle,
@@ -6,25 +7,10 @@ import {
   signInFacebook,
   signInEmailAndPassword,
   logOut,
-  TypeSignIn,
-  TypeLogOut,
   client,
-} from "./AuthFunction";
-import { IUser } from "src/interfaces";
-
-type UserAuthType = IUser | null;
-
-type AuthContextPops = {
-  user: UserAuthType;
-  signInGoogle(): TypeSignIn | Promise<void>;
-  signInGithub(): TypeSignIn | Promise<void>;
-  signInFacebook(): TypeSignIn | Promise<void>;
-  signInEmailAndPassword(
-    email: string,
-    password: string,
-  ): TypeSignIn | Promise<void>;
-  logOut(): TypeLogOut | Promise<void>;
-};
+} from "./AuthFunctions";
+import { AuthContextPops, UserAuthType } from "./AuthTypes";
+import AuthModal from "src/modules/AuthModal";
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,
@@ -33,11 +19,16 @@ export const AuthContext = createContext<AuthContextPops>({
   signInFacebook: async () => {},
   signInEmailAndPassword: async () => {},
   logOut: async () => {},
+  isOpenAuth: false,
+  onOpenAuth: () => {},
+  onCloseAuth: () => {},
+  onOpenChangeAuth: () => {},
 });
 
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [user, setUser] = useState<UserAuthType>(null);
 
   useEffect(() => {
@@ -74,9 +65,14 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
         signInFacebook,
         signInEmailAndPassword,
         logOut,
+        isOpenAuth: isOpen,
+        onOpenAuth: onOpen,
+        onCloseAuth: onClose,
+        onOpenChangeAuth: onOpenChange,
       }}
     >
       {children}
+      <AuthModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </AuthContext.Provider>
   );
 };

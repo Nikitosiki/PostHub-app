@@ -1,8 +1,8 @@
-import { Button, useDisclosure, Link } from "@nextui-org/react";
-import AuthModal from "src/modules/AuthModal";
+import { Button, Link } from "@nextui-org/react";
+import { useAuth } from "src/contexts";
 
 const AuthButton = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { onOpenAuth } = useAuth();
 
   return (
     <>
@@ -10,12 +10,11 @@ const AuthButton = () => {
         as={Link}
         color="primary"
         variant="flat"
-        onClick={onOpen}
+        onClick={onOpenAuth}
         radius="full"
       >
         Login
       </Button>
-      <AuthModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };
