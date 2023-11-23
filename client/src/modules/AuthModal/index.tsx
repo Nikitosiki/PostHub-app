@@ -27,7 +27,7 @@ const AuthModal: FC<AuthModalProps> = ({ isOpen, onOpenChange }) => {
         onOpenChange={onOpenChange}
         placement="center"
         backdrop="opaque"
-        hideCloseButton
+        // hideCloseButton
         className="bg-background"
       >
         <ModalContent>

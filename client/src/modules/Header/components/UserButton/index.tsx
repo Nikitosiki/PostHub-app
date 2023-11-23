@@ -7,15 +7,14 @@ import {
   DropdownTrigger,
   User,
 } from "@nextui-org/react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { AuthContext } from "src/contexts/Auth/AuthContext";
 import { useSwitchTheme } from "src/hooks";
+import { useAuth } from "src/contexts";
 
 const UserButton = () => {
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
 
   return (
     <>

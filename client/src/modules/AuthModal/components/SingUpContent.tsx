@@ -3,7 +3,7 @@ import { Button, Input, ModalBody, ModalHeader } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { signUpEmailAndPassword } from "src/contexts/Auth/AuthFunction";
+import { signUpEmailAndPassword } from "src/contexts/Auth/AuthFunctions";
 import { SwitchSelectedType } from "../types/SwitchSelectedType";
 import { SingUpSchema, SingUpSchemaType } from "src/validations";
 
