@@ -16,6 +16,7 @@ import CreatePost from "src/pages/CreatePost";
 // api functions
 import { getPostById } from "src/api/preview";
 import { IPost } from "./interfaces";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -47,15 +48,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/create",
-        element: <CreatePost />,
+        element: <PrivateRoute element={<CreatePost />} />,
       },
       {
         path: "/profile",
-        element: <div/>,
+        element: <PrivateRoute element={<div />} />,
       },
       {
         path: "/profile/settings",
-        element: <div/>,
+        element: <PrivateRoute element={<div />} />,
       },
       {
         path: "/post/:id",
@@ -69,12 +70,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/author/:id",
-        element: <div/>,
+        element: <div />,
         errorElement: <Notfound value="User is not found" />,
       },
       {
         path: "/tag/:id",
-        element: <div/>,
+        element: <div />,
         errorElement: <Notfound value="Tag is not found" />,
       },
       {
