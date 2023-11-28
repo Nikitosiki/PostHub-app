@@ -3,6 +3,7 @@ import { Badge } from "@nextui-org/react";
 
 // import { default as NumberComponent } from "src/components/Number";
 import { IReactions } from "src/interfaces";
+import { toReactionViews } from "src/utils/reactionView";
 
 type TypeReactionsProps = {
   reactions: IReactions;
@@ -10,16 +11,17 @@ type TypeReactionsProps = {
 };
 
 const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
-  const [selectReaction, changeSelect] = useState<number | null>(null);
+  const [selectReaction, changeSelect] = useState<string | null>(null);
+  const reactionsView = toReactionViews(reactions);
   // let reactionsCount: number = 0;
 
   // reactions.forEach((reaction) => {
   //   reactionsCount += reaction.count;
   // });
 
-  const handleReactionClick = (reactionNumber: number) => {
-    reactionNumber !== selectReaction
-      ? changeSelect(reactionNumber)
+  const handleReactionClick = (reactionEmoji: string) => {
+    reactionEmoji !== selectReaction
+      ? changeSelect(reactionEmoji)
       : changeSelect(null);
   };
 
@@ -30,7 +32,7 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
       <div className="rounded-full bg-background-200 px-8 text-center">
         {/* <h6 className="mt-2">{reactionsCount} Responses</h6> */}
         <div className="mt-4 flex flex-row gap-2">
-          {reactions.map((reaction) => {
+          {reactionsView.map((reaction) => {
             return (
               <Badge
                 color="primary"

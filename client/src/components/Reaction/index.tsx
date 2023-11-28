@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { Chip } from "@nextui-org/react";
-import { IReaction } from "src/interfaces";
 
 type TypeReactionProps = {
   className?: string;
-} & IReaction;
+  emoji: string;
+  count: number;
+}
 
 const Reaction: FC<TypeReactionProps> = ({ emoji, count, className }) => {
   return (

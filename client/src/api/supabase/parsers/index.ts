@@ -1,4 +1,4 @@
-import { ITag, IUser, IReactions, IPost } from "src/interfaces";
+import { ITag, IUser, IReaction, IPost } from "src/interfaces";
 
 export const toPost = (object): IPost => {
   return {
@@ -9,7 +9,7 @@ export const toPost = (object): IPost => {
     image_url: null,
     age_rating: null,
     tags: object.tags.map((tag) => toTag(tag)),
-    reactions: toReactions(object.reactions),
+    reactions: object.reactions.map((react) => toReaction(react)),
     views: object.count_view,
     published_at: object.created_at,
     updated_at: object.updated_at,
@@ -40,23 +40,32 @@ export const toUser = (object): IUser => {
   };
 };
 
-export const toReactions = (object): IReactions => {
-  const reactions: IReactions = [];
-
-  object.map((userReaction) => {
-    const existingIndex = reactions.findIndex(
-      (obj) => obj.emoji === userReaction.emoji,
-    );
-
-    if (existingIndex === -1) {
-      reactions.push({
-        emoji: userReaction.emoji,
-        count: 1,
-      });
-    } else {
-      reactions[existingIndex].count += 1;
-    }
-  });
-
-  return reactions;
+export const toReaction = (object): IReaction => {
+  return {
+    id: object.id,
+    emoji: object.emoji,
+    grade: object.grade,
+  };
 };
+
+// export const toReactions = (object): IReactions => {
+//   const reactions: IReactions = [];
+//   console.log(object)
+
+//   object.map((userReaction) => {
+//     const existingIndex = reactions.findIndex(
+//       (obj) => obj.emoji === userReaction.emoji,
+//     );
+
+//     if (existingIndex === -1) {
+//       reactions.push({
+//         emoji: userReaction.emoji,
+//         count: 1,
+//       });
+//     } else {
+//       reactions[existingIndex].count += 1;
+//     }
+//   });
+
+//   return reactions;
+// };
