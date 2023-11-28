@@ -53,9 +53,12 @@ export const signUpEmailAndPassword = async (
   return await client.auth.signUp({
     email: email,
     password: password,
+    options: {
+      data: {
+        name: name,
+      }
+    }
   });
-  console.log(name)
-  // there should be an addition to the database here
 };
 
 export const logOut = async (): TypeLogOut => {

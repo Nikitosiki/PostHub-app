@@ -2241,6 +2241,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-stately/data@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@react-stately/data@npm:3.11.0"
+  dependencies:
+    "@react-types/shared": "npm:^3.22.0"
+    "@swc/helpers": "npm:^0.5.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+  checksum: 64ea1cf1855cd0e8f9bf51f809a652fdb276076e7c48a83e7a61d7816f9718a61a1ba1a922ecd5cc1a776a2fc31dfd8f032ce66ac8aa3cdcd8e5a8752e4e8a7d
+  languageName: node
+  linkType: hard
+
 "@react-stately/flags@npm:^3.0.0":
   version: 3.0.0
   resolution: "@react-stately/flags@npm:3.0.0"
@@ -2663,6 +2675,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
   checksum: a89907dcb82b63d81c56d02df2c9d0dec1754952571922f50861c510666257ff00c7d7c715237fb26c3b4a6ae45b0567243dfa8b3d30b666661f3cdc8a29cffc
+  languageName: node
+  linkType: hard
+
+"@react-types/shared@npm:^3.22.0":
+  version: 3.22.0
+  resolution: "@react-types/shared@npm:3.22.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+  checksum: 973c705b018af953a3b5b9e413fcc3959430c02eca6f03df544c4ea2ac0664dd0603f73e4c924638a1f7dd595a1610e65fe9448678be0d6059672fa19e9fda38
   languageName: node
   linkType: hard
 
@@ -3500,6 +3521,7 @@ __metadata:
   dependencies:
     "@hookform/resolvers": "npm:^3.3.2"
     "@nextui-org/react": "npm:^2.2.9"
+    "@react-stately/data": "npm:^3.11.0"
     "@supabase/supabase-js": "npm:^2.38.4"
     "@tailwindcss/typography": "npm:^0.5.10"
     "@tinymce/tinymce-react": "npm:^4.3.0"

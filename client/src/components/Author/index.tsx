@@ -17,8 +17,9 @@ const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
         <User
           name={author.name}
           description={description}
+          className=""
           classNames={{
-            name: "font-bold text-default-600",
+            name: "font-bold text-default-600 truncate max-w-[10rem]",
             description: "text-default-500",
           }}
           avatarProps={{

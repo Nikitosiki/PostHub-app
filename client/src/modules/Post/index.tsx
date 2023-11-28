@@ -14,6 +14,7 @@ import { getShortFormattedDate } from "src/utils";
 import Author from "src/components/Author";
 import Reactions from "src/components/Reactions";
 import Tag from "src/components/Tag";
+import InnerHTML from "src/components/InnerHTML";
 
 interface IActiveParts {
   fullContent?: boolean;
@@ -98,13 +99,17 @@ const Post: FC<IMainProps & IActiveParts> = ({
 
       <CardBody className="pt-0">
         {fullContent ? (
-          <p className="whitespace-pre-wrap">{post.content}</p>
+          // <p className="whitespace-pre-wrap">
+            <InnerHTML content={post.content} />
+          // </p>
         ) : (
           <div
             ref={contentRef}
             className="relative max-h-[330px] overflow-hidden"
           >
-            <p className="whitespace-pre-wrap">{post.content}</p>
+            {/* <p className="whitespace-pre-wrap"> */}
+              <InnerHTML content={post.content} />
+            {/* </p> */}
             <div
               ref={shadowRef}
               className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
@@ -142,8 +147,8 @@ const Post: FC<IMainProps & IActiveParts> = ({
           .filter((reaction) => reaction.count > 0)
           .map((reaction) => (
             <Reaction
-              key={reaction.grade}
-              grade={reaction.grade}
+              key={reaction.emoji}
+              emoji={reaction.emoji}
               count={reaction.count}
             />
           ))}

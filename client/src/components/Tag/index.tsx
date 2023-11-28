@@ -6,14 +6,17 @@ import { ITag } from "src/interfaces";
 
 type TypeTagProps = {
   tag: ITag;
+  close?: () => void;
   className?: string;
 };
 
-const Tag: FC<TypeTagProps> = ({ tag, className }) => {
+const Tag: FC<TypeTagProps> = ({ tag, close, className }) => {
   return (
     <>
       <Link to={`/tag/${tag.id}`}>
-        <Chip className={`bg-default-200 ${className}`}>{tag.title}</Chip>
+        <Chip onClose={close} className={`bg-default-200 ${className}`}>
+          {tag.title}
+        </Chip>
       </Link>
     </>
   );

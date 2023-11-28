@@ -1,4 +1,5 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -8,20 +9,30 @@ import {
   Input,
 } from "@nextui-org/react";
 
+import { createPost } from "src/api/supabase/post";
+import { useAuth } from "src/contexts";
+import { ITag, ITags } from "src/interfaces";
 import Editor from "src/components/Editor";
+import AddTag from "src/components/AddTag";
+import TagPrev from "src/components/TagPrev";
+import Tag from "src/components/Tag";
 
 const CreatePost = () => {
-  const [titleLength, setTitleLength] = useState<number>(0);
-  const [descriptionValue, setDescriptionValue] = useState<string>("");
-  const [visiblePublic, setVisiblePublic] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [tags, setTags] = useState<ITags>([]);
+  const [newTags, setNewTags] = useState<string[]>([]);
 
-  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitleLength(event.currentTarget.value.length);
+  const addTag = (value: ITag | string) => {
+    // Type checking and duplication elimination
+    if (typeof value === "string") {
+      !newTags.includes(value) && setNewTags([...newTags, value]);
+    } else
+      !tags.some((tag) => tag.id === value.id) && setTags([...tags, value]);
   };
 
-  const submitPost = (): void => {
-    setVisiblePublic(true);
-  };
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="sm:p-2">
@@ -31,11 +42,11 @@ const CreatePost = () => {
       >
         <CardHeader className="flex flex-col">
           <h1 className="w-full text-left text-lg">Create post</h1>
-          {/* <Divider className="my-2" /> */}
         </CardHeader>
+
+        {/* ------- Input Title  ------- */}
         <CardBody>
           <Input
-            onChange={handleTitleChange}
             variant="bordered"
             placeholder="Title"
             classNames={{
@@ -45,40 +56,53 @@ const CreatePost = () => {
             endContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-small text-default-400">
-                  {titleLength}/300
+                  {title.length}/300
                 </span>
               </div>
             }
+            value={title}
+            onValueChange={setTitle}
           />
         </CardBody>
+
+        {/* ------ Edit Description  ------ */}
         <CardBody>
           <Editor
-            value={descriptionValue}
+            value={description}
             onEditorChange={(value: string) => {
-              setDescriptionValue(value);
+              setDescription(value);
             }}
           />
         </CardBody>
+
+        {/* ---------- Tags ---------- */}
         <CardBody>
-          <div className="flex flex-row flex-wrap items-start gap-2">
-            <Button
-              size={"sm"}
-              radius="full"
-              startContent={
-                <span className="material-symbols-rounded">add</span>
-              }
-            >
-              Add tag
-            </Button>
+          <div className="flex flex-row flex-wrap items-center justify-start gap-2">
+            {tags.map((value) => (
+              <Tag key={value.title} tag={value} />
+            ))}
+            {newTags.map((value) => (
+              <TagPrev key={value} tagName={value} />
+            ))}
+            <AddTag add={addTag} />
           </div>
         </CardBody>
+
+        {/* ---------- Footer ---------- */}
         <CardFooter className="justify-end">
           <div className="flex flex-row gap-4">
             <Button onClick={() => history.back()}>Cancel</Button>
             <Button
               color="primary"
               onClick={() => {
-                submitPost();
+                createPost({
+                  author_id: user ? user.id : "",
+                  title: title,
+                  content: description,
+                }).then(({ error }) => {
+                  if (!error) navigate("/news");
+                  else console.log(error);
+                });
               }}
             >
               Public
@@ -86,21 +110,6 @@ const CreatePost = () => {
           </div>
         </CardFooter>
       </Card>
-
-      {visiblePublic && (
-        <Card
-          className="mt-4 w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl"
-          shadow="none"
-        >
-          <CardHeader>Public View:</CardHeader>
-          <CardBody>
-            <div
-              className="prose prose-gray dark:prose-invert" //prose-sm sm:prose-base
-              dangerouslySetInnerHTML={{ __html: descriptionValue }}
-            />
-          </CardBody>
-        </Card>
-      )}
     </div>
   );
 };

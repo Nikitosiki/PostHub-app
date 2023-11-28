@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { Badge } from "@nextui-org/react";
 
 // import { default as NumberComponent } from "src/components/Number";
-import { getReactionIcon } from "src/utils";
 import { IReactions } from "src/interfaces";
 
 type TypeReactionsProps = {
@@ -36,7 +35,7 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
               <Badge
                 color="primary"
                 content={
-                  selectReaction === reaction.grade
+                  selectReaction === reaction.emoji
                     ? reaction.count + 1
                     : reaction.count
                 }
@@ -45,10 +44,10 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
                 <div
                   className="h-12 w-12 cursor-pointer text-center font-notocolor text-3xl dark:font-noto"
                   onClick={() => {
-                    handleReactionClick(reaction.grade);
+                    handleReactionClick(reaction.emoji);
                   }}
                 >
-                  {getReactionIcon(reaction.grade)}
+                  {reaction.emoji}
                 </div>
                 {/* <NumberComponent value={5} /> */}
               </Badge>

@@ -12,11 +12,11 @@ import News from "src/pages/News";
 import Tags from "src/pages/Tags";
 import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
+import Profile from "src/pages/Profile";
 
 // api functions
-import { getPostById } from "src/api/preview";
-import { IPost } from "./interfaces";
 import PrivateRoute from "./components/PrivateRoute";
+import { getPosts, getPostById } from "./api/supabase/post";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +37,13 @@ const router = createBrowserRouter([
         index: true,
         path: "/news",
         element: <News />,
+        errorElement: <Notfound />,
+        loader: async () => {
+          const data = await getPosts();
+          if (data.length < 1)
+            throw new Response("Service Unavailable", { status: 503 });
+          return data;
+        },
       },
       {
         path: "/hots",
@@ -48,11 +55,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/create",
-        element: <PrivateRoute element={<CreatePost />} />,
+        element: <CreatePost />,
       },
       {
         path: "/profile",
-        element: <PrivateRoute element={<div />} />,
+        element: <Profile />,
       },
       {
         path: "/profile/settings",
@@ -62,9 +69,12 @@ const router = createBrowserRouter([
         path: "/post/:id",
         element: <Post />,
         errorElement: <Notfound value="Post is not found" />,
-        loader: ({ params }): IPost => {
-          const data = getPostById(Number(params.id));
-          if (!data) throw new Response("Not Found", { status: 404 });
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("Post is not found", { status: 404 });
+
+          const data = getPostById(params.id);
+          if (!data) throw new Response("Post is not found", { status: 404 });
           return data;
         },
       },

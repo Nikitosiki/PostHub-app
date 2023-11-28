@@ -1,13 +1,12 @@
 import { FC } from "react";
 import { Chip } from "@nextui-org/react";
-import { getReactionIcon } from "src/utils";
 import { IReaction } from "src/interfaces";
 
 type TypeReactionProps = {
   className?: string;
 } & IReaction;
 
-const Reaction: FC<TypeReactionProps> = ({ grade, count, className }) => {
+const Reaction: FC<TypeReactionProps> = ({ emoji, count, className }) => {
   return (
     <>
       <Chip
@@ -15,7 +14,7 @@ const Reaction: FC<TypeReactionProps> = ({ grade, count, className }) => {
       >
         <div className="flex flex-row gap-1">
           <div className="font-notocolor dark:font-noto">
-            {getReactionIcon(grade)}
+            {emoji}
           </div>
           <div>{count}</div>
         </div>

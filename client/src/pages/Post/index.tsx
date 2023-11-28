@@ -33,17 +33,20 @@ const Post = () => {
         >
           <CardBody>
             <div className="flex flex-row flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <Tag
-                  key={tag.id}
-                  tag={tag}
-                  className="whitespace-nowrap text-xs"
-                />
-              ))}
+              {post.tags &&
+                post.tags.map((tag) => (
+                  <Tag
+                    key={tag.id}
+                    tag={tag}
+                    className="whitespace-nowrap text-xs"
+                  />
+                ))}
             </div>
           </CardBody>
 
-          <CardBody className="items-center">
+          <CardBody
+            className={`items-center ${post.reactions.length < 1 && "hidden"}`}
+          >
             <FullReactions reactions={post.reactions} />
           </CardBody>
 

@@ -40,7 +40,7 @@ const UserButton = () => {
               }}
               classNames={{
                 base: "gap-0",
-                name: "hidden sm:block sm:pl-4 sm:max-w-[10rem] truncate",
+                name: "hidden max-w-[20rem] sm:block sm:pl-4 sm:max-w-[10rem] truncate",
               }}
             />
           </Button>

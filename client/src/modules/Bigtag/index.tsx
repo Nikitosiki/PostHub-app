@@ -14,12 +14,12 @@ const Bigtag: FC<{ tag: ITag }> = ({ tag }) => {
         isPressable
       >
         <Link to={`/tag/${tag.id}`} className="h-full w-full">
-          {tag.image_url !== null ? (
+          {tag.image_path !== null ? (
             <Image
               removeWrapper
               alt="Card background"
               className="z-0 h-full w-full object-cover"
-              src={tag.image_url}
+              src={tag.image_path}
             />
           ) : (
             <div className="z-0 h-full w-full bg-primary object-cover" />
