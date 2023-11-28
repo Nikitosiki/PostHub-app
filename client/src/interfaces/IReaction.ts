@@ -1,4 +1,6 @@
 export interface IReaction {
-  grade: number;
+  emoji: number;
   count: number;
 }
+
+export interface IReactions extends Array<IReaction> {}

@@ -1,11 +1,14 @@
 import Post from "src/modules/Post";
 import Search from "src/components/Search";
 
-import { getPosts } from "src/api/preview";
+// import { getPosts } from "src/api/preview";
 import { Button } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { IPosts } from "src/interfaces";
 
 const News = () => {
+  const posts = useLoaderData() as IPosts;
+
   return (
     <>
       <div className="flex w-full flex-col gap-4 p-2">
@@ -17,7 +20,7 @@ const News = () => {
             </Button>
           </Link>
         </div>
-        {getPosts().map((post) => (
+        {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>
