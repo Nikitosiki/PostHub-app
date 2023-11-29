@@ -7,6 +7,7 @@ export const getUserByUid = async (uid: string): Promise<IUser | null> => {
     .from("users")
     .select("*, genders(name)")
     .eq("uid", uid);
+    
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return null;
 

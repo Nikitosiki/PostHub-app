@@ -36,3 +36,15 @@ export const confirmPasswordSchema = yup
   .oneOf([yup.ref("password"), undefined], "Passwords must match")
   .max(50, "Confirm password must be at most 50 characters")
   .required("Confirm password is required");
+
+export const titlePostSchema = yup
+  .string()
+  .min(5, "Title must be at least 5 characters")
+  .max(300, "Title must be at most 300 characters")
+  .required("Title is required");
+
+export const contentPostSchema = yup
+  .string()
+  .min(30, "Contents are too short")
+  .max(10000, "Contents are too long")
+  .required("Content is required");

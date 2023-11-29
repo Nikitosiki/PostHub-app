@@ -41,7 +41,7 @@
     "prettier-plugin-tailwindcss": "^0.5.4",
     "supabase": "1.115.4",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2",
+    "typescript": "5.3.0-beta",
     "vite": "^4.4.5"
   },
   "packageManager": "yarn@4.0.1"

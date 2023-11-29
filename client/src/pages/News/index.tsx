@@ -1,7 +1,6 @@
 import Post from "src/modules/Post";
 import Search from "src/components/Search";
 
-// import { getPosts } from "src/api/preview";
 import { Button } from "@nextui-org/react";
 import { Link, useLoaderData } from "react-router-dom";
 import { IPosts } from "src/interfaces";

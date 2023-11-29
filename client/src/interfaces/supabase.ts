@@ -9,6 +9,9 @@ export type Json =
 export type Tables<T extends keyof IDatabase["public"]["Tables"]> =
   IDatabase["public"]["Tables"][T]["Row"];
 
+export type Create<T extends keyof IDatabase["public"]["Tables"]> =
+  IDatabase["public"]["Tables"][T]["Insert"];
+
 export interface IDatabase {
   public: {
     Tables: {

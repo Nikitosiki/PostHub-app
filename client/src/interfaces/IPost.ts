@@ -19,10 +19,4 @@ export interface IPost {
   updated_at: Date | null;
 }
 
-export interface ICreatePost {
-  title: string;
-  content: string;
-  author_id: string;
-}
-
 export interface IPosts extends Array<IPost> {}

@@ -1,13 +1,18 @@
 import { client } from "src/contexts/Auth/AuthFunctions";
-import { ICreatePost, IPost, IPosts } from "src/interfaces";
+import { Create, IPost, IPosts } from "src/interfaces";
 import { toPost } from "./parsers";
 
-export const createPost = async (post: ICreatePost) => {
-  const { data, error } = await client.rpc("create_post", {
-    title: post.title,
-    content: post.content,
-    author_id: post.author_id,
-  });
+// export const createPost = async (post: ICreatePost) => {
+//   const { data, error } = await client.rpc("create_post", {
+//     title: post.title,
+//     content: post.content,
+//     author_id: post.author_id,
+//   });
+//   return { data, error };
+// };
+
+export const createPost = async (post: Create<"posts">) => {
+  const { data, error } = await client.from("posts").insert(post).select();
   return { data, error };
 };
 
@@ -18,8 +23,8 @@ export const getPosts = async (): Promise<IPost[]> => {
       tags(*, users(*, genders(name))), 
       reactions(*)`,
   );
+  
   error && console.log(error);
-  console.log(data);
   if (!Array.isArray(data) || data.length < 1) return [];
 
   return data
@@ -37,7 +42,7 @@ export const getPostById = async (id: string): Promise<IPost | null> => {
       reactions(*)`,
     )
     .eq("id", id);
-  console.log(data);
+    
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return null;
 

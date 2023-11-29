@@ -3559,7 +3559,7 @@ __metadata:
     react-router-dom: "npm:^6.18.0"
     supabase: "npm:1.115.4"
     tailwindcss: "npm:^3.3.3"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:5.3.0-beta"
     vite: "npm:^4.4.5"
     yup: "npm:^1.3.2"
   languageName: unknown
@@ -6118,23 +6118,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "typescript@npm:5.2.2"
+"typescript@npm:5.3.0-beta":
+  version: 5.3.0-beta
+  resolution: "typescript@npm:5.3.0-beta"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 91ae3e6193d0ddb8656d4c418a033f0f75dec5e077ebbc2bd6d76439b93f35683936ee1bdc0e9cf94ec76863aa49f27159b5788219b50e1cd0cd6d110aa34b07
+  checksum: c350c30c7bd50071a8d4d596a6f49af682d711c671c30bd277f288d64bab4006ce67c6fd522bfde36120ff8b2d94e9e6b819d5a0f86f1039ae6c44c8cb502f6a
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
-  version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
+"typescript@patch:typescript@npm%3A5.3.0-beta#optional!builtin<compat/typescript>":
+  version: 5.3.0-beta
+  resolution: "typescript@patch:typescript@npm%3A5.3.0-beta#optional!builtin<compat/typescript>::version=5.3.0-beta&hash=29ae49"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 062c1cee1990e6b9419ce8a55162b8dc917eb87f807e4de0327dbc1c2fa4e5f61bc0dd4e034d38ff541d1ed0479b53bcee8e4de3a4075c51a1724eb6216cb6f5
+  checksum: 456074fc54625146190dce9bbca90c63e15bc4587508281a7df7c952fe5c9842f38d14a9044c794255458d0ef3fddb17a29fea996060425b83f2571806c3b161
   languageName: node
   linkType: hard
 

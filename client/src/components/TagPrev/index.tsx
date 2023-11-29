@@ -4,15 +4,15 @@ import { BsStars } from "react-icons/bs";
 
 type TypeTagTextProps = {
   tagName: string;
-  close?: () => void;
+  onClose?: () => void;
   className?: string;
 };
 
-const TagPrev: FC<TypeTagTextProps> = ({ tagName, close, className }) => {
+const TagPrev: FC<TypeTagTextProps> = ({ tagName, onClose, className }) => {
   return (
     <>
       <Chip
-        onClose={close}
+        onClose={onClose}
         className={`bg-primary-100 text-primary ${className}`}
       >
         <div className="inline-flex items-center gap-1 py-1">

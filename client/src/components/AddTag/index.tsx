@@ -3,7 +3,7 @@ import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
 import { useAsyncList } from "@react-stately/data";
-import { getTagsByTitle } from "src/api/supabase/tags";
+import { searchTagsByTitle } from "src/api/supabase/tags";
 import { ITag } from "src/interfaces";
 
 type TypeAddTagProps = {
@@ -15,7 +15,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add }) => {
 
   const list = useAsyncList<ITag>({
     async load({ filterText }) {
-      const tags = await getTagsByTitle(filterText ?? "");
+      const tags = await searchTagsByTitle(filterText ?? "");
       return {
         items: tags,
       };
@@ -23,7 +23,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add }) => {
   });
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-[186px]">
       <Autocomplete
         size={"sm"}
         radius="full"
@@ -43,8 +43,8 @@ const AddTag: FC<TypeAddTagProps> = ({ add }) => {
         scrollShadowProps={{
           isEnabled: false,
         }}
-        label=" "
         isClearable={false}
+        maxLength={30}
       >
         {(item) => (
           <AutocompleteItem key={item.title}>{item.title}</AutocompleteItem>
