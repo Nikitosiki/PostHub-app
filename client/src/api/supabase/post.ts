@@ -1,5 +1,5 @@
 import { client } from "src/contexts/Auth/AuthFunctions";
-import { ICreatePost, IPost } from "src/interfaces";
+import { ICreatePost, IPost, IPosts } from "src/interfaces";
 import { toPost } from "./parsers";
 
 export const createPost = async (post: ICreatePost) => {
@@ -19,9 +19,12 @@ export const getPosts = async (): Promise<IPost[]> => {
       reactions(*)`,
   );
   error && console.log(error);
+  console.log(data);
   if (!Array.isArray(data) || data.length < 1) return [];
 
-  return data.map((post) => toPost(post));
+  return data
+    .map((post) => toPost(post))
+    .filter((post) => post !== null) as IPosts;
 };
 
 export const getPostById = async (id: string): Promise<IPost | null> => {
@@ -34,6 +37,7 @@ export const getPostById = async (id: string): Promise<IPost | null> => {
       reactions(*)`,
     )
     .eq("id", id);
+  console.log(data);
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return null;
 

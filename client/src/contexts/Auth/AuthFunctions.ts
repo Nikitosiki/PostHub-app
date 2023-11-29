@@ -5,6 +5,7 @@ import {
   OAuthResponse,
   createClient,
 } from "@supabase/supabase-js";
+import { IDatabase } from "src/interfaces";
 
 export type TypeSignIn = Promise<OAuthResponse | AuthTokenResponse>;
 export type TypeSignUp = Promise<AuthResponse>;
@@ -12,7 +13,7 @@ export type TypeLogOut = Promise<{
   error: AuthError | null;
 }>;
 
-export const client = createClient(
+export const client = createClient<IDatabase>(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY,
 );

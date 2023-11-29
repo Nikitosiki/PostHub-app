@@ -11,5 +11,5 @@ export const getTagsByTitle = async (title: string): Promise<ITags> => {
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];
 
-  return data.map((tag) => toTag(tag));
+  return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
