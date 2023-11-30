@@ -8,18 +8,24 @@ import { nullToUndefined } from "src/utils";
 type TypeAuthorProps = {
   author: IUser;
   description?: string;
+  className?: string;
 } & Omit<UserProps, "name">;
 
-const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
+const Author: FC<TypeAuthorProps> = ({
+  author,
+  description,
+  className,
+  ...rest
+}) => {
   return (
-    <>
+    <div className={className}>
       <Link to={`/author/${author.id}`}>
         <User
           name={author.name}
           description={description}
           className=""
           classNames={{
-            name: "font-bold text-default-600 truncate max-w-[10rem]",
+            name: "font-bold text-default-600 truncate max-w-[13rem]",
             description: "text-default-500",
           }}
           avatarProps={{
@@ -33,7 +39,7 @@ const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
           {...rest}
         />
       </Link>
-    </>
+    </div>
   );
 };
 

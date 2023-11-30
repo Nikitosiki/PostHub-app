@@ -37,13 +37,6 @@ const router = createBrowserRouter([
         index: true,
         path: "/news",
         element: <News />,
-        errorElement: <Notfound />,
-        loader: async () => {
-          const data = await getPosts();
-          if (data.length < 1)
-            throw new Response("Service Unavailable", { status: 503 });
-          return data;
-        },
       },
       {
         path: "/hots",

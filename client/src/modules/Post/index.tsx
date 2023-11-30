@@ -64,6 +64,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
       <CardHeader className="flex-col items-start gap-2 pb-2">
         <div className="flex w-full flex-row justify-between">
           <Author
+            className="w-full text-left"
             author={post.author}
             description={`Posted on ${getShortFormattedDate(
               post.published_at,
@@ -100,15 +101,15 @@ const Post: FC<IMainProps & IActiveParts> = ({
       <CardBody className="pt-0">
         {fullContent ? (
           // <p className="whitespace-pre-wrap">
-            <InnerHTML content={post.content} />
-          // </p>
+          <InnerHTML content={post.content} />
         ) : (
+          // </p>
           <div
             ref={contentRef}
             className="relative max-h-[330px] overflow-hidden"
           >
             {/* <p className="whitespace-pre-wrap"> */}
-              <InnerHTML content={post.content} />
+            <InnerHTML content={post.content} />
             {/* </p> */}
             <div
               ref={shadowRef}
