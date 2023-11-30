@@ -76,12 +76,13 @@ const CreatePost = () => {
     });
     if (postResult.error || !postResult.data || postResult.data.length < 1) {
       form.setError("title", {
-        type: postResult.error?.code,
-        message: postResult.error?.message,
+        message: "Failed to create post, try changing the title",
       });
+      console.log(postResult.error?.code, postResult.error?.message);
+      setLoading(false);
       return;
     }
-    
+
     const postId = postResult.data[0].id;
     await addTagsToPost(IdTags, postId);
 
@@ -122,7 +123,7 @@ const CreatePost = () => {
               control={form.control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Editor
-                  value={value}
+                  value={value ?? ""}
                   onEditorChange={onChange}
                   onBlur={onBlur}
                 />

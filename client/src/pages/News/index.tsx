@@ -5,14 +5,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import Post from "src/modules/Post";
 import Search from "src/components/Search";
-import { IPost, IPosts } from "src/interfaces";
+import { IPost } from "src/interfaces";
 import { getNewPosts } from "src/api/supabase/post";
 
 const News = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [hasMorePosts, setHasMorePosts] = useState<boolean>(true);
   const [numberPage, setNumberPage] = useState<number>(1);
-  const postsOnPage = 3;
+  const postsOnPage = 1;
 
   const getNextPosts = async () => {
     const nextPosts = await getNewPosts(numberPage, postsOnPage);
@@ -22,8 +22,15 @@ const News = () => {
   };
 
   useEffect(() => {
-    getNextPosts();
-  }, []);
+    if (hasMorePosts && document.body.scrollHeight === window.innerHeight) {
+      console.log(hasMorePosts, document.body.scrollHeight, window.innerHeight);
+      getNextPosts();
+    }
+  });
+
+  // useEffect(() => {
+  //   getNextPosts();
+  // }, []);
 
   return (
     <>
