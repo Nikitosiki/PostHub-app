@@ -76,7 +76,7 @@ const CreatePost = () => {
     });
     if (postResult.error || !postResult.data || postResult.data.length < 1) {
       form.setError("title", {
-        message: "Failed to create post, try changing the title",
+        message: "Failed to create post",
       });
       console.log(postResult.error?.code, postResult.error?.message);
       setLoading(false);

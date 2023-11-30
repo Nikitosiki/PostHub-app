@@ -10,6 +10,7 @@ import {
   NavbarMenuItem,
   Tabs,
   Tab,
+  Button,
 } from "@nextui-org/react";
 
 import ThemeSwitch from "./components/ThemeSwitch";
@@ -19,7 +20,6 @@ import { useStateTabs } from "./hooks/useStateTabs";
 import { MenuItem } from "./types/MenuItem";
 import { useAuth } from "src/contexts";
 import UserButton from "./components/UserButton";
-
 
 const menuItems: MenuItem[] = [
   {
@@ -84,7 +84,7 @@ const Header = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem>
           <Tabs
             key="underlined"
@@ -132,7 +132,15 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        {/* <NavbarItem className="inline-flex items-center text-default-500"> */}
+        <Link to="/post/create">
+          <span className="material-symbols-rounded p-1 pb-0">search</span>
+        </Link>
+        <Link to="/post/create">
+          <span className="material-symbols-rounded p-1 pb-0">stylus_note</span>
+        </Link>
         {user ? <UserButton /> : <AuthButton />}
+        {/* </NavbarItem> */}
         {!user && (
           <ThemeSwitch
             isSelected={isDarkTheme}

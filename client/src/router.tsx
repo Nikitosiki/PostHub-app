@@ -16,7 +16,7 @@ import Profile from "src/pages/Profile";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
-import { getPosts, getPostById } from "./api/supabase/post";
+import { getPostById } from "./api/supabase/post";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/create",
-        element: <CreatePost />,
+        element: <PrivateRoute element={<CreatePost />} />,
       },
       {
         path: "/profile",

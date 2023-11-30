@@ -1,11 +1,11 @@
 import {
+  Avatar,
   Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-  User,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
@@ -25,24 +25,18 @@ const UserButton = () => {
         }}
       >
         <DropdownTrigger>
-          <Button
-            color="primary"
-            variant="light"
-            className="min-w-[3rem] justify-end px-2 text-foreground"
-          >
-            <User
-              name={user?.name}
-              avatarProps={{
-                src: user?.image_url ?? "",
-                size: "sm",
-                isBordered: true,
-                color: "primary",
-              }}
-              classNames={{
-                base: "gap-0",
-                name: "hidden max-w-[20rem] sm:block sm:pl-4 sm:max-w-[10rem] truncate",
-              }}
-            />
+          <Button className="min-w-unit-10 bg-inherit px-0">
+            <div className="flex cursor-pointer flex-row items-center px-2">
+              <Avatar
+                src={user?.image_url ?? ""}
+                size={"sm"}
+                isBordered={true}
+                color={"primary"}
+              />
+              <p className="hidden max-w-[20rem] truncate md:block md:max-w-[10rem] md:pl-4">
+                {user?.name}
+              </p>
+            </div>
           </Button>
         </DropdownTrigger>
         <DropdownMenu
