@@ -1,5 +1,10 @@
 import { FC, useState } from "react";
-import { Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  AutocompleteProps,
+  Button,
+} from "@nextui-org/react";
 import { motion } from "framer-motion";
 
 import { useAsyncList } from "@react-stately/data";
@@ -8,9 +13,9 @@ import { ITag } from "src/interfaces";
 
 type TypeAddTagProps = {
   add(tag: ITag | string): void;
-};
+} & Omit<AutocompleteProps, "children">;
 
-const AddTag: FC<TypeAddTagProps> = ({ add }) => {
+const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const list = useAsyncList<ITag>({
@@ -23,7 +28,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add }) => {
   });
 
   return (
-    <div className="flex flex-row w-[186px]">
+    <div className="flex w-[186px] flex-row">
       <Autocomplete
         size={"sm"}
         radius="full"
@@ -45,6 +50,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add }) => {
         }}
         isClearable={false}
         maxLength={30}
+        {...props}
       >
         {(item) => (
           <AutocompleteItem key={item.title}>{item.title}</AutocompleteItem>

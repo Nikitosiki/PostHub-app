@@ -86,8 +86,8 @@ const CreatePost = () => {
     const postId = postResult.data[0].id;
     await addTagsToPost(IdTags, postId);
 
-    setLoading(false);
     navigate(`/post/${postId}`);
+    setLoading(false);
   };
 
   return (
@@ -109,6 +109,7 @@ const CreatePost = () => {
               render={({ field }) => (
                 <InputTitle
                   type="title"
+                  isDisabled={isLoading}
                   errorMessage={form.formState.errors.title?.message}
                   {...field}
                 />
@@ -126,6 +127,7 @@ const CreatePost = () => {
                   value={value ?? ""}
                   onEditorChange={onChange}
                   onBlur={onBlur}
+                  disabled={isLoading}
                 />
               )}
             />
@@ -140,6 +142,7 @@ const CreatePost = () => {
                   key={value.title}
                   tag={value}
                   disableLink
+                  isDisabled={isLoading}
                   onClose={() => {
                     tags.splice(tags.indexOf(value), 1);
                     setTags([...tags]);
@@ -150,13 +153,14 @@ const CreatePost = () => {
                 <TagPrev
                   key={value}
                   tagName={value}
+                  isDisabled={isLoading}
                   onClose={() => {
                     newTags.splice(newTags.indexOf(value), 1);
                     setNewTags([...newTags]);
                   }}
                 />
               ))}
-              <AddTag add={addTag} />
+              <AddTag add={addTag} isDisabled={isLoading} />
             </div>
           </CardBody>
           {newTags.length > 0 && (
