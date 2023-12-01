@@ -40,7 +40,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
         items={list.items}
         allowsCustomValue={true}
         onInputChange={(val) => {
-          val = val.toLowerCase();
+          val = val.toLowerCase().replace(/\s/g, "-");
           list.setFilterText(val);
           setInputValue(val);
         }}

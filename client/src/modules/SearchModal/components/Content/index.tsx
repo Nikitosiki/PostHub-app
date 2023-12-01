@@ -25,7 +25,7 @@ const Content: FC<ContentProps> = ({ tags, users, posts }) => {
       </ModalBody>
       <ModalBody className={`flex-none ${users.length < 1 ? "hidden" : ""}`}>
         <p>Users</p>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row flex-wrap gap-2">
           {users.map((user) => (
             <div className="rounded-full bg-background px-1 pr-3">
               {/* <div className="rounded-full bg-background px-2 py-1 pr-3"> */}
@@ -36,7 +36,7 @@ const Content: FC<ContentProps> = ({ tags, users, posts }) => {
       </ModalBody>
       <ModalBody className={`flex-none ${posts.length < 1 ? "hidden" : ""}`}>
         <p>Posts</p>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col flex-wrap gap-2">
           {posts.map((post) => (
             <Post
               contentHeight={50}

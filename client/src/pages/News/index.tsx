@@ -10,26 +10,38 @@ import { getNewPosts } from "src/api/supabase/post";
 
 const News = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMorePosts, setHasMorePosts] = useState<boolean>(true);
   const [numberPage, setNumberPage] = useState<number>(1);
-  const postsOnPage = 3;
+  const postsOnPage = 10;
 
   const getNextPosts = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const nextPosts = await getNewPosts(numberPage, postsOnPage);
     if (nextPosts.length === 0) setHasMorePosts(false);
     setPosts([...posts, ...nextPosts]);
     setNumberPage(numberPage + 1);
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
+  // useEffect(() => {
+  //   console.log(
+  //     "loadPosts: ",
+  //     isLoading,
+  //     hasMorePosts,
+  //     document.body.scrollHeight === window.innerHeight,
+  //     document.body.scrollHeight,
+  //     window.innerHeight,
+  //   );
+  //   if (isLoading) return;
+  //   if (hasMorePosts && document.body.scrollHeight === window.innerHeight) {
+  //     getNextPosts();
+  //   }
+  // });
+
   useEffect(() => {
-    if (isLoading) return;
-    if (hasMorePosts && document.body.scrollHeight === window.innerHeight) {
-      getNextPosts();
-    }
-  });
+    getNextPosts();
+  }, []);
 
   return (
     <>
@@ -40,14 +52,6 @@ const News = () => {
         loader={""}
       >
         <div className="flex w-full flex-col gap-4 p-2">
-          {/* <div className="flex flex-row gap-2">
-            <Search />
-            <Link to="/post/create" className="h-auto">
-              <Button color="primary" className="h-full">
-                <span className="material-symbols-rounded">add</span>
-              </Button>
-            </Link>
-          </div> */}
           {posts.map((post) => (
             <Post key={post.id} post={post} />
           ))}
