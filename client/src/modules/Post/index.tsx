@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
-import { getShortFormattedDate } from "src/utils";
+import { timeElapsedString } from "src/utils";
 import Author from "src/components/Author";
 import Reactions from "src/components/Reactions";
 import Tag from "src/components/Tag";
@@ -72,9 +72,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
           <Author
             className="w-full text-left"
             author={post.author}
-            description={`Posted on ${getShortFormattedDate(
-              post.published_at,
-            )}`}
+            description={`Posted on ${timeElapsedString(post.published_at)}`}
           />
           {countViewVisible && (
             <div className="flex text-default-500">
@@ -168,7 +166,9 @@ const Post: FC<IMainProps & IActiveParts> = ({
   return (
     <>
       <Card
-        className={`w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${cardClassName ?? ""}`}
+        className={`w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${
+          cardClassName ?? ""
+        }`}
         shadow="none"
         key={post.id}
         isPressable={isPressable}

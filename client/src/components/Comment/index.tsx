@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@nextui-org/react";
 
 import { IComment } from "src/interfaces";
-import { getShortFormattedDate, nullToUndefined } from "src/utils";
+import { timeElapsedString, nullToUndefined } from "src/utils";
 
 interface ICommentProps {
   comment: IComment;
@@ -28,7 +28,7 @@ const Comment: FC<ICommentProps> = ({ comment, children }) => {
             </Link>
             <span className="m-1 text-default-400">𐄁</span>
             <span className="text-default-400">
-              {getShortFormattedDate(comment.created_at)}
+              {timeElapsedString(comment.created_at)}
             </span>
           </div>
           <p>{comment.content}</p>
