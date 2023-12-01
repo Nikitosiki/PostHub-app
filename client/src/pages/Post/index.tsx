@@ -15,6 +15,7 @@ import FullReactions from "src/components/FullReactions";
 import EditorComment from "src/components/EditorComment";
 import Comments from "src/modules/Comments";
 import { getComments } from "src/api/preview";
+import { NavigateAuthorPage } from "src/paths";
 
 const Post = () => {
   const [isCommentFormVisible, setCommentFormVisibility] = useState(false);
@@ -56,7 +57,7 @@ const Post = () => {
               {/* <div className="hidden sm:block"> */}
               <p className="text-sm">
                 Comment as{" "}
-                <Link className="text-primary" to={`/author/${post.author.id}`}>
+                <Link className="text-primary" to={NavigateAuthorPage(post.author.id)}>
                   {post.author.name} ******
                 </Link>
               </p>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { IUser } from "src/interfaces";
 import { nullToUndefined } from "src/utils";
+import { NavigateAuthorPage } from "src/paths";
 
 type TypeAuthorProps = {
   author: IUser;
@@ -19,7 +20,7 @@ const Author: FC<TypeAuthorProps> = ({
 }) => {
   return (
     <div className={`pt-1 ${className}`}>
-      <Link to={`/author/${author.id}`}>
+      <Link to={NavigateAuthorPage(author.id)}>
         <User
           name={author.name}
           description={description}

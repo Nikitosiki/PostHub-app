@@ -4,6 +4,7 @@ import { Avatar } from "@nextui-org/react";
 
 import { IComment } from "src/interfaces";
 import { timeElapsedString, nullToUndefined } from "src/utils";
+import { NavigateAuthorPage } from "src/paths";
 
 interface ICommentProps {
   comment: IComment;
@@ -14,7 +15,7 @@ const Comment: FC<ICommentProps> = ({ comment, children }) => {
   return (
     <>
       <div className="mb-2 flex flex-row gap-2">
-        <Link to={`/author/${comment.author.id}`}>
+        <Link to={NavigateAuthorPage(comment.author.id)}>
           <Avatar
             size="sm"
             name={comment.author.name}
@@ -23,7 +24,7 @@ const Comment: FC<ICommentProps> = ({ comment, children }) => {
         </Link>
         <div>
           <div className="text-sm">
-            <Link to={`/author/${comment.author.id}`}>
+            <Link to={NavigateAuthorPage(comment.author.id)}>
               <span>{comment.author.name}</span>
             </Link>
             <span className="m-1 text-default-400">𐄁</span>

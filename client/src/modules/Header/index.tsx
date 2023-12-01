@@ -22,29 +22,36 @@ import { useAuth } from "src/contexts";
 import UserButton from "./components/UserButton";
 import SearchButton from "./components/SearchButton";
 
+import {
+  NavigateCreatePostPage,
+  NavigateHotsPage,
+  NavigateNewsPage,
+  NavigateTagsPage,
+} from "src/paths";
+
 const menuItems: MenuItem[] = [
   {
     name: "News",
-    path: "/news",
+    path: NavigateNewsPage(),
   },
   {
     name: "Hots",
-    path: "/hots",
+    path: NavigateHotsPage(),
   },
   {
     name: "Tags",
-    path: "/tags",
+    path: NavigateTagsPage(),
   },
 ];
 
 const mobileMenuItems: MenuItem[] = menuItems.concat([
   // {
   //   name: "Create",
-  //   path: "/post/create",
+  //   path: NavigateCreatePostPage(),
   // },
   // {
   //   name: "Profile",
-  //   path: "/profile",
+  //   path: NavigateProfilePage(),
   // },
   // {
   //   name: "Log Out",
@@ -57,12 +64,6 @@ const Header = () => {
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
   const { user } = useAuth();
-
-  // <header>
-  //   <Link to="/">home</Link>
-  //   <Link to="/post">post</Link>
-  //   <Link to="/nikita">nikita</Link>
-  // </header>
 
   return (
     <NavbarUI
@@ -136,9 +137,13 @@ const Header = () => {
         <SearchButton>
           <span className="material-symbols-rounded p-1">search</span>
         </SearchButton>
-        {user && (<Link to="/post/create">
-          <span className="material-symbols-rounded p-1 pb-0">stylus_note</span>
-        </Link>)}
+        {user && (
+          <Link to={NavigateCreatePostPage()}>
+            <span className="material-symbols-rounded p-1 pb-0">
+              stylus_note
+            </span>
+          </Link>
+        )}
         {user ? <UserButton /> : <AuthButton />}
         {!user && (
           <ThemeSwitch

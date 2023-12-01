@@ -24,6 +24,7 @@ import InputTitle from "./components/InputTitle";
 import ErrorMessage from "src/components/ErrorMessage";
 import { createTag, getTagIdByTitle } from "src/api/supabase/tags";
 import { addTagsToPost } from "src/api/supabase/postTags";
+import { NavigatePostPage } from "src/paths";
 
 const CreatePost = () => {
   const [isLoading, setLoading] = useState(false);
@@ -86,7 +87,7 @@ const CreatePost = () => {
     const postId = postResult.data[0].id;
     await addTagsToPost(IdTags, postId);
 
-    navigate(`/post/${postId}`);
+    navigate(NavigatePostPage(postId));
     setLoading(false);
   };
 

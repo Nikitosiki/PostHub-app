@@ -4,6 +4,9 @@ import {
   ScrollRestoration,
 } from "react-router-dom";
 
+// Paths
+import { AuthorPagePath, CreatePostPagePath, HotsPagePath, NewsPagePath, PostPagePath, ProfilePagePath, TagPagePath, TagsPagePath } from "./paths";
+
 // Pages
 import Layout from "src/components/Layout";
 import Post from "src/pages/Post";
@@ -31,35 +34,35 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/news" />,
+        element: <Navigate to={NewsPagePath} />,
       },
       {
         index: true,
-        path: "/news",
+        path: NewsPagePath,
         element: <News />,
       },
       {
-        path: "/hots",
+        path: HotsPagePath,
         element: <Hots />,
       },
       {
-        path: "/tags",
+        path: TagsPagePath,
         element: <Tags />,
       },
       {
-        path: "/post/create",
+        path: CreatePostPagePath,
         element: <PrivateRoute element={<CreatePost />} />,
       },
       {
-        path: "/profile",
-        element: <Profile />,
+        path: ProfilePagePath,
+        element: <PrivateRoute element={<Profile />} />,
       },
+      // {
+      //   path: "/profile/settings",
+      //   element: <PrivateRoute element={<div />} />,
+      // },
       {
-        path: "/profile/settings",
-        element: <PrivateRoute element={<div />} />,
-      },
-      {
-        path: "/post/:id",
+        path: PostPagePath,
         element: <Post />,
         errorElement: <Notfound value="Post is not found" />,
         loader: ({ params }) => {
@@ -72,12 +75,12 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/author/:id",
+        path: AuthorPagePath,
         element: <div />,
         errorElement: <Notfound value="User is not found" />,
       },
       {
-        path: "/tag/:id",
+        path: TagPagePath,
         element: <div />,
         errorElement: <Notfound value="Tag is not found" />,
       },

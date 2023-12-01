@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 import { useSwitchTheme } from "src/hooks";
 import { useAuth } from "src/contexts";
+import { NavigateCreatePostPage, NavigateProfilePage } from "src/paths";
 
 const UserButton = () => {
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
@@ -64,7 +65,7 @@ const UserButton = () => {
             }}
           >
             <DropdownItem key="user" className="max-w-[15rem] text-default-500">
-              <Link to="/profile">
+              <Link to={NavigateProfilePage()}>
                 <p className="whitespace-normal">{user?.name}</p>
               </Link>
             </DropdownItem>
@@ -78,7 +79,7 @@ const UserButton = () => {
             }}
           >
             <DropdownItem key="create">
-              <Link to="/post/create">
+              <Link to={NavigateCreatePostPage()}>
                 <p>Create Post</p>
               </Link>
             </DropdownItem>
@@ -97,7 +98,7 @@ const UserButton = () => {
               </div>
             </DropdownItem>
             <DropdownItem key="settings">
-              <Link to="/profile/settings">
+              <Link to={NavigateProfilePage()}>
                 <p>Settings</p>
               </Link>
             </DropdownItem>

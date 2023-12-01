@@ -3,6 +3,7 @@ import { Chip, ChipProps } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { ITag } from "src/interfaces";
+import { NavigateTagPage } from "src/paths";
 
 type TypeTagProps = {
   tag: ITag;
@@ -28,7 +29,7 @@ const Tag: FC<TypeTagProps> = ({
     </Chip>
   );
 
-  return disableLink ? content : <Link to={`/tag/${tag.id}`}>{content}</Link>;
+  return disableLink ? content : <Link to={NavigateTagPage(tag.id)}>{content}</Link>;
 };
 
 export default Tag;
