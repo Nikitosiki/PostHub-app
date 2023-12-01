@@ -20,6 +20,7 @@ import { useStateTabs } from "./hooks/useStateTabs";
 import { MenuItem } from "./types/MenuItem";
 import { useAuth } from "src/contexts";
 import UserButton from "./components/UserButton";
+import SearchButton from "./components/SearchButton";
 
 const menuItems: MenuItem[] = [
   {
@@ -132,15 +133,13 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        {/* <NavbarItem className="inline-flex items-center text-default-500"> */}
-        <Link to="/post/create">
-          <span className="material-symbols-rounded p-1 pb-0">search</span>
-        </Link>
-        <Link to="/post/create">
+        <SearchButton>
+          <span className="material-symbols-rounded p-1">search</span>
+        </SearchButton>
+        {user && (<Link to="/post/create">
           <span className="material-symbols-rounded p-1 pb-0">stylus_note</span>
-        </Link>
+        </Link>)}
         {user ? <UserButton /> : <AuthButton />}
-        {/* </NavbarItem> */}
         {!user && (
           <ThemeSwitch
             isSelected={isDarkTheme}

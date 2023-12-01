@@ -28,6 +28,7 @@ interface IMainProps {
   children?: ReactNode;
   cardClassName?: string;
   isPressable?: boolean;
+  contentHeight?: number;
 }
 
 const Post: FC<IMainProps & IActiveParts> = ({
@@ -39,6 +40,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
   tagsVisible = true,
   reactionVisible = true,
   countViewVisible = true,
+  contentHeight = 330,
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
@@ -106,7 +108,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
           // </p>
           <div
             ref={contentRef}
-            className="relative max-h-[330px] overflow-hidden"
+            className={`relative max-h-[${contentHeight}px] overflow-hidden`}
           >
             {/* <p className="whitespace-pre-wrap"> */}
             <InnerHTML content={post.content} />

@@ -16,6 +16,26 @@ export const createPost = async (post: Create<"posts">) => {
   return { data, error };
 };
 
+export const searchPostsByTitle = async (text: string, limit?: number) => {
+  const { data, error } = await client
+    .from("posts")
+    .select(
+      ` *, 
+    users!posts_author_id_fkey(*, genders(name)), 
+    tags(*, users(*, genders(name))), 
+    reactions(*)`,
+    )
+    .ilike("title", `%${text}%`)
+    .range(0, (limit ?? 5) - 1);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data
+    .map((post) => toPost(post))
+    .filter((post) => post !== null) as IPosts;
+};
+
 export const getPosts = async (): Promise<IPost[]> => {
   const { data, error } = await client.from("posts").select(
     ` *, 
@@ -32,8 +52,11 @@ export const getPosts = async (): Promise<IPost[]> => {
     .filter((post) => post !== null) as IPosts;
 };
 
-export const getNewPosts = async (pageNumber: number, pageSize: number = 10): Promise<IPost[]> => {
-  console.log(pageNumber, pageSize)
+export const getNewPosts = async (
+  pageNumber: number,
+  pageSize: number = 10,
+): Promise<IPost[]> => {
+  console.log(pageNumber, pageSize);
   const { data, error } = await client
     .from("posts")
     .select(
