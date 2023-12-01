@@ -36,10 +36,10 @@ const Content: FC<ContentProps> = ({ tags, users, posts }) => {
       </ModalBody>
       <ModalBody className={`flex-none ${posts.length < 1 ? "hidden" : ""}`}>
         <p>Posts</p>
-        <div className="flex flex-col flex-wrap gap-2">
+        <div className="flex w-full flex-col flex-wrap gap-4">
           {posts.map((post) => (
             <Post
-              contentHeight={50}
+              contentHeight="short"
               tagsVisible={false}
               reactionVisible={false}
               post={post}

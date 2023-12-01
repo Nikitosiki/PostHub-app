@@ -49,11 +49,16 @@ const SearchModal: FC<SearchModalProps> = ({ isOpen, onOpenChange }) => {
       searchPostsByTitle(isSearchQuery, 6).then((posts) => setPosts(posts));
       searchTagsByTitle(isSearchQuery, 10).then((tags) => setTags(tags));
       searchUsersByName(isSearchQuery, 10).then((users) => setUsers(users));
+    } else setContentState("noContent");
+  };
+
+  useEffect(() => {
+    if (isSearchQuery) {
       if (posts.length < 1 && tags.length < 1 && users.length < 1)
         setContentState("notFound");
       else setContentState("content");
     } else setContentState("noContent");
-  };
+  }, [posts, tags, users]);
 
   useEffect(() => {
     const newTimer = window.setTimeout(() => {

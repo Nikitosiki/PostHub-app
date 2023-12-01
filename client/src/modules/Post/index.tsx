@@ -28,8 +28,12 @@ interface IMainProps {
   children?: ReactNode;
   cardClassName?: string;
   isPressable?: boolean;
-  contentHeight?: number;
+  contentHeight?: "short" | "normal";
 }
+
+const maxHeightContent = (value: IMainProps["contentHeight"]) => {
+  return value === "normal" ? "max-h-[330px]" : "max-h-[50px]";
+};
 
 const Post: FC<IMainProps & IActiveParts> = ({
   post,
@@ -40,7 +44,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
   tagsVisible = true,
   reactionVisible = true,
   countViewVisible = true,
-  contentHeight = 330,
+  contentHeight = "normal",
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
@@ -108,7 +112,9 @@ const Post: FC<IMainProps & IActiveParts> = ({
           // </p>
           <div
             ref={contentRef}
-            className={`relative max-h-[${contentHeight}px] overflow-hidden`}
+            className={`relative overflow-hidden ${maxHeightContent(
+              contentHeight,
+            )}`}
           >
             {/* <p className="whitespace-pre-wrap"> */}
             <InnerHTML content={post.content} />
@@ -162,7 +168,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
   return (
     <>
       <Card
-        className={`border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${cardClassName}`}
+        className={`w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${cardClassName ?? ""}`}
         shadow="none"
         key={post.id}
         isPressable={isPressable}
