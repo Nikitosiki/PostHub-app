@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
-    errorElement: <Notfound />,
+    // errorElement: <Notfound />,
     children: [
       {
         index: true,
@@ -71,6 +71,7 @@ const router = createBrowserRouter([
 
           const data = getPostById(params.id);
           if (!data) throw new Response("Post is not found", { status: 404 });
+
           return data;
         },
       },

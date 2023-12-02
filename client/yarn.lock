@@ -240,6 +240,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fingerprintjs/fingerprintjs@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@fingerprintjs/fingerprintjs@npm:4.2.1"
+  dependencies:
+    tslib: "npm:^2.4.1"
+  checksum: c7224e28bf54f197b80ffc4f5b24bfc4610b3ecbe8831c7a8d8717f85ff12ae0dc5b90f672a6ddaecf83302359515955c886d2ef9f1559304353ff151f28fb73
+  languageName: node
+  linkType: hard
+
 "@formatjs/ecma402-abstract@npm:1.17.2":
   version: 1.17.2
   resolution: "@formatjs/ecma402-abstract@npm:1.17.2"
@@ -3531,6 +3540,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "client@workspace:."
   dependencies:
+    "@fingerprintjs/fingerprintjs": "npm:^4.2.1"
     "@hookform/resolvers": "npm:^3.3.2"
     "@nextui-org/react": "npm:^2.2.9"
     "@react-stately/data": "npm:^3.11.0"
@@ -6129,7 +6139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb

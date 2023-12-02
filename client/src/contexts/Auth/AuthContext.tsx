@@ -12,9 +12,11 @@ import {
 import { AuthContextPops, UserAuthType } from "./AuthTypes";
 import AuthModal from "src/modules/AuthModal";
 import { getUserByUid } from "src/api/supabase/user";
+import { useFingerprintData } from "src/hooks/useFingerprintData";
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,
+  fsUserId: null,
   signInGoogle: async () => {},
   signInGithub: async () => {},
   signInFacebook: async () => {},
@@ -31,6 +33,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [user, setUser] = useState<UserAuthType>(null);
+  const fsUserId = useFingerprintData();
 
   useEffect(() => {
     async function getUserData() {
@@ -52,6 +55,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     <AuthContext.Provider
       value={{
         user,
+        fsUserId,
         signInGoogle,
         signInGithub,
         signInFacebook,

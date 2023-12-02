@@ -12,6 +12,7 @@ export type UserAuthType = IUser | null;
 
 export type AuthContextPops = {
   user: UserAuthType;
+  fsUserId: string | null;
   signInGoogle(): TypeSignIn | Promise<void>;
   signInGithub(): TypeSignIn | Promise<void>;
   signInFacebook(): TypeSignIn | Promise<void>;

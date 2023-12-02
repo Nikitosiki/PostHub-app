@@ -19,7 +19,7 @@ const InfiniteScrollWrapper: FC<InfiniteScrollWrapperProps> = ({
 
   useEffect(() => {
     if (!props.hasMore) return;
-    if (bodyHeight !== document.body.clientHeight) return;
+    if (bodyHeight < document.body.clientHeight) return;
 
     props.next();
   }, [props.dataLength]);

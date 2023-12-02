@@ -1,7 +1,7 @@
 import { client } from "src/contexts/Auth/AuthFunctions";
-import { Create } from "src/interfaces";
+import { TablesInsert } from "src/interfaces";
 
-export const addTagToPost = async (post_tag: Create<"post_tags">) => {
+export const addTagToPost = async (post_tag: TablesInsert<"post_tags">) => {
   const { data, error } = await client
     .from("post_tags")
     .insert(post_tag)

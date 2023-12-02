@@ -1,5 +1,5 @@
 import { client } from "src/contexts/Auth/AuthFunctions";
-import { Create, ITags } from "src/interfaces";
+import { TablesInsert, ITags } from "src/interfaces";
 import { toTag } from "./parsers";
 
 export const searchTagsByTitle = async (title: string, limit?: number): Promise<ITags> => {
@@ -15,7 +15,7 @@ export const searchTagsByTitle = async (title: string, limit?: number): Promise<
   return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
 
-export const createTag = async (tag: Create<"tags">) => {
+export const createTag = async (tag: TablesInsert<"tags">) => {
   const { data, error } = await client.from("tags").insert(tag).select();
   return { data, error };
 };

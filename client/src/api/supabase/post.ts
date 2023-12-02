@@ -1,5 +1,5 @@
 import { client } from "src/contexts/Auth/AuthFunctions";
-import { Create, IPost, IPosts } from "src/interfaces";
+import { IPost, IPosts, IUser, TablesInsert } from "src/interfaces";
 import { toPost } from "./parsers";
 
 // export const createPost = async (post: ICreatePost) => {
@@ -11,7 +11,7 @@ import { toPost } from "./parsers";
 //   return { data, error };
 // };
 
-export const createPost = async (post: Create<"posts">) => {
+export const createPost = async (post: TablesInsert<"posts">) => {
   const { data, error } = await client.from("posts").insert(post).select();
   return { data, error };
 };
@@ -112,7 +112,33 @@ export const getPostById = async (id: string): Promise<IPost | null> => {
     .eq("id", id);
 
   error && console.log(error);
+
   if (!Array.isArray(data) || data.length < 1) return null;
 
   return toPost(data[0]);
+};
+
+export const incrementViewPost = async (
+  post_id: string,
+  identifier: IUser | string,
+) => {
+  if (typeof identifier === "string") {
+    console.log(
+      await client
+        .from("count_views_unauth")
+        .insert({
+          post_id: post_id,
+          fingerprint_id: identifier,
+        }),
+    );
+  } else {
+    console.log(
+      await client
+        .from("count_views_auth")
+        .insert({
+          post_id: post_id,
+          user_id: identifier.id,
+        }),
+    );
+  }
 };

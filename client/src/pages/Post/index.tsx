@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import {
   Avatar,
@@ -17,9 +17,17 @@ import Comments from "src/modules/Comments";
 import { getComments } from "src/api/preview";
 import { NavigateAuthorPage } from "src/paths";
 
+import { incrementViewPost } from "src/api/supabase/post";
+import { useAuth } from "src/contexts";
+
 const Post = () => {
   const [isCommentFormVisible, setCommentFormVisibility] = useState(false);
   const post = useLoaderData() as IPost;
+  const { fsUserId, user } = useAuth();
+
+  useEffect(() => {
+    if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
+  }, []);
 
   return (
     <>
@@ -57,7 +65,10 @@ const Post = () => {
               {/* <div className="hidden sm:block"> */}
               <p className="text-sm">
                 Comment as{" "}
-                <Link className="text-primary" to={NavigateAuthorPage(post.author.id)}>
+                <Link
+                  className="text-primary"
+                  to={NavigateAuthorPage(post.author.id)}
+                >
                   {post.author.name} ******
                 </Link>
               </p>
