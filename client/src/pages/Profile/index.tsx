@@ -1,4 +1,4 @@
-// import { getUsersFunc } from "src/api/supabase/user";
+// import { getUsersFunc } from "src/services/supabase/user";
 
 const Profile = () => {
   // getUsers().then(console.log);

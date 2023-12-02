@@ -8,7 +8,7 @@ import {
 import { motion } from "framer-motion";
 
 import { useAsyncList } from "@react-stately/data";
-import { searchTagsByTitle } from "src/api/supabase/tags";
+import { searchTagsByTitle } from "src/services/supabase/tags";
 import { ITag } from "src/interfaces";
 
 type TypeAddTagProps = {
@@ -52,9 +52,9 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
         maxLength={30}
         {...props}
       >
-        {(item) => (
+        {(item) => 'title' in item && typeof item.title === 'string' ? (
           <AutocompleteItem key={item.title}>{item.title}</AutocompleteItem>
-        )}
+        ) : <></>}
       </Autocomplete>
       {inputValue.length > 1 && (
         <motion.div

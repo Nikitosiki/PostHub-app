@@ -5,7 +5,16 @@ import {
 } from "react-router-dom";
 
 // Paths
-import { AuthorPagePath, CreatePostPagePath, HotsPagePath, NewsPagePath, PostPagePath, ProfilePagePath, TagPagePath, TagsPagePath } from "./paths";
+import {
+  AuthorPagePath,
+  CreatePostPagePath,
+  HotsPagePath,
+  NewsPagePath,
+  PostPagePath,
+  ProfilePagePath,
+  TagPagePath,
+  TagsPagePath,
+} from "./paths";
 
 // Pages
 import Layout from "src/components/Layout";
@@ -19,7 +28,7 @@ import Profile from "src/pages/Profile";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
-import { getPostById } from "./api/supabase/post";
+import { getPostById } from "./services/supabase/post";
 
 const router = createBrowserRouter([
   {

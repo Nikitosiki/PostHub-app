@@ -25,6 +25,6 @@
     }
   },
   "include": ["src"],
-  // "exclude": ["./src/api/preview/*"],
+  // "exclude": ["./src/services/preview/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Post from "src/modules/Post";
 import { IPost } from "src/interfaces";
-import { getHotPosts } from "src/api/supabase/post";
+import { getHotPosts } from "src/services/supabase/post";
 import InfiniteScrollWrapper from "src/components/InfiniteScrollWrapper";
 
 const Hots = () => {

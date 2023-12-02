@@ -10,7 +10,6 @@ import {
   NavbarMenuItem,
   Tabs,
   Tab,
-  Button,
 } from "@nextui-org/react";
 
 import ThemeSwitch from "./components/ThemeSwitch";

@@ -13,9 +13,9 @@ import { useLocation } from "react-router-dom";
 
 import Content from "./components/Content";
 import { IPosts, ITags, IUsers } from "src/interfaces";
-import { searchPostsByTitle } from "src/api/supabase/post";
-import { searchTagsByTitle } from "src/api/supabase/tags";
-import { searchUsersByName } from "src/api/supabase/user";
+import { searchPostsByTitle } from "src/services/supabase/post";
+import { searchTagsByTitle } from "src/services/supabase/tags";
+import { searchUsersByName } from "src/services/supabase/user";
 
 type SearchModalProps = Pick<UseDisclosureReturn, "isOpen" | "onOpenChange">;
 type ContentStateType = "noContent" | "content" | "notFound";

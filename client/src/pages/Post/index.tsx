@@ -14,10 +14,9 @@ import Tag from "src/components/Tag";
 import FullReactions from "src/components/FullReactions";
 import EditorComment from "src/components/EditorComment";
 import Comments from "src/modules/Comments";
-import { getComments } from "src/api/preview";
 import { NavigateAuthorPage } from "src/paths";
 
-import { incrementViewPost } from "src/api/supabase/post";
+import { incrementViewPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
 
 const Post = () => {
@@ -124,7 +123,7 @@ const Post = () => {
                 </Button>
               </div>
             )}
-            <Comments comments={getComments()} />
+            <Comments comments={[]} />
           </CardBody>
         </PostComponent>
       </div>

@@ -11,7 +11,7 @@ import {
 } from "./AuthFunctions";
 import { AuthContextPops, UserAuthType } from "./AuthTypes";
 import AuthModal from "src/modules/AuthModal";
-import { getUserByUid } from "src/api/supabase/user";
+import { getUserByUid } from "src/services/supabase/user";
 import { useFingerprintData } from "src/hooks/useFingerprintData";
 
 export const AuthContext = createContext<AuthContextPops>({

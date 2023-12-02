@@ -33,3 +33,22 @@ export const getTagIdByTitle = async (
 
   return data[0].id;
 };
+
+export const getNewTags = async (
+  pageNumber: number,
+  pageSize: number = 10,
+): Promise<ITags> => {
+  console.log(pageNumber, pageSize);
+  const { data, error } = await client
+    .from("tags")
+    .select(`*, users(*, genders(name))`)
+    .order("created_at", { ascending: false })
+    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data
+    .map((tag) => toTag(tag))
+    .filter((tag) => tag !== null) as ITags;
+};

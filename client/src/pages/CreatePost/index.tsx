@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { BsStars } from "react-icons/bs";
 
-import { createPost } from "src/api/supabase/post";
+import { createPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
 import { ITag, ITags } from "src/interfaces";
 import Editor from "src/components/Editor";
@@ -22,8 +22,8 @@ import Tag from "src/components/Tag";
 import { CreatePostSchema, CreatePostSchemaType } from "src/validations";
 import InputTitle from "./components/InputTitle";
 import ErrorMessage from "src/components/ErrorMessage";
-import { createTag, getTagIdByTitle } from "src/api/supabase/tags";
-import { addTagsToPost } from "src/api/supabase/postTags";
+import { createTag, getTagIdByTitle } from "src/services/supabase/tags";
+import { addTagsToPost } from "src/services/supabase/postTags";
 import { NavigatePostPage } from "src/paths";
 
 const CreatePost = () => {

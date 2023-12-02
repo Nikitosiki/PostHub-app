@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Post from "src/modules/Post";
 import { IPost } from "src/interfaces";
-import { getNewPosts } from "src/api/supabase/post";
+import { getNewPosts } from "src/services/supabase/post";
 import InfiniteScrollWrapper from "src/components/InfiniteScrollWrapper";
 
 const News = () => {
