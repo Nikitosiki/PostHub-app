@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 
 import { default as PostComponent } from "src/modules/Post";
-import { IPost } from "src/interfaces";
+import { IComments, IPost } from "src/interfaces";
 import Tag from "src/components/Tag";
 import FullReactions from "src/components/FullReactions";
 import EditorComment from "src/components/EditorComment";
@@ -17,15 +17,18 @@ import Comments from "src/modules/Comments";
 import { NavigateAuthorPage } from "src/paths";
 
 import { incrementViewPost } from "src/services/supabase/post";
+import { getComments } from "src/services/supabase/comments";
 import { useAuth } from "src/contexts";
 
 const Post = () => {
   const [isCommentFormVisible, setCommentFormVisibility] = useState(false);
+  const [comments, setComment] = useState<IComments>([]);
   const post = useLoaderData() as IPost;
   const { fsUserId, user } = useAuth();
 
   useEffect(() => {
     if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
+    getComments(post.id).then((comments) => setComment(comments));
   }, []);
 
   return (
@@ -104,12 +107,12 @@ const Post = () => {
             {/* -------- Create Comment -------- */}
             {!isCommentFormVisible && (
               <div className="mb-4 flex items-center">
-                <Avatar size="sm" name={"Your"} />
+                <Avatar size="sm" name={user?.name} src={user?.image_url ?? undefined}  />
                 <Button
                   size="sm"
                   color="primary"
                   variant="light"
-                  className="ml-2 mr-auto"
+                  className="ml-2 mr-auto text-sm"
                   startContent={
                     <span className="material-symbols-rounded">
                       stylus_note
@@ -123,7 +126,7 @@ const Post = () => {
                 </Button>
               </div>
             )}
-            <Comments comments={[]} />
+            <Comments comments={comments} />
           </CardBody>
         </PostComponent>
       </div>

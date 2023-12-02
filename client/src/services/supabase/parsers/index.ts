@@ -1,5 +1,5 @@
-import { ITag, IUser, IReaction, IPost, Tables, ITags } from "src/interfaces";
-import { TablePostPars, TableTagsPars, TableUsersPars } from "./types";
+import { ITag, IUser, IReaction, IPost, Tables, ITags, IComment } from "src/interfaces";
+import { TableCommentsPars, TablePostPars, TableTagsPars, TableUsersPars } from "./types";
 
 export const toPost = (object: TablePostPars): IPost | null => {
   if (object.users === null) return null;
@@ -52,6 +52,19 @@ export const toReaction = (object: Tables<"reactions">): IReaction => {
     id: object.id,
     emoji: object.emoji,
     grade: object.grade,
+  };
+};
+
+export const toComment = (object: TableCommentsPars): IComment | null => {
+  if (object.users === null) return null;
+
+  return {
+    id: object.id,
+    content: object.content,
+    author: toUser(object.users),
+    child_comments: null,
+    created_at: new Date(object.created_at),
+    updated_at: object.updated_at ? new Date(object.updated_at) : null,
   };
 };
 

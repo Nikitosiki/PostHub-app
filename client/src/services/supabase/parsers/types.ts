@@ -15,3 +15,7 @@ export type TableUsersPars = Tables<"users"> & {
     name: string;
   } | null;
 };
+
+export type TableCommentsPars = Tables<"comments"> & {
+  users: TableUsersPars | null;
+};
