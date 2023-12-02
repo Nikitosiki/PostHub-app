@@ -7,12 +7,12 @@ import {
   signInFacebook,
   signInEmailAndPassword,
   logOut,
-  client,
 } from "./AuthFunctions";
 import { AuthContextPops, UserAuthType } from "./AuthTypes";
 import AuthModal from "src/modules/AuthModal";
 import { getUserByUid } from "src/services/supabase/user";
 import { useFingerprintData } from "src/hooks/useFingerprintData";
+import { client } from "src/services/supabase/config/supabase";
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,

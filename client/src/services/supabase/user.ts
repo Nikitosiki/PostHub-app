@@ -1,4 +1,4 @@
-import { client } from "src/contexts/Auth/AuthFunctions";
+import { client } from "./config/supabase";
 import { IUser, IUsers } from "src/interfaces";
 import { toUser } from "./parsers";
 

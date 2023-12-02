@@ -1,4 +1,4 @@
-import { client } from "src/contexts/Auth/AuthFunctions";
+import { client } from "./config/supabase";
 import { TablesInsert } from "src/interfaces";
 
 export const addTagToPost = async (post_tag: TablesInsert<"post_tags">) => {

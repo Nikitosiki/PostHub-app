@@ -1,4 +1,4 @@
-import { client } from "src/contexts/Auth/AuthFunctions";
+import { client } from "./config/supabase";
 import { IPost, IPosts, IUser, TablesInsert } from "src/interfaces";
 import { toPost } from "./parsers";
 

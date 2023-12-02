@@ -1,4 +1,4 @@
-import { client } from "src/contexts/Auth/AuthFunctions";
+import { client } from "./config/supabase";
 import { TablesInsert, ITags } from "src/interfaces";
 import { toTag } from "./parsers";
 
