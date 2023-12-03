@@ -17,7 +17,7 @@ import Comments from "src/modules/Comments";
 import { NavigateAuthorPage } from "src/paths";
 
 import { incrementViewPost } from "src/services/supabase/post";
-import { getComments } from "src/services/supabase/comments";
+import { getFirstComments } from "src/services/supabase/comments";
 import { useAuth } from "src/contexts";
 import { buildCommentTree } from "src/utils";
 
@@ -30,7 +30,7 @@ const Post = () => {
 
   useEffect(() => {
     if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
-    getComments(post.id).then((comments) => setCommentData(comments));
+    getFirstComments(post.id).then((comments) => setCommentData(comments));
   }, []);
 
   useEffect(() => {
