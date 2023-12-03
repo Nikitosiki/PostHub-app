@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Chip } from "@nextui-org/react";
 import { IReactions } from "src/interfaces";
-import { toReactionViews } from "src/utils/reactionView";
+import { toReactionViews } from "src/utils";
 
 type TypeReactionsProps = {
   reactions: IReactions;

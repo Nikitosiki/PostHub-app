@@ -18,4 +18,5 @@ export type TableUsersPars = Tables<"users"> & {
 
 export type TableCommentsPars = Tables<"comments"> & {
   users: TableUsersPars | null;
+  reactions: Tables<"reactions">[];
 };

@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 
 import { default as PostComponent } from "src/modules/Post";
-import { IComments, IPost } from "src/interfaces";
+import { IComments, ICommentsData, IPost } from "src/interfaces";
 import Tag from "src/components/Tag";
 import FullReactions from "src/components/FullReactions";
 import EditorComment from "src/components/EditorComment";
@@ -19,17 +19,23 @@ import { NavigateAuthorPage } from "src/paths";
 import { incrementViewPost } from "src/services/supabase/post";
 import { getComments } from "src/services/supabase/comments";
 import { useAuth } from "src/contexts";
+import { buildCommentTree } from "src/utils";
 
 const Post = () => {
   const [isCommentFormVisible, setCommentFormVisibility] = useState(false);
+  const [commentsData, setCommentData] = useState<ICommentsData>([]);
   const [comments, setComment] = useState<IComments>([]);
   const post = useLoaderData() as IPost;
   const { fsUserId, user } = useAuth();
 
   useEffect(() => {
     if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
-    getComments(post.id).then((comments) => setComment(comments));
+    getComments(post.id).then((comments) => setCommentData(comments));
   }, []);
+
+  useEffect(() => {
+    setComment(buildCommentTree(commentsData));
+  }, [commentsData])
 
   return (
     <>
@@ -69,9 +75,9 @@ const Post = () => {
                 Comment as{" "}
                 <Link
                   className="text-primary"
-                  to={NavigateAuthorPage(post.author.id)}
+                  to={NavigateAuthorPage(user?.id ?? "")}
                 >
-                  {post.author.name} ******
+                  {user?.name}
                 </Link>
               </p>
               <EditorComment />

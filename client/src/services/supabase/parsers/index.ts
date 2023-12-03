@@ -1,4 +1,4 @@
-import { ITag, IUser, IReaction, IPost, Tables, ITags, IComment } from "src/interfaces";
+import { ITag, IUser, IReaction, IPost, Tables, ITags, ICommentData } from "src/interfaces";
 import { TableCommentsPars, TablePostPars, TableTagsPars, TableUsersPars } from "./types";
 
 export const toPost = (object: TablePostPars): IPost | null => {
@@ -55,18 +55,33 @@ export const toReaction = (object: Tables<"reactions">): IReaction => {
   };
 };
 
-export const toComment = (object: TableCommentsPars): IComment | null => {
+export const toCommentData = (object: TableCommentsPars): ICommentData | null => {
   if (object.users === null) return null;
 
   return {
     id: object.id,
     content: object.content,
     author: toUser(object.users),
-    child_comments: null,
+    reactions: object.reactions.map((react) => toReaction(react)),
+    parent_comment_id: object.parent_comment_id,
+    path: object.path,
     created_at: new Date(object.created_at),
     updated_at: object.updated_at ? new Date(object.updated_at) : null,
   };
 };
+
+// export const toComment = (object: TableCommentsPars): IComment | null => {
+//   if (object.users === null) return null;
+
+//   return {
+//     id: object.id,
+//     content: object.content,
+//     author: toUser(object.users),
+//     child_comments: null,
+//     created_at: new Date(object.created_at),
+//     updated_at: object.updated_at ? new Date(object.updated_at) : null,
+//   };
+// };
 
 // export const toReactions = (object): IReactions => {
 //   const reactions: IReactions = [];

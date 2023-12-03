@@ -3,7 +3,7 @@ import { Badge } from "@nextui-org/react";
 
 // import { default as NumberComponent } from "src/components/Number";
 import { IReactions } from "src/interfaces";
-import { toReactionViews } from "src/utils/reactionView";
+import { toReactionViews } from "src/utils";
 
 type TypeReactionsProps = {
   reactions: IReactions;

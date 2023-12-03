@@ -123,22 +123,20 @@ export const incrementViewPost = async (
   identifier: IUser | string,
 ) => {
   if (typeof identifier === "string") {
-    console.log(
       await client
         .from("count_views_unauth")
         .insert({
           post_id: post_id,
           fingerprint_id: identifier,
-        }),
+        },
     );
   } else {
-    console.log(
       await client
         .from("count_views_auth")
         .insert({
           post_id: post_id,
           user_id: identifier.id,
-        }),
+        },
     );
   }
 };
