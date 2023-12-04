@@ -37,7 +37,7 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({
   });
 
   const onSubmit = async (submitData: LoginSchemaType) => {
-    const { data, error } = await signInEmailAndPassword(
+    const { error } = await signInEmailAndPassword(
       submitData.email,
       submitData.password,
     );
@@ -50,7 +50,6 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({
       closeAuthModal();
       location.reload();
     }
-    console.log(data, error);
   };
 
   return (
