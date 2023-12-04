@@ -3,6 +3,7 @@ import {
   Avatar,
   Button,
   CardBody,
+  Chip,
   Select,
   SelectItem,
   useDisclosure,
@@ -30,6 +31,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
 
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
   const [comments, setComments] = useState<IComments>([]);
+  // let lengthComments = 0;
 
   const [countComments, setCountComments] = useState<number>(0);
   const [hasMoreComments, setHasMoreComments] = useState<boolean>(true);
@@ -40,18 +42,23 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
     getCountComments(fatherContent.id).then(setCountComments);
   }, []);
 
+  // useEffect(() => {
+  //   if (lengthComments === comments.length) {
+  //     if (hasMoreComments)
+  //       getNextComments();
+  //   } else lengthComments = comments.length;
+  // }, [numberPage]);
+
   const getNextComments = async () => {
     const nextDataComments = await getFirstComments(
       fatherContent.id,
       numberPage,
       commentsOnPage,
-      sortCommentsBy === "Recent",
+      sortCommentsBy !== "First",
     );
     if (nextDataComments.length === 0) setHasMoreComments(false);
     setCommentData([...commentsData, ...nextDataComments]);
-
-    const nextComments = await buildCommentTree(nextDataComments);
-    setComments([...comments, ...nextComments]);
+    buildCommentTree(commentsData).then(setComments);
     setNumberPage(numberPage + 1);
   };
 
@@ -65,11 +72,12 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             size="sm"
             className="max-w-[12rem]"
             selectedKeys={[sortCommentsBy]}
-            disabledKeys={["First", "Recent"]}
+            // disabledKeys={["First", "Recent"]}
+            disallowEmptySelection
             onChange={(select) => {
               setSortComments(select.target.value);
-              setCommentData([]);
               setComments([]);
+              setCommentData([]);
               setHasMoreComments(true);
               setNumberPage(1);
               getNextComments();
@@ -84,7 +92,16 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             }}
           >
             <SelectItem key={"First"}>First</SelectItem>
-            <SelectItem key={"Recent"}>Recent</SelectItem>
+            <SelectItem
+              key={"Recent"}
+              endContent={
+                <Chip className="h-4 bg-primary-100 p-0 text-xs text-primary">
+                  Beta
+                </Chip>
+              }
+            >
+              Recent
+            </SelectItem>
           </Select>
         </div>
       </CardBody>
@@ -125,7 +142,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
       {/* ---------- Comments ---------- */}
       <CardBody className="pt-0">
         <InfiniteScrollWrapper
-          dataLength={comments.length}
+          dataLength={commentsData.length}
           next={getNextComments}
           hasMore={hasMoreComments}
           loader={""}
@@ -137,6 +154,20 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
           />
         </InfiniteScrollWrapper>
       </CardBody>
+
+      {hasMoreComments && (
+        <CardBody>
+          <Button
+            size="sm"
+            color="primary"
+            variant="light"
+            className="text-xs"
+            onClick={() => getNextComments()}
+          >
+            load more...
+          </Button>
+        </CardBody>
+      )}
     </>
   );
 };
