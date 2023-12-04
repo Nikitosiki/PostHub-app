@@ -11,6 +11,7 @@ import {
   Tabs,
   Tab,
 } from "@nextui-org/react";
+import { useMediaQuery } from "react-responsive";
 
 import ThemeSwitch from "./components/ThemeSwitch";
 import AuthButton from "./components/AuthButton";
@@ -62,6 +63,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
+  const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
   const { user } = useAuth();
 
   return (
@@ -69,8 +71,8 @@ const Header = () => {
       isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
+      shouldHideOnScroll={!isDesktop}
       // isBlurred={false}
-      // shouldHideOnScroll
     >
       <NavbarContent>
         <NavbarMenuToggle
