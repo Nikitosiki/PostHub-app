@@ -6,6 +6,7 @@ export interface IComment {
   author: IUser;
   child_comments: IComments;
   reactions: IReactions;
+  path: Array<number>;
   created_at: Date;
   updated_at: Date | null;
 }

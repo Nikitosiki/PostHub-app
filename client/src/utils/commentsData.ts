@@ -15,6 +15,7 @@ export const buildCommentTree = async (
       author: comment.author,
       child_comments: childComments,
       reactions: comment.reactions,
+      path: comment.path,
       created_at: comment.created_at,
       updated_at: comment.updated_at,
     };

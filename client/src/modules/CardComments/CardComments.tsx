@@ -5,6 +5,7 @@ import {
   CardBody,
   Select,
   SelectItem,
+  useDisclosure,
 } from "@nextui-org/react";
 
 import { IComments, ICommentsData, IPost, IUser } from "src/interfaces";
@@ -16,6 +17,7 @@ import {
   getFirstComments,
 } from "src/services/supabase/comments";
 import { buildCommentTree } from "src/utils";
+import SendCommentModal from "../SendCommentModal/SendCommentModal";
 
 type CardCommentsProps = {
   user: IUser | null;
@@ -23,6 +25,7 @@ type CardCommentsProps = {
 };
 
 const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [sortCommentsBy, setSortComments] = useState<string>("First");
 
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
@@ -50,9 +53,6 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
     const nextComments = await buildCommentTree(nextDataComments);
     setComments([...comments, ...nextComments]);
     setNumberPage(numberPage + 1);
-
-    console.log("comments", comments);
-    console.log("commentsData", commentsData);
   };
 
   return (
@@ -65,6 +65,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             size="sm"
             className="max-w-[12rem]"
             selectedKeys={[sortCommentsBy]}
+            disabledKeys={["First", "Recent"]}
             onChange={(select) => {
               setSortComments(select.target.value);
               setCommentData([]);
@@ -90,7 +91,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
 
       {/* -------- Create Comment -------- */}
       <CardBody className="pb-0">
-        {user && (
+        {true && (
           <div className="mb-2 flex items-center">
             <Avatar
               size="sm"
@@ -106,11 +107,17 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
                 <span className="material-symbols-rounded">stylus_note</span>
               }
               onClick={() => {
-                // setCommentFormVisibility(true);
+                onOpen();
               }}
             >
               Leave a comment
             </Button>
+            <SendCommentModal
+              user={user}
+              post={fatherContent}
+              isOpen={isOpen}
+              onOpenChange={onOpenChange}
+            />
           </div>
         )}
       </CardBody>
@@ -123,7 +130,11 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
           hasMore={hasMoreComments}
           loader={""}
         >
-          <Comments comments={comments} user={user} />
+          <Comments
+            comments={comments}
+            user={user}
+            fatherContent={fatherContent}
+          />
         </InfiniteScrollWrapper>
       </CardBody>
     </>

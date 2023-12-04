@@ -11,7 +11,6 @@ const EditorComment: FC<IAllProps> = (props) => {
     <EditorTiny
       apiKey={import.meta.env.VITE_TINYMCE_KEY}
       init={{
-        height: 250,
         menubar: false,
         forced_root_block: "div",
         paste_data_images: false,

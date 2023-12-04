@@ -1,30 +1,30 @@
 import { FC, ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, useDisclosure } from "@nextui-org/react";
 
 import { timeElapsedString, nullToUndefined } from "src/utils";
 import { NavigateAuthorPage } from "src/paths";
-import { IComment } from "src/interfaces";
+import { IComment, IPost, IUser } from "src/interfaces";
 import InnerHTML from "../InnerHTML";
+import SendCommentModal from "src/modules/SendCommentModal/SendCommentModal";
 
 interface ICommentProps {
   comment: IComment;
+  post: IPost;
+  user?: IUser | null;
   children?: ReactNode;
-  fullFunct?: boolean;
 }
 
-const Comment: FC<ICommentProps> = ({
-  comment,
-  children,
-  fullFunct = false,
-}) => {
+const Comment: FC<ICommentProps> = ({ comment, post, user, children }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isVisibleContent, setVisibleContent] = useState<boolean>(true);
 
-  const fullControls = (
-    <div className="inline-flex gap-2 text-xs text-default-500">
-      <div>Reply</div>
-      <div>Open</div>
-      {/* <Button size="sm" variant="light" className="h-6">
+  const controls = user ? (
+    <>
+      <div className="inline-flex gap-2 text-xs text-default-500">
+        <div onClick={onOpen}>Reply</div>
+        <div>Open</div>
+        {/* <Button size="sm" variant="light" className="h-6">
         rep
       </Button>
       <Button size="sm" variant="light" className="h-6">
@@ -33,10 +33,16 @@ const Comment: FC<ICommentProps> = ({
       <Button size="sm" variant="light" className="h-6">
         rep
       </Button> */}
-    </div>
-  );
-
-  const limitedControls = (
+      </div>
+      <SendCommentModal
+        user={user}
+        post={post}
+        responseToComment={comment}
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      />
+    </>
+  ) : (
     <div className="inline-flex gap-2 text-xs text-default-500">
       <div>Open</div>
     </div>
@@ -82,7 +88,7 @@ const Comment: FC<ICommentProps> = ({
             {isVisibleContent && (
               <div>
                 <InnerHTML content={comment.content} />
-                <div>{fullFunct ? fullControls : limitedControls}</div>
+                {controls}
                 <div className="-ml-3">{children}</div>
               </div>
             )}
