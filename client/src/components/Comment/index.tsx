@@ -1,29 +1,36 @@
 import { FC, ReactNode, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar, useDisclosure } from "@nextui-org/react";
 
 import { timeElapsedString, nullToUndefined } from "src/utils";
-import { NavigateAuthorPage } from "src/paths";
-import { IComment, IPost, IUser } from "src/interfaces";
+import { NavigateAuthorPage, NavigatePostCommentsPage } from "src/paths";
+import { IComment, IUser } from "src/interfaces";
 import InnerHTML from "../InnerHTML";
 import SendCommentModal from "src/modules/SendCommentModal/SendCommentModal";
 
 interface ICommentProps {
   comment: IComment;
-  post: IPost;
+  postId: string;
   user?: IUser | null;
   children?: ReactNode;
 }
 
-const Comment: FC<ICommentProps> = ({ comment, post, user, children }) => {
+const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const navigate = useNavigate();
   const [isVisibleContent, setVisibleContent] = useState<boolean>(true);
 
   const controls = user ? (
     <>
       <div className="inline-flex gap-2 text-xs text-default-500">
         <div onClick={onOpen}>Reply</div>
-        <div>Open</div>
+        <div
+          onClick={() =>
+            navigate(NavigatePostCommentsPage(postId, comment.id))
+          }
+        >
+          Open
+        </div>
         {/* <Button size="sm" variant="light" className="h-6">
         rep
       </Button>
@@ -36,7 +43,7 @@ const Comment: FC<ICommentProps> = ({ comment, post, user, children }) => {
       </div>
       <SendCommentModal
         user={user}
-        post={post}
+        postId={postId}
         responseToComment={comment}
         isOpen={isOpen}
         onOpenChange={onOpenChange}

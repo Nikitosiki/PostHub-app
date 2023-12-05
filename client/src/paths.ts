@@ -10,6 +10,9 @@ export const NavigateTagsPage = (): string => `/tags`;
 export const PostPagePath = "/post/:id";
 export const NavigatePostPage = (postId: string): string => `/post/${postId}`;
 
+export const PostCommentsPagePath = "/post/:postId/comment/:id";
+export const NavigatePostCommentsPage = (postId: string, commentId: number): string => `/post/${postId}/comment/${commentId}`;
+
 export const AuthorPagePath = "/author/:id";
 export const NavigateAuthorPage = (authorId: string): string => `/author/${authorId}`;
 

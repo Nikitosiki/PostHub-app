@@ -6,7 +6,7 @@ export const buildCommentTree = async (
 ): Promise<IComment[]> => {
   const comments: IComment[] = [];
 
-  for (const comment of commentData.filter(comment => comment.parent_comment_id === parentId)) {
+    for (const comment of commentData.filter(comment => comment.parent_comment_id === parentId)) {
     const childComments = await buildCommentTree(commentData, comment.id);
 
     const newComment: IComment = {

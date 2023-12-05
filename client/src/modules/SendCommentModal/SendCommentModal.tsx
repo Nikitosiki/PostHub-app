@@ -16,13 +16,13 @@ import { IComment, IPost, IUser } from "src/interfaces";
 
 type SendCommentProps = {
   user: IUser | null;
-  post: IPost;
+  postId: string;
   responseToComment?: IComment | null;
 } & Pick<UseDisclosureReturn, "isOpen" | "onOpenChange">;
 
 const SendCommentModal: FC<SendCommentProps> = ({
   user,
-  post,
+  postId,
   responseToComment = null,
   isOpen,
   onOpenChange,

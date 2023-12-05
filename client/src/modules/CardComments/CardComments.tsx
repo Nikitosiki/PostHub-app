@@ -131,7 +131,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             </Button>
             <SendCommentModal
               user={user}
-              post={fatherContent}
+              postId={fatherContent.id}
               isOpen={isOpen}
               onOpenChange={onOpenChange}
             />
@@ -147,11 +147,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
           hasMore={hasMoreComments}
           loader={""}
         >
-          <Comments
-            comments={comments}
-            user={user}
-            fatherContent={fatherContent}
-          />
+          <Comments comments={comments} user={user} postId={fatherContent.id} />
         </InfiniteScrollWrapper>
       </CardBody>
 

@@ -10,6 +10,7 @@ import {
   CreatePostPagePath,
   HotsPagePath,
   NewsPagePath,
+  PostCommentsPagePath,
   PostPagePath,
   ProfilePagePath,
   TagPagePath,
@@ -25,6 +26,7 @@ import Tags from "src/pages/Tags";
 import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
 import Profile from "src/pages/Profile";
+import PostComments from "./pages/PostComments";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
@@ -83,6 +85,11 @@ const router = createBrowserRouter([
 
           return data;
         },
+      },
+      {
+        path: PostCommentsPagePath,
+        element: <PostComments />,
+        errorElement: <Notfound value="Comment is not found" />,
       },
       {
         path: AuthorPagePath,

@@ -1,21 +1,24 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { useMediaQuery } from "react-responsive";
 
 import Comment from "src/components/Comment";
-import { IComments, IPost, IUser } from "src/interfaces";
+import { IComments, IUser } from "src/interfaces";
+import { NavigatePostCommentsPage } from "src/paths";
 
 interface ICommentsProps {
   comments: IComments;
   user?: IUser | null;
-  fatherContent: IPost;
+  postId: string;
 }
 
 const Comments: FC<ICommentsProps> = ({
   comments,
   user = null,
-  fatherContent,
+  postId,
 }) => {
+  const navigate = useNavigate();
   const min896 = useMediaQuery({ query: "(min-width: 896px)" });
   const min848 = useMediaQuery({ query: "(min-width: 848px)" });
   const min768 = useMediaQuery({ query: "(min-width: 768px)" });
@@ -46,7 +49,7 @@ const Comments: FC<ICommentsProps> = ({
         <Comment
           key={comment.id}
           comment={comment}
-          post={fatherContent}
+          postId={postId}
           user={user}
         >
           {getComments(comment.child_comments ?? [])}
@@ -57,7 +60,9 @@ const Comments: FC<ICommentsProps> = ({
           color="primary"
           variant="light"
           className="text-xs"
-          onClick={() => {}}
+          onClick={() =>
+            navigate(NavigatePostCommentsPage(postId, comment.id))
+          }
         >
           load more...
         </Button>
