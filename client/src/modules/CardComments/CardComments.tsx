@@ -52,7 +52,6 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
       commentsOnPage,
       sortCommentsBy !== "First",
     );
-    console.log("genComments: ", nextDataComments, comments, commentsData);
     setNumberPage(numberPage + 1);
     setHasMoreComments(nextDataComments.length !== 0);
     setCommentData(commentsData.concat(nextDataComments));

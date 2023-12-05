@@ -69,14 +69,13 @@ export const getFirstChildrensComment = async (
   comment_id: number,
   pageNumber: number = 1,
   pageSize: number = 20,
+  inReverseOrder: boolean = false,
 ): Promise<ICommentsData> => {
-  const { data, error } = await client.rpc("get_childrens_comment", {
+  const { data, error } = await client.rpc(inReverseOrder ? "get_reverse_childrens_comment" : "get_childrens_comment", {
     parent_id: comment_id,
     from: pageNumber * pageSize - pageSize,
     to: pageSize,
   });
-
-  console.log(comment_id, data, pageNumber * pageSize - pageSize, pageNumber * pageSize);
 
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];
