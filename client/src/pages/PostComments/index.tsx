@@ -8,7 +8,7 @@ import {
   getFirstChildrensComment,
 } from "src/services/supabase/comments";
 import { buildCommentTree } from "src/utils";
-import { IComments, ICommentsData } from "src/interfaces";
+import { ICommentData, IComments, ICommentsData } from "src/interfaces";
 import { useAuth } from "src/contexts";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import Loading from "src/components/Loading";
@@ -27,13 +27,12 @@ const PostComments = () => {
   const { user } = useAuth();
   const params = useParams();
 
-  const [parentCommentId, setParentCommentId] = useState<number | null>(null);
+  const [parentComment, setParentComment] = useState<ICommentData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result =
-        (await getCommentById(params.id ?? ""))?.parent_comment_id ?? null;
-      setParentCommentId(result);
+      const result = await getCommentById(params.id ?? "");
+      setParentComment(result);
     };
 
     fetchData();
@@ -60,7 +59,7 @@ const PostComments = () => {
     setNumberPage(numberPage + 1);
     setHasMoreComments(nextDataComments.length !== 0);
     setCommentData(commentsData.concat(nextDataComments));
-    buildCommentTree(commentsData, parentCommentId).then(setComments);
+    buildCommentTree(commentsData, parentComment?.parent_comment_id ?? null).then(setComments);
     setLoading(false);
   };
 
@@ -86,7 +85,7 @@ const PostComments = () => {
               comments={comments}
               user={user}
               postId={params.postId ?? ""}
-              startNumberParents={parentCommentId ?? 0}
+              countParents={parentComment?.path.length ? parentComment?.path.length - 1 : 0}
             />
             {(loading || hasMoreComments) && (
               <div ref={sentryRef}>
