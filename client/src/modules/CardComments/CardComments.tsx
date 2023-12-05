@@ -117,8 +117,8 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
       </CardBody>
 
       {/* -------- Create Comment -------- */}
-      <CardBody className="pb-0">
-        {true && (
+      {user && (
+        <CardBody className="pb-0">
           <div className="mb-2 flex items-center">
             <Avatar
               size="sm"
@@ -146,8 +146,8 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
               onOpenChange={onOpenChange}
             />
           </div>
-        )}
-      </CardBody>
+        </CardBody>
+      )}
 
       {/* ---------- Comments ---------- */}
       <CardBody className="pt-0">

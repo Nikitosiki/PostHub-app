@@ -1,6 +1,6 @@
 import { FC, ReactNode, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Avatar, useDisclosure } from "@nextui-org/react";
+import { Avatar, Button, useDisclosure } from "@nextui-org/react";
 
 import { timeElapsedString, nullToUndefined } from "src/utils";
 import { NavigateAuthorPage, NavigatePostCommentsPage } from "src/paths";
@@ -20,44 +20,41 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
   const navigate = useNavigate();
   const [isVisibleContent, setVisibleContent] = useState<boolean>(true);
 
-  const controls = user ? (
-    <>
-      <div className="inline-flex gap-2 text-xs text-default-500">
-        <div onClick={onOpen}>Reply</div>
-        <div
-          onClick={() =>
-            navigate(NavigatePostCommentsPage(postId, comment.id))
-          }
-        >
-          Open
-        </div>
-        {/* <Button size="sm" variant="light" className="h-6">
-        rep
-      </Button>
-      <Button size="sm" variant="light" className="h-6">
-        rep
-      </Button>
-      <Button size="sm" variant="light" className="h-6">
-        rep
-      </Button> */}
-      </div>
-      <SendCommentModal
-        user={user}
-        postId={postId}
-        responseToComment={comment}
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      />
-    </>
-  ) : (
+  const controls = (
     <div className="inline-flex gap-2 text-xs text-default-500">
-      <div
-          onClick={() =>
-            navigate(NavigatePostCommentsPage(postId, comment.id))
-          }
-        >
-          Open
-        </div>
+      <Button
+        size="sm"
+        variant="light"
+        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
+        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
+        startContent={
+          <span className="material-symbols-rounded">expand_content</span>
+        }
+      >
+        Open
+      </Button>
+      {user && (
+        <>
+          <Button
+            size="sm"
+            variant="light"
+            className="h-6 min-w-0 gap-2 px-2 text-default-500"
+            onClick={onOpen}
+            startContent={
+              <span className="material-symbols-rounded text-lg">sms</span>
+            }
+          >
+            Reply
+          </Button>
+          <SendCommentModal
+            user={user}
+            postId={postId}
+            responseToComment={comment}
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+          />
+        </>
+      )}
     </div>
   );
 
