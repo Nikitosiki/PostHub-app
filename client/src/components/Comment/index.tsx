@@ -51,7 +51,13 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
     </>
   ) : (
     <div className="inline-flex gap-2 text-xs text-default-500">
-      <div>Open</div>
+      <div
+          onClick={() =>
+            navigate(NavigatePostCommentsPage(postId, comment.id))
+          }
+        >
+          Open
+        </div>
     </div>
   );
 

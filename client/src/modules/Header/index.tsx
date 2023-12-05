@@ -13,9 +13,9 @@ import {
 } from "@nextui-org/react";
 import { useMediaQuery } from "react-responsive";
 
-import ThemeSwitch from "./components/ThemeSwitch";
+// import ThemeSwitch from "./components/ThemeSwitch";
+// import { useSwitchTheme } from "src/hooks";
 import AuthButton from "./components/AuthButton";
-import { useSwitchTheme } from "src/hooks";
 import { useStateTabs } from "./hooks/useStateTabs";
 import { MenuItem } from "./types/MenuItem";
 import { useAuth } from "src/contexts";
@@ -60,9 +60,9 @@ const mobileMenuItems: MenuItem[] = menuItems.concat([
 ]);
 
 const Header = () => {
+    // const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
-  const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
   const { user } = useAuth();
 
@@ -146,12 +146,12 @@ const Header = () => {
           </Link>
         )}
         {user ? <UserButton /> : <AuthButton />}
-        {!user && (
+        {/* {!user && (
           <ThemeSwitch
             isSelected={isDarkTheme}
             onValueChange={setIsDarkTheme}
           />
-        )}
+        )} */}
       </NavbarContent>
 
       <NavbarMenu>

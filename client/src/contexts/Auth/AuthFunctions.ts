@@ -51,8 +51,8 @@ export const signUpEmailAndPassword = async (
     options: {
       data: {
         name: name,
-      }
-    }
+      },
+    },
   });
 };
 

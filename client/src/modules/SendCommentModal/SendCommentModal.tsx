@@ -1,18 +1,17 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
   Modal,
   ModalBody,
   ModalContent,
-  ModalFooter,
 } from "@nextui-org/react";
 import { useMediaQuery } from "react-responsive";
 import { UseDisclosureReturn } from "@nextui-org/use-disclosure";
 
 import EditorComment from "src/components/EditorComment";
 import { NavigateAuthorPage } from "src/paths";
-import { IComment, IPost, IUser } from "src/interfaces";
+import { IComment, IUser } from "src/interfaces";
 
 type SendCommentProps = {
   user: IUser | null;
@@ -22,13 +21,13 @@ type SendCommentProps = {
 
 const SendCommentModal: FC<SendCommentProps> = ({
   user,
-  postId,
+  // postId,
   responseToComment = null,
   isOpen,
   onOpenChange,
 }) => {
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
 
   const closeAuthModal = () => {
     isOpen && onOpenChange();
@@ -74,7 +73,7 @@ const SendCommentModal: FC<SendCommentProps> = ({
           <ModalBody className="pb-4">
             <div className="flex flex-row justify-end gap-4">
               <Button onClick={() => closeAuthModal()}>Cancel</Button>
-              <Button color="primary" type="submit" isLoading={isLoading}>
+              <Button color="primary" type="submit" >
                 Public
               </Button>
             </div>

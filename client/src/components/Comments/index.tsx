@@ -11,12 +11,14 @@ interface ICommentsProps {
   comments: IComments;
   user?: IUser | null;
   postId: string;
+  startNumberParents?: number;
 }
 
 const Comments: FC<ICommentsProps> = ({
   comments,
   user = null,
   postId,
+  startNumberParents = 0,
 }) => {
   const navigate = useNavigate();
   const min896 = useMediaQuery({ query: "(min-width: 896px)" });
@@ -45,7 +47,7 @@ const Comments: FC<ICommentsProps> = ({
 
   const getComments = (comments: IComments) => {
     return comments.map((comment) =>
-      comment.path.length <= maxlength() ? (
+      comment.path.length - startNumberParents <= maxlength() ? (
         <Comment
           key={comment.id}
           comment={comment}

@@ -17,7 +17,7 @@ const Content: FC<ContentProps> = ({ tags, users, posts }) => {
     <>
       <ModalBody className={`flex-none ${tags.length < 1 ? "hidden" : ""}`}>
         <p>Tags</p>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row flex-wrap gap-2">
           {tags.map((tag) => (
             <Tag tag={tag} />
           ))}

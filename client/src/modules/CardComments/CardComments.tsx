@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 
 import { IComments, ICommentsData, IPost, IUser } from "src/interfaces";
-import InfiniteScrollWrapper from "src/components/InfiniteScrollWrapper";
 import Comments from "src/components/Comments";
 
 import {
@@ -19,6 +18,8 @@ import {
 } from "src/services/supabase/comments";
 import { buildCommentTree } from "src/utils";
 import SendCommentModal from "../SendCommentModal/SendCommentModal";
+import Loading from "src/components/Loading";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 
 type CardCommentsProps = {
   user: IUser | null;
@@ -34,33 +35,46 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
   // let lengthComments = 0;
 
   const [countComments, setCountComments] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
   const [hasMoreComments, setHasMoreComments] = useState<boolean>(true);
   const [numberPage, setNumberPage] = useState<number>(1);
-  const commentsOnPage = 3;
+  const commentsOnPage = 10;
 
   useEffect(() => {
     getCountComments(fatherContent.id).then(setCountComments);
   }, []);
 
-  // useEffect(() => {
-  //   if (lengthComments === comments.length) {
-  //     if (hasMoreComments)
-  //       getNextComments();
-  //   } else lengthComments = comments.length;
-  // }, [numberPage]);
-
   const getNextComments = async () => {
+    setLoading(true);
     const nextDataComments = await getFirstComments(
       fatherContent.id,
       numberPage,
       commentsOnPage,
       sortCommentsBy !== "First",
     );
-    if (nextDataComments.length === 0) setHasMoreComments(false);
-    setCommentData([...commentsData, ...nextDataComments]);
-    buildCommentTree(commentsData).then(setComments);
+    console.log("genComments: ", nextDataComments, comments, commentsData);
     setNumberPage(numberPage + 1);
+    setHasMoreComments(nextDataComments.length !== 0);
+    setCommentData(commentsData.concat(nextDataComments));
+    buildCommentTree(commentsData).then(setComments);
+    setLoading(false);
   };
+
+  const reloadInfiniteScroll = async () => {
+    setLoading(true);
+    comments.length = 0;
+    commentsData.length = 0;
+    setHasMoreComments(true);
+    setNumberPage(1);
+    setLoading(false);
+    //console.log("reload: ", comments, commentsData, hasMoreComments, numberPage)
+  };
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: loading,
+    hasNextPage: hasMoreComments,
+    onLoadMore: getNextComments,
+  });
 
   return (
     <>
@@ -76,11 +90,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             disallowEmptySelection
             onChange={(select) => {
               setSortComments(select.target.value);
-              setComments([]);
-              setCommentData([]);
-              setHasMoreComments(true);
-              setNumberPage(1);
-              getNextComments();
+              reloadInfiniteScroll();
             }}
             startContent={
               <span className="material-symbols-rounded">sort</span>
@@ -141,29 +151,13 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
 
       {/* ---------- Comments ---------- */}
       <CardBody className="pt-0">
-        <InfiniteScrollWrapper
-          dataLength={commentsData.length}
-          next={getNextComments}
-          hasMore={hasMoreComments}
-          loader={""}
-        >
-          <Comments comments={comments} user={user} postId={fatherContent.id} />
-        </InfiniteScrollWrapper>
+        <Comments comments={comments} user={user} postId={fatherContent.id} />
+        {(loading || hasMoreComments) && (
+          <div ref={sentryRef}>
+            <Loading className="mx-auto mt-2" />
+          </div>
+        )}
       </CardBody>
-
-      {hasMoreComments && (
-        <CardBody>
-          <Button
-            size="sm"
-            color="primary"
-            variant="light"
-            className="text-xs"
-            onClick={() => getNextComments()}
-          >
-            load more...
-          </Button>
-        </CardBody>
-      )}
     </>
   );
 };

@@ -3565,7 +3565,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-hook-form: "npm:^7.48.2"
     react-icons: "npm:^4.11.0"
-    react-infinite-scroll-component: "npm:^6.1.0"
+    react-infinite-scroll-hook: "npm:^4.1.1"
     react-multi-carousel: "npm:^2.8.4"
     react-responsive: "npm:^9.0.2"
     react-router-dom: "npm:^6.18.0"
@@ -5518,14 +5518,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-infinite-scroll-component@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "react-infinite-scroll-component@npm:6.1.0"
+"react-infinite-scroll-hook@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "react-infinite-scroll-hook@npm:4.1.1"
   dependencies:
-    throttle-debounce: "npm:^2.1.0"
+    react-intersection-observer-hook: "npm:^2.1.1"
   peerDependencies:
-    react: ">=16.0.0"
-  checksum: 8de02f178ae861880dddbd0c882dc70b55e21737b87fe428140d81a2c5d13c5eeba8a4fc260b1e86e4c556fdea333d6babaed55a9e5987a42b181b2d92f69cd8
+    react: ">=16.8.0"
+  checksum: 43b49a12032bea13ecf60ad104135292e1b9d3e99833f0b06401ffb2e73f05c886a928e019e2a9b9c7654bf601035d8318ca5cf55645d722eb6d98efbd1e0ed3
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer-hook@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "react-intersection-observer-hook@npm:2.1.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: a960a9e6c75cee0cf76cb332157622b5dd2837e6d2f17762d720c2647de0f18a0c7a957e819b5491f1e4129f681748b7db3754290c4551c03ab3bcf74c06aa49
   languageName: node
   linkType: hard
 
@@ -6076,13 +6085,6 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
-  languageName: node
-  linkType: hard
-
-"throttle-debounce@npm:^2.1.0":
-  version: 2.3.0
-  resolution: "throttle-debounce@npm:2.3.0"
-  checksum: 41648e4cf46f935818af32ecac34f9876c618f24e300551cbe3a0ca2c5828cb8d2f9b73e6e1e2f8c64237f70fbc8c541f9b5c9114da70b33b1ed10ba4cc6b15f
   languageName: node
   linkType: hard
 

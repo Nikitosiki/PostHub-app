@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import Comments from "src/components/Comments";
-import InfiniteScrollWrapper from "src/components/InfiniteScrollWrapper";
 
 import {
   getCommentById,
@@ -11,6 +10,8 @@ import {
 import { buildCommentTree } from "src/utils";
 import { IComments, ICommentsData } from "src/interfaces";
 import { useAuth } from "src/contexts";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import Loading from "src/components/Loading";
 
 const PostComments = () => {
   // const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -18,38 +19,56 @@ const PostComments = () => {
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
   const [comments, setComments] = useState<IComments>([]);
 
+  const [loading, setLoading] = useState(false);
   const [hasMoreComments, setHasMoreComments] = useState<boolean>(true);
   const [numberPage, setNumberPage] = useState<number>(1);
-  const commentsOnPage = 3;
+  const commentsOnPage = 10;
 
   const { user } = useAuth();
   const params = useParams();
 
+  const [parentCommentId, setParentCommentId] = useState<number | null>(null);
+
   useEffect(() => {
-    setCommentData([]);
-    setComments([]);
+    const fetchData = async () => {
+      const result =
+        (await getCommentById(params.id ?? ""))?.parent_comment_id ?? null;
+      setParentCommentId(result);
+    };
+
+    fetchData();
+    reloadInfiniteScroll();
+  }, [params]);
+
+  const reloadInfiniteScroll = async () => {
+    setLoading(true);
+    comments.length = 0;
+    commentsData.length = 0;
     setHasMoreComments(true);
     setNumberPage(1);
-    getNextComments();
-  }, [params])
-  
-
+    setLoading(false);
+  };
 
   const getNextComments = async () => {
+    setLoading(true);
     const nextDataComments = await getFirstChildrensComment(
       Number(params.id),
       numberPage,
       commentsOnPage,
     );
-
-    if (nextDataComments.length === 0) setHasMoreComments(false);
-    setCommentData([...commentsData, ...nextDataComments]);
-    const parentCommentId = (await getCommentById(params.id ?? ""))?.parent_comment_id;
-    buildCommentTree(commentsData, parentCommentId).then(
-      setComments,
-    );
+    console.log("genComments: ", nextDataComments, comments, commentsData);
     setNumberPage(numberPage + 1);
+    setHasMoreComments(nextDataComments.length !== 0);
+    setCommentData(commentsData.concat(nextDataComments));
+    buildCommentTree(commentsData, parentCommentId).then(setComments);
+    setLoading(false);
   };
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: loading,
+    hasNextPage: hasMoreComments,
+    onLoadMore: getNextComments,
+  });
 
   return (
     <>
@@ -63,18 +82,17 @@ const PostComments = () => {
           </CardHeader>
 
           <CardBody>
-            <InfiniteScrollWrapper
-              dataLength={commentsData.length}
-              next={getNextComments}
-              hasMore={hasMoreComments}
-              loader={""}
-            >
-              <Comments
-                comments={comments}
-                user={user}
-                postId={params.postId ?? ""}
-              />
-            </InfiniteScrollWrapper>
+            <Comments
+              comments={comments}
+              user={user}
+              postId={params.postId ?? ""}
+              startNumberParents={parentCommentId ?? 0}
+            />
+            {(loading || hasMoreComments) && (
+              <div ref={sentryRef}>
+                <Loading className="mx-auto mt-2" />
+              </div>
+            )}
           </CardBody>
         </Card>
       </div>
