@@ -7,3 +7,5 @@ export interface IUser {
   image_url: string | null;
   reg_date: Date;
 }
+
+export interface IUsers extends Array<IUser> {}

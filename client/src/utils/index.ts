@@ -1,3 +1,4 @@
 export * from "./formatDate";
 export * from "./typeConverter";
-export * from "./reactionIcon";
+export * from "./reactionView";
+export * from "./commentsData";

@@ -1,25 +1,33 @@
 import { FC } from "react";
-import { User, UserProps } from "@nextui-org/react";
+import { Avatar, AvatarProps } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { IUser } from "src/interfaces";
 import { nullToUndefined } from "src/utils";
+import { NavigateAuthorPage } from "src/paths";
 
 type TypeAuthorProps = {
   author: IUser;
   description?: string;
-} & Omit<UserProps, "name">;
+  className?: string;
+} & Omit<AvatarProps, "name">;
 
-const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
+const Author: FC<TypeAuthorProps> = ({
+  author,
+  description,
+  className,
+  ...rest
+}) => {
   return (
-    <>
-      <Link to={`/author/${author.id}`}>
-        <User
+    <div className={`pt-1 ${className}`}>
+      <Link to={NavigateAuthorPage(author.id)}>
+        {/* <User
           name={author.name}
           description={description}
+          className=""
           classNames={{
-            name: "font-bold text-default-600",
-            description: "text-default-500",
+            name: "font-bold text-default-600 truncate",
+            description: "truncate text-default-500",
           }}
           avatarProps={{
             src: nullToUndefined(author.image_url),
@@ -30,9 +38,22 @@ const Author: FC<TypeAuthorProps> = ({ author, description, ...rest }) => {
             // size: "sm",
           }}
           {...rest}
-        />
+        /> */}
+
+        <div className="mx-auto flex flex-row items-center gap-2 text-sm">
+          <Avatar
+            isBordered
+            src={nullToUndefined(author.image_url)}
+            className="mr-2 h-7 w-7 shrink-0 text-tiny ring-primary"
+            {...rest}
+          />
+          <div className="flex flex-col flex-nowrap overflow-hidden">
+            <p className="truncate font-bold text-default-600">{author.name}</p>
+            <p className="truncate text-xs text-default-500">{description}</p>
+          </div>
+        </div>
       </Link>
-    </>
+    </div>
   );
 };
 

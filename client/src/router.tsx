@@ -4,6 +4,19 @@ import {
   ScrollRestoration,
 } from "react-router-dom";
 
+// Paths
+import {
+  AuthorPagePath,
+  CreatePostPagePath,
+  HotsPagePath,
+  NewsPagePath,
+  PostCommentsPagePath,
+  PostPagePath,
+  ProfilePagePath,
+  TagPagePath,
+  TagsPagePath,
+} from "./paths";
+
 // Pages
 import Layout from "src/components/Layout";
 import Post from "src/pages/Post";
@@ -12,10 +25,12 @@ import News from "src/pages/News";
 import Tags from "src/pages/Tags";
 import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
+import Profile from "src/pages/Profile";
+import PostComments from "./pages/PostComments";
 
 // api functions
-import { getPostById } from "src/api/preview";
-import { IPost } from "./interfaces";
+import PrivateRoute from "./components/PrivateRoute";
+import { getPostById } from "./services/supabase/post";
 
 const router = createBrowserRouter([
   {
@@ -26,55 +41,64 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
-    errorElement: <Notfound />,
+    // errorElement: <Notfound />,
     children: [
       {
         index: true,
-        element: <Navigate to="/news" />,
+        element: <Navigate to={NewsPagePath} />,
       },
       {
         index: true,
-        path: "/news",
+        path: NewsPagePath,
         element: <News />,
       },
       {
-        path: "/hots",
+        path: HotsPagePath,
         element: <Hots />,
       },
       {
-        path: "/tags",
+        path: TagsPagePath,
         element: <Tags />,
       },
       {
-        path: "/post/create",
-        element: <CreatePost />,
+        path: CreatePostPagePath,
+        element: <PrivateRoute element={<CreatePost />} />,
       },
       {
-        path: "/profile",
-        element: <div/>,
+        path: ProfilePagePath,
+        element: <PrivateRoute element={<Profile />} />,
       },
+      // {
+      //   path: "/profile/settings",
+      //   element: <PrivateRoute element={<div />} />,
+      // },
       {
-        path: "/profile/settings",
-        element: <div/>,
-      },
-      {
-        path: "/post/:id",
+        path: PostPagePath,
         element: <Post />,
         errorElement: <Notfound value="Post is not found" />,
-        loader: ({ params }): IPost => {
-          const data = getPostById(Number(params.id));
-          if (!data) throw new Response("Not Found", { status: 404 });
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("Post is not found", { status: 404 });
+
+          const data = getPostById(params.id);
+          if (!data) throw new Response("Post is not found", { status: 404 });
+
           return data;
         },
       },
       {
-        path: "/author/:id",
-        element: <div/>,
+        path: PostCommentsPagePath,
+        element: <PostComments />,
+        errorElement: <Notfound value="Comment is not found" />,
+      },
+      {
+        path: AuthorPagePath,
+        element: <div />,
         errorElement: <Notfound value="User is not found" />,
       },
       {
-        path: "/tag/:id",
-        element: <div/>,
+        path: TagPagePath,
+        element: <div />,
         errorElement: <Notfound value="Tag is not found" />,
       },
       {

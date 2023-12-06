@@ -1,36 +1,45 @@
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
-import Carousel from "react-multi-carousel";
+import { useEffect, useState } from "react";
+// import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import { getBigTags, getTags } from "src/api/preview";
-import Bigtag from "src/modules/Bigtag";
+// import Bigtag from "src/modules/Bigtag";
 import Tag from "src/components/Tag";
+import { ITags } from "src/interfaces";
+import { getNewTags } from "src/services/supabase/tags";
 
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 3,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 2,
-  },
-};
+// const responsive = {
+//   superLargeDesktop: {
+//     // the naming can be any, depends on you.
+//     breakpoint: { max: 4000, min: 3000 },
+//     items: 5,
+//   },
+//   desktop: {
+//     breakpoint: { max: 3000, min: 1024 },
+//     items: 4,
+//   },
+//   tablet: {
+//     breakpoint: { max: 1024, min: 464 },
+//     items: 3,
+//   },
+//   mobile: {
+//     breakpoint: { max: 464, min: 0 },
+//     items: 2,
+//   },
+// };
 
 const Tags = () => {
+  const [newTags, setNewTags] = useState<ITags>([])
+
+  useEffect(() => {
+    getNewTags(1, 50).then(tags => setNewTags(tags))
+  }, [])
+  
+
   return (
     <>
       <div className="flex w-full flex-col gap-4 p-2">
-        <Card
+        {/* <Card
           className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
           shadow="none"
         >
@@ -43,7 +52,7 @@ const Tags = () => {
               ))}
             </Carousel>
           </CardBody>
-        </Card>
+        </Card> */}
 
         <Card
           className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
@@ -52,11 +61,9 @@ const Tags = () => {
           <CardHeader>
             <p>All tags</p>
           </CardHeader>
-          <CardBody className="flex-row flex-wrap">
-            {getTags().map((tag) => (
-              <div key={tag.id} className="m-2">
-                <Tag tag={tag} />
-              </div>
+          <CardBody className="flex-row flex-wrap gap-2">
+            {newTags.map((tag) => (
+                <Tag key={tag.id} tag={tag} />
             ))}
           </CardBody>
         </Card>

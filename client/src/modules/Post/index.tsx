@@ -10,16 +10,19 @@ import { Link } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
-import { getShortFormattedDate } from "src/utils";
+import { timeElapsedString } from "src/utils";
 import Author from "src/components/Author";
 import Reactions from "src/components/Reactions";
 import Tag from "src/components/Tag";
+import InnerHTML from "src/components/InnerHTML";
+import { NavigatePostPage } from "src/paths";
 
 interface IActiveParts {
   fullContent?: boolean;
   tagsVisible?: boolean;
   reactionVisible?: boolean;
   countViewVisible?: boolean;
+  userViewVisible?: boolean;
 }
 
 interface IMainProps {
@@ -27,7 +30,16 @@ interface IMainProps {
   children?: ReactNode;
   cardClassName?: string;
   isPressable?: boolean;
+  contentHeight?: "hidden" | "short" | "normal";
 }
+
+const maxHeightContent = (value: IMainProps["contentHeight"]) => {
+  return value === "normal"
+    ? "max-h-[330px]"
+    : value === "short"
+    ? "max-h-[50px]"
+    : "hidden";
+};
 
 const Post: FC<IMainProps & IActiveParts> = ({
   post,
@@ -38,6 +50,8 @@ const Post: FC<IMainProps & IActiveParts> = ({
   tagsVisible = true,
   reactionVisible = true,
   countViewVisible = true,
+  userViewVisible = true,
+  contentHeight = "normal",
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
@@ -61,22 +75,27 @@ const Post: FC<IMainProps & IActiveParts> = ({
   const thisContent = (
     <>
       <CardHeader className="flex-col items-start gap-2 pb-2">
-        <div className="flex w-full flex-row justify-between">
-          <Author
-            author={post.author}
-            description={`Posted on ${getShortFormattedDate(
-              post.published_at,
-            )}`}
-          />
-          {countViewVisible && (
-            <div className="flex text-default-500">
-              <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
-                visibility
-              </span>
-              <p className="font-sans text-sm">{post.views}</p>
-            </div>
-          )}
-        </div>
+        {(userViewVisible || countViewVisible) && (
+          <div className="flex w-full flex-row justify-between">
+            {userViewVisible && (
+              <Author
+                className="max-w-[90%] text-left"
+                author={post.author}
+                description={`Posted on ${timeElapsedString(
+                  post.published_at,
+                )}`}
+              />
+            )}
+            {countViewVisible && (
+              <div className="flex text-default-500">
+                <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
+                  visibility
+                </span>
+                <p className="font-sans text-sm">{post.views}</p>
+              </div>
+            )}
+          </div>
+        )}
         <h2 className="text-left text-xl font-bold text-primary">
           # {post.title}
         </h2>
@@ -98,13 +117,19 @@ const Post: FC<IMainProps & IActiveParts> = ({
 
       <CardBody className="pt-0">
         {fullContent ? (
-          <p className="whitespace-pre-wrap">{post.content}</p>
+          // <p className="whitespace-pre-wrap">
+          <InnerHTML content={post.content} />
         ) : (
+          // </p>
           <div
             ref={contentRef}
-            className="relative max-h-[330px] overflow-hidden"
+            className={`relative overflow-hidden ${maxHeightContent(
+              contentHeight,
+            )}`}
           >
-            <p className="whitespace-pre-wrap">{post.content}</p>
+            {/* <p className="whitespace-pre-wrap"> */}
+            <InnerHTML content={post.content} />
+            {/* </p> */}
             <div
               ref={shadowRef}
               className="absolute inset-x-0 -bottom-[1px] h-8 bg-gradient-to-b from-transparent to-background to-95%"
@@ -142,8 +167,8 @@ const Post: FC<IMainProps & IActiveParts> = ({
           .filter((reaction) => reaction.count > 0)
           .map((reaction) => (
             <Reaction
-              key={reaction.grade}
-              grade={reaction.grade}
+              key={reaction.emoji}
+              emoji={reaction.emoji}
               count={reaction.count}
             />
           ))}
@@ -154,13 +179,18 @@ const Post: FC<IMainProps & IActiveParts> = ({
   return (
     <>
       <Card
-        className={`border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${cardClassName}`}
+        className={`w-full border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl ${
+          cardClassName ?? ""
+        }`}
         shadow="none"
         key={post.id}
         isPressable={isPressable}
       >
         {isPressable ? (
-          <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
+          <Link
+            to={NavigatePostPage(post.id)}
+            className="overflow-inherit w-full"
+          >
             {thisContent}
           </Link>
         ) : (

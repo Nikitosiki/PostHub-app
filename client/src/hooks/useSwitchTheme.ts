@@ -32,11 +32,11 @@ export function useSwitchTheme() {
 
     setIsDarkTheme(isDark);
     changeClassThemeHtml(themeName);
-    localStorage.setItem("theme", themeName);
+    localStorage.setItem("setting-theme", themeName);
   };
 
   useEffect(() => {
-    const theme: string | null = localStorage.getItem("theme");
+    const theme: string | null = localStorage.getItem("setting-theme");
 
     if (theme === "dark") {
       setIsDarkTheme(true);
@@ -49,9 +49,10 @@ export function useSwitchTheme() {
     }
 
     if (theme === null) {
-      const isDarkTheme = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
+      // const isDarkTheme = window.matchMedia(
+      //   "(prefers-color-scheme: dark)",
+      // ).matches;
+      const isDarkTheme = false;
       changeTheme(isDarkTheme);
     }
   }, []);

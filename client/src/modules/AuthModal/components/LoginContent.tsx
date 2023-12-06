@@ -15,12 +15,18 @@ import {
   signInGoogle,
   signInFacebook,
   signInEmailAndPassword,
-} from "src/contexts/Auth/AuthFunction";
+} from "src/contexts/Auth/AuthFunctions";
 
-import { CloseAuthModalType, SwitchSelectedType } from "../types/SwitchSelectedType";
+import {
+  CloseAuthModalType,
+  SwitchSelectedType,
+} from "../types/SwitchSelectedType";
 import { LoginSchema, LoginSchemaType } from "src/validations";
 
-const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({ onSwitchSelect, closeAuthModal }) => {
+const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({
+  onSwitchSelect,
+  closeAuthModal,
+}) => {
   const {
     register,
     setError,
@@ -31,7 +37,7 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({ onSwitchSel
   });
 
   const onSubmit = async (submitData: LoginSchemaType) => {
-    const { data, error } = await signInEmailAndPassword(
+    const { error } = await signInEmailAndPassword(
       submitData.email,
       submitData.password,
     );
@@ -42,8 +48,8 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({ onSwitchSel
       });
     } else {
       closeAuthModal();
+      location.reload();
     }
-    console.log(data, error)
   };
 
   return (

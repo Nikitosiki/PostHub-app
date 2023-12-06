@@ -6,11 +6,11 @@ interface IRating {
 }
 
 export interface IPost {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  image_url: string | null;
   author: IUser;
+  image_url: string | null;
   age_rating: IRating | null;
   tags: ITags;
   reactions: IReactions;
@@ -18,3 +18,5 @@ export interface IPost {
   published_at: Date;
   updated_at: Date | null;
 }
+
+export interface IPosts extends Array<IPost> {}

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Navbar as NavbarUI,
@@ -11,38 +11,47 @@ import {
   Tabs,
   Tab,
 } from "@nextui-org/react";
+import { useMediaQuery } from "react-responsive";
 
-import ThemeSwitch from "./components/ThemeSwitch";
+// import ThemeSwitch from "./components/ThemeSwitch";
+// import { useSwitchTheme } from "src/hooks";
 import AuthButton from "./components/AuthButton";
-import { useSwitchTheme } from "src/hooks";
 import { useStateTabs } from "./hooks/useStateTabs";
 import { MenuItem } from "./types/MenuItem";
-import { AuthContext } from "src/contexts/Auth/AuthContext";
+import { useAuth } from "src/contexts";
 import UserButton from "./components/UserButton";
+import SearchButton from "./components/SearchButton";
+
+import {
+  NavigateCreatePostPage,
+  NavigateHotsPage,
+  NavigateNewsPage,
+  NavigateTagsPage,
+} from "src/paths";
 
 const menuItems: MenuItem[] = [
   {
     name: "News",
-    path: "/news",
+    path: NavigateNewsPage(),
   },
   {
     name: "Hots",
-    path: "/hots",
+    path: NavigateHotsPage(),
   },
   {
     name: "Tags",
-    path: "/tags",
+    path: NavigateTagsPage(),
   },
 ];
 
 const mobileMenuItems: MenuItem[] = menuItems.concat([
   // {
   //   name: "Create",
-  //   path: "/post/create",
+  //   path: NavigateCreatePostPage(),
   // },
   // {
   //   name: "Profile",
-  //   path: "/profile",
+  //   path: NavigateProfilePage(),
   // },
   // {
   //   name: "Log Out",
@@ -51,24 +60,19 @@ const mobileMenuItems: MenuItem[] = menuItems.concat([
 ]);
 
 const Header = () => {
+    // const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedTab, toSelectedTab] = useStateTabs(menuItems);
-  const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
-  const { user } = useContext(AuthContext);
-
-  // <header>
-  //   <Link to="/">home</Link>
-  //   <Link to="/post">post</Link>
-  //   <Link to="/nikita">nikita</Link>
-  // </header>
+  const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
+  const { user } = useAuth();
 
   return (
     <NavbarUI
       isMenuOpen={isMobileMenuOpen}
       onMenuOpenChange={setIsMobileMenuOpen}
       isBordered
+      shouldHideOnScroll={!isDesktop}
       // isBlurred={false}
-      // shouldHideOnScroll
     >
       <NavbarContent>
         <NavbarMenuToggle
@@ -83,7 +87,7 @@ const Header = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem>
           <Tabs
             key="underlined"
@@ -131,13 +135,23 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        <SearchButton>
+          <span className="material-symbols-rounded p-1">search</span>
+        </SearchButton>
+        {user && (
+          <Link to={NavigateCreatePostPage()}>
+            <span className="material-symbols-rounded p-1 pb-0">
+              stylus_note
+            </span>
+          </Link>
+        )}
         {user ? <UserButton /> : <AuthButton />}
-        {!user && (
+        {/* {!user && (
           <ThemeSwitch
             isSelected={isDarkTheme}
             onValueChange={setIsDarkTheme}
           />
-        )}
+        )} */}
       </NavbarContent>
 
       <NavbarMenu>

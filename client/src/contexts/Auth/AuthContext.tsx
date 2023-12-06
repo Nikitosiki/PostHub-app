@@ -1,4 +1,5 @@
 import { FC, ReactNode, createContext, useEffect, useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
 
 import {
   signInGoogle,
@@ -6,60 +7,45 @@ import {
   signInFacebook,
   signInEmailAndPassword,
   logOut,
-  TypeSignIn,
-  TypeLogOut,
-  client,
-} from "./AuthFunction";
-import { IUser } from "src/interfaces";
-
-type UserAuthType = IUser | null;
-
-type AuthContextPops = {
-  user: UserAuthType;
-  signInGoogle(): TypeSignIn | Promise<void>;
-  signInGithub(): TypeSignIn | Promise<void>;
-  signInFacebook(): TypeSignIn | Promise<void>;
-  signInEmailAndPassword(
-    email: string,
-    password: string,
-  ): TypeSignIn | Promise<void>;
-  logOut(): TypeLogOut | Promise<void>;
-};
+} from "./AuthFunctions";
+import { AuthContextPops, UserAuthType } from "./AuthTypes";
+import AuthModal from "src/modules/AuthModal";
+import { getUserByUid } from "src/services/supabase/user";
+import { useFingerprintData } from "src/hooks/useFingerprintData";
+import { client } from "src/services/supabase/config/supabase";
 
 export const AuthContext = createContext<AuthContextPops>({
   user: null,
+  fsUserId: null,
   signInGoogle: async () => {},
   signInGithub: async () => {},
   signInFacebook: async () => {},
   signInEmailAndPassword: async () => {},
   logOut: async () => {},
+  isOpenAuth: false,
+  onOpenAuth: () => {},
+  onCloseAuth: () => {},
+  onOpenChangeAuth: () => {},
 });
 
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const [user, setUser] = useState<UserAuthType>(null);
+  const fsUserId = useFingerprintData();
 
   useEffect(() => {
     async function getUserData() {
       await client.auth.getUser().then((value) => {
         if (value.data.user === null) {
           setUser(null);
-
           return;
         }
-        console.log(value.data.user);
-        setUser({
-          id: value.data.user.id,
-          name:
-            value.data.user.user_metadata.user_name ??
-            value.data.user.user_metadata.name,
-          role: "user",
-          email: value.data.user.email ?? "",
-          gender: null,
-          image_url: value.data.user.user_metadata.avatar_url,
-          reg_date: new Date(value.data.user.confirmed_at ?? new Date()),
-        });
+        // console.log(value.data.user);
+        getUserByUid(value.data.user.id).then((user) =>
+          user ? setUser(user) : setUser(null),
+        );
       });
     }
     getUserData();
@@ -69,14 +55,20 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
     <AuthContext.Provider
       value={{
         user,
+        fsUserId,
         signInGoogle,
         signInGithub,
         signInFacebook,
         signInEmailAndPassword,
         logOut,
+        isOpenAuth: isOpen,
+        onOpenAuth: onOpen,
+        onCloseAuth: onClose,
+        onOpenChangeAuth: onOpenChange,
       }}
     >
       {children}
+      <AuthModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </AuthContext.Provider>
   );
 };

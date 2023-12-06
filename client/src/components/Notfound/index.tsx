@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody } from "@nextui-org/react";
+import { NavigateNewsPage } from "src/paths";
 
-const Notfound: FC<{ value?: string }> = ({ value }) => {
+const Notfound: FC<{ code?: number, value?: string }> = ({ code, value }) => {
   return (
     <>
       <Card
@@ -10,12 +11,12 @@ const Notfound: FC<{ value?: string }> = ({ value }) => {
         shadow="none"
         isPressable
       >
-        <Link to="/news">
+        <Link to={NavigateNewsPage()}>
           <CardBody className="min-w-[210px] px-6 py-4">
             <div className="flex flex-row flex-wrap justify-center gap-4">
               <div className="flex items-center">
                 <div className="text-2xl font-bold text-primary">
-                  <p>404</p>
+                  <p>{code ?? "404"}</p>
                 </div>
               </div>
               <div className="border-x border-default-500"></div>

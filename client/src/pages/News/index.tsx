@@ -1,25 +1,44 @@
-import Post from "src/modules/Post";
-import Search from "src/components/Search";
+import { useState } from "react";
+import useInfiniteScroll from "react-infinite-scroll-hook";
 
-import { getPosts } from "src/api/preview";
-import { Button } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import Post from "src/modules/Post";
+import { IPost } from "src/interfaces";
+import { getNewPosts } from "src/services/supabase/post";
+import Loading from "src/components/Loading";
 
 const News = () => {
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [hasMorePosts, setHasMorePosts] = useState<boolean>(true);
+  const [numberPage, setNumberPage] = useState<number>(1);
+  const postsOnPage = 3;
+
+  const getNextPosts = async () => {
+    setLoading(true);
+    const nextPosts = await getNewPosts(numberPage, postsOnPage);
+    setHasMorePosts(nextPosts.length !== 0);
+    setPosts(posts.concat(nextPosts));
+    setNumberPage(numberPage + 1);
+    setLoading(false);
+  };
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: loading,
+    hasNextPage: hasMorePosts,
+    onLoadMore: getNextPosts,
+  });
+
   return (
     <>
       <div className="flex w-full flex-col gap-4 p-2">
-        <div className="flex flex-row gap-2">
-          <Search />
-          <Link to="/post/create" className="h-auto">
-            <Button color="primary" className="h-full">
-              <span className="material-symbols-rounded">add</span>
-            </Button>
-          </Link>
-        </div>
-        {getPosts().map((post) => (
+        {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
+        {(loading || hasMorePosts) && (
+          <div ref={sentryRef}>
+            <Loading className="mx-auto mt-2" />
+          </div>
+        )}
       </div>
     </>
   );

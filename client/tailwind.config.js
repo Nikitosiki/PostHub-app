@@ -1,4 +1,5 @@
-const { nextui } = require("@nextui-org/react");
+import { nextui } from "@nextui-org/react";
+import { default as typography } from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 
@@ -28,7 +29,7 @@ export default {
   },
   darkMode: "class",
   plugins: [
-    require('@tailwindcss/typography'),
+    typography(),
     nextui({
       prefix: "nextui", // prefix for themes variables
       addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").

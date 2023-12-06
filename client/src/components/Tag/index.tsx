@@ -1,22 +1,35 @@
 import { FC } from "react";
-import { Chip } from "@nextui-org/react";
+import { Chip, ChipProps } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 
 import { ITag } from "src/interfaces";
+import { NavigateTagPage } from "src/paths";
 
 type TypeTagProps = {
   tag: ITag;
+  disableLink?: boolean;
+  onClose?: () => void;
   className?: string;
-};
+} & ChipProps;
 
-const Tag: FC<TypeTagProps> = ({ tag, className }) => {
-  return (
-    <>
-      <Link to={`/tag/${tag.id}`}>
-        <Chip className={`bg-default-200 ${className}`}>{tag.title}</Chip>
-      </Link>
-    </>
+const Tag: FC<TypeTagProps> = ({
+  tag,
+  onClose,
+  disableLink,
+  className,
+  ...props
+}) => {
+  const content = (
+    <Chip
+      onClose={onClose}
+      className={`bg-default-200 ${className}`}
+      {...props}
+    >
+      {tag.title}
+    </Chip>
   );
+
+  return disableLink ? content : <Link to={NavigateTagPage(tag.id)}>{content}</Link>;
 };
 
 export default Tag;

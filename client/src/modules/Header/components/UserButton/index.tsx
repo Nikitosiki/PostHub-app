@@ -1,21 +1,21 @@
 import {
+  Avatar,
   Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-  User,
 } from "@nextui-org/react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { AuthContext } from "src/contexts/Auth/AuthContext";
 import { useSwitchTheme } from "src/hooks";
+import { useAuth } from "src/contexts";
+import { NavigateCreatePostPage, NavigateProfilePage } from "src/paths";
 
 const UserButton = () => {
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
 
   return (
     <>
@@ -26,24 +26,18 @@ const UserButton = () => {
         }}
       >
         <DropdownTrigger>
-          <Button
-            color="primary"
-            variant="light"
-            className="min-w-[3rem] justify-end px-2 text-foreground"
-          >
-            <User
-              name={user?.name}
-              avatarProps={{
-                src: user?.image_url ?? "",
-                size: "sm",
-                isBordered: true,
-                color: "primary",
-              }}
-              classNames={{
-                base: "gap-0",
-                name: "hidden sm:block sm:pl-4 sm:max-w-[10rem] truncate",
-              }}
-            />
+          <Button className="min-w-unit-10 bg-inherit px-0">
+            <div className="flex cursor-pointer flex-row items-center px-2">
+              <Avatar
+                src={user?.image_url ?? ""}
+                size={"sm"}
+                isBordered={true}
+                color={"primary"}
+              />
+              <p className="hidden max-w-[20rem] truncate md:block md:max-w-[10rem] md:pl-4">
+                {user?.name}
+              </p>
+            </div>
           </Button>
         </DropdownTrigger>
         <DropdownMenu
@@ -71,7 +65,7 @@ const UserButton = () => {
             }}
           >
             <DropdownItem key="user" className="max-w-[15rem] text-default-500">
-              <Link to="/profile">
+              <Link to={NavigateProfilePage()}>
                 <p className="whitespace-normal">{user?.name}</p>
               </Link>
             </DropdownItem>
@@ -85,7 +79,7 @@ const UserButton = () => {
             }}
           >
             <DropdownItem key="create">
-              <Link to="/post/create">
+              <Link to={NavigateCreatePostPage()}>
                 <p>Create Post</p>
               </Link>
             </DropdownItem>
@@ -104,7 +98,7 @@ const UserButton = () => {
               </div>
             </DropdownItem>
             <DropdownItem key="settings">
-              <Link to="/profile/settings">
+              <Link to={NavigateProfilePage()}>
                 <p>Settings</p>
               </Link>
             </DropdownItem>
