@@ -15,12 +15,14 @@ import Author from "src/components/Author";
 import Reactions from "src/components/Reactions";
 import Tag from "src/components/Tag";
 import InnerHTML from "src/components/InnerHTML";
+import { NavigatePostPage } from "src/paths";
 
 interface IActiveParts {
   fullContent?: boolean;
   tagsVisible?: boolean;
   reactionVisible?: boolean;
   countViewVisible?: boolean;
+  userViewVisible?: boolean;
 }
 
 interface IMainProps {
@@ -28,11 +30,15 @@ interface IMainProps {
   children?: ReactNode;
   cardClassName?: string;
   isPressable?: boolean;
-  contentHeight?: "short" | "normal";
+  contentHeight?: "hidden" | "short" | "normal";
 }
 
 const maxHeightContent = (value: IMainProps["contentHeight"]) => {
-  return value === "normal" ? "max-h-[330px]" : "max-h-[50px]";
+  return value === "normal"
+    ? "max-h-[330px]"
+    : value === "short"
+    ? "max-h-[50px]"
+    : "hidden";
 };
 
 const Post: FC<IMainProps & IActiveParts> = ({
@@ -44,6 +50,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
   tagsVisible = true,
   reactionVisible = true,
   countViewVisible = true,
+  userViewVisible = true,
   contentHeight = "normal",
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -68,21 +75,27 @@ const Post: FC<IMainProps & IActiveParts> = ({
   const thisContent = (
     <>
       <CardHeader className="flex-col items-start gap-2 pb-2">
-        <div className="flex w-full flex-row justify-between">
-          <Author
-            className="w-full text-left"
-            author={post.author}
-            description={`Posted on ${timeElapsedString(post.published_at)}`}
-          />
-          {countViewVisible && (
-            <div className="flex text-default-500">
-              <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
-                visibility
-              </span>
-              <p className="font-sans text-sm">{post.views}</p>
-            </div>
-          )}
-        </div>
+        {(userViewVisible || countViewVisible) && (
+          <div className="flex w-full flex-row justify-between">
+            {userViewVisible && (
+              <Author
+                className="w-full text-left"
+                author={post.author}
+                description={`Posted on ${timeElapsedString(
+                  post.published_at,
+                )}`}
+              />
+            )}
+            {countViewVisible && (
+              <div className="flex text-default-500">
+                <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
+                  visibility
+                </span>
+                <p className="font-sans text-sm">{post.views}</p>
+              </div>
+            )}
+          </div>
+        )}
         <h2 className="text-left text-xl font-bold text-primary">
           # {post.title}
         </h2>
@@ -174,7 +187,10 @@ const Post: FC<IMainProps & IActiveParts> = ({
         isPressable={isPressable}
       >
         {isPressable ? (
-          <Link to={`/post/${post.id}`} className="overflow-inherit w-full">
+          <Link
+            to={NavigatePostPage(post.id)}
+            className="overflow-inherit w-full"
+          >
             {thisContent}
           </Link>
         ) : (

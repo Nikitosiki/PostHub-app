@@ -96,7 +96,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             }
             classNames={{
               popoverContent: "bg-background",
-              trigger: "bg-transparent shadow-none",
+              trigger: "bg-transparent shadow-none py-0 min-h-10 h-8",
               value: "pl-1",
             }}
           >

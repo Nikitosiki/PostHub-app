@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -15,13 +15,15 @@ import {
 } from "src/services/supabase/comments";
 import Comments from "src/components/Comments";
 import { buildCommentTree } from "src/utils";
-import { ICommentData, IComments, ICommentsData } from "src/interfaces";
+import { ICommentData, IComments, ICommentsData, IPost } from "src/interfaces";
 import { useAuth } from "src/contexts";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import Loading from "src/components/Loading";
+import { NavigatePostPage } from "src/paths";
+import Post from "src/modules/Post";
+import { getPostById } from "src/services/supabase/post";
 
 const PostComments = () => {
-  // const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [sortCommentsBy, setSortComments] = useState<string>("First");
 
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
@@ -36,11 +38,12 @@ const PostComments = () => {
   const params = useParams();
 
   const [parentComment, setParentComment] = useState<ICommentData | null>(null);
+  const [commentPost, setCommentPost] = useState<IPost | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getCommentById(params.id ?? "");
-      setParentComment(result);
+      setParentComment(await getCommentById(params.id ?? ""));
+      setCommentPost(await getPostById(params.postId ?? ""));
     };
 
     fetchData();
@@ -82,7 +85,18 @@ const PostComments = () => {
 
   return (
     <>
-      <div className="sm:p-2">
+      <div className="flex w-full flex-col sm:gap-4 sm:p-2">
+        {commentPost && (
+          <Post
+            post={commentPost}
+            tagsVisible={false}
+            reactionVisible={false}
+            countViewVisible={false}
+            userViewVisible={false}
+            contentHeight="short"
+            cardClassName="rounded-none sm:rounded-large"
+          />
+        )}
         <Card
           className="w-full rounded-t-none border-none bg-background drop-shadow-lg hover:drop-shadow-xl sm:rounded-t-large sm:p-1"
           shadow="none"
@@ -121,6 +135,12 @@ const PostComments = () => {
               </SelectItem>
             </Select>
           </CardHeader>
+
+          <CardBody className="pb-0">
+            <Link to={NavigatePostPage(params.postId ?? "")}>
+              <p className="text-primary">• • •</p>
+            </Link>
+          </CardBody>
 
           <CardBody>
             <Comments
