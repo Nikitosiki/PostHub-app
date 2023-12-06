@@ -83,7 +83,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
           <h6 className="my-auto">{`${countComments} comments`}</h6>
           <Select
             size="sm"
-            className="max-w-[12rem]"
+            className="max-w-[10rem]"
             selectedKeys={[sortCommentsBy]}
             // disabledKeys={["First", "Recent"]}
             disallowEmptySelection
@@ -96,7 +96,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             }
             classNames={{
               popoverContent: "bg-background",
-              trigger: "bg-transparent shadow-none py-0 min-h-10 h-8",
+              trigger: "shadow-none py-0 min-h-10 h-8",
               value: "pl-1",
             }}
           >

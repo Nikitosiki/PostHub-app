@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -101,11 +102,19 @@ const PostComments = () => {
           className="w-full rounded-t-none border-none bg-background drop-shadow-lg hover:drop-shadow-xl sm:rounded-t-large sm:p-1"
           shadow="none"
         >
-          <CardHeader className="flex flex-row justify-between">
-            <h1 className="w-full text-left text-lg">Comments</h1>
+          <CardHeader className="flex flex-row items-center justify-between">
+            {/* <h1 className="w-full text-left text-lg">Comments</h1> */}
+            <Link to={NavigatePostPage(params.postId ?? "")}>
+              <div className="inline-flex h-full items-center gap-1 text-sm text-primary">
+                <span className="material-symbols-rounded">
+                  keyboard_backspace
+                </span>
+                <span className="pt-0.5">Back to post</span>
+              </div>
+            </Link>
             <Select
               size="sm"
-              className="max-w-[12rem]"
+              className="max-w-[10rem]"
               selectedKeys={[sortCommentsBy]}
               // disabledKeys={["First", "Recent"]}
               disallowEmptySelection
@@ -118,7 +127,7 @@ const PostComments = () => {
               }
               classNames={{
                 popoverContent: "bg-background",
-                trigger: "bg-transparent shadow-none py-0 min-h-10 h-8",
+                trigger: "shadow-none py-0 min-h-10 h-8",
                 value: "pl-1",
               }}
             >
@@ -136,13 +145,22 @@ const PostComments = () => {
             </Select>
           </CardHeader>
 
-          <CardBody className="pb-0">
+          {/* <CardBody className="pb-0">
             <Link to={NavigatePostPage(params.postId ?? "")}>
               <p className="text-primary">• • •</p>
             </Link>
-          </CardBody>
+            <Button
+              size="sm"
+              color="primary"
+              variant="light"
+              className="text-xs mr-auto"
+              onClick={() => navigate(NavigatePostPage(params.postId ?? ""))}
+            >
+              View all comments
+            </Button>
+          </CardBody> */}
 
-          <CardBody>
+          <CardBody className="pt-0">
             <Comments
               comments={comments}
               user={user}
