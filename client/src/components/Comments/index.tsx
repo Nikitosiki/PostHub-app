@@ -45,16 +45,10 @@ const Comments: FC<ICommentsProps> = ({
     return 4;
   };
 
-  console.log(countParents)
   const getComments = (comments: IComments) => {
     return comments.map((comment) =>
       comment.path.length - countParents <= maxlength() ? (
-        <Comment
-          key={comment.id}
-          comment={comment}
-          postId={postId}
-          user={user}
-        >
+        <Comment key={comment.id} comment={comment} postId={postId} user={user}>
           {getComments(comment.child_comments ?? [])}
         </Comment>
       ) : (
@@ -63,9 +57,7 @@ const Comments: FC<ICommentsProps> = ({
           color="primary"
           variant="light"
           className="text-xs"
-          onClick={() =>
-            navigate(NavigatePostCommentsPage(postId, comment.id))
-          }
+          onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
         >
           load more...
         </Button>

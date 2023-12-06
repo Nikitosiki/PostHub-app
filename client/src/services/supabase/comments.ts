@@ -1,4 +1,4 @@
-import { ICommentData, ICommentsData } from "src/interfaces";
+import { ICommentData, ICommentsData, Database } from "src/interfaces";
 import { client } from "./config/supabase";
 import { toCommentData } from "./parsers";
 import { TableCommentsPars } from "./parsers/types";
@@ -20,6 +20,11 @@ import { TableCommentsPars } from "./parsers/types";
 //     )
 //     .filter((comment) => comment !== null) as IComments;
 // };
+
+export const createComment = async (comment: Database["public"]["Functions"]["create_comment"]["Args"]) => {
+  const { data, error } = await client.rpc("create_comment", comment);
+  return { data, error };
+};
 
 export const getCommentById = async (
   id: string,

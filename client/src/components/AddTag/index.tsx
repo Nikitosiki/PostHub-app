@@ -30,7 +30,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
   return (
     <div className="flex w-[186px] flex-row">
       <Autocomplete
-        size={"sm"}
+        size="sm"
         radius="full"
         className="z-10 w-[150px]"
         labelPlacement="outside-left"

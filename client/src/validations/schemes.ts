@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import {
+  commentSchema,
   confirmPasswordSchema,
   contentPostSchema,
   emailSchema,
@@ -31,6 +32,13 @@ export const CreatePostSchema = yup
   })
   .required();
 
+export const CommentSchema = yup
+  .object({
+    content: commentSchema,
+  })
+  .required();
+
 export type LoginSchemaType = yup.InferType<typeof LoginSchema>;
 export type SingUpSchemaType = yup.InferType<typeof SingUpSchema>;
 export type CreatePostSchemaType = yup.InferType<typeof CreatePostSchema>;
+export type CommentSchemaType = yup.InferType<typeof CommentSchema>;

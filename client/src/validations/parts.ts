@@ -46,5 +46,10 @@ export const titlePostSchema = yup
 export const contentPostSchema = yup
   .string()
   .min(30, "Contents are too short")
-  .max(10000, "Contents are too long")
+  .max(20000, "Contents are too long")
   .required("Content is required");
+
+export const commentSchema = yup
+  .string()
+  .max(1000, "Comment is too long")
+  .required("Comment is required");
