@@ -79,7 +79,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
           <div className="flex w-full flex-row justify-between">
             {userViewVisible && (
               <Author
-                className="w-full text-left"
+                className="max-w-[90%] text-left"
                 author={post.author}
                 description={`Posted on ${timeElapsedString(
                   post.published_at,

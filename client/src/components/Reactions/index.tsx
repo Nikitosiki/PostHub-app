@@ -21,7 +21,7 @@ const Reactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
             .map((reaction) => {
               reactionsCount += reaction.count;
               return (
-                <div className="-ml-2 h-6 w-6 rounded-full bg-default-100 font-notocolor dark:font-noto">
+                <div key={reaction.emoji} className="-ml-2 h-6 w-6 rounded-full bg-default-100 font-notocolor dark:font-noto">
                   {reaction.emoji}
                 </div>
               );
