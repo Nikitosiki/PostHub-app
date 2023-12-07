@@ -85,7 +85,7 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
             size="sm"
             className="max-w-[10rem]"
             selectedKeys={[sortCommentsBy]}
-            // disabledKeys={["First", "Recent"]}
+            // disabledKeys={["First", "Latest"]}
             disallowEmptySelection
             onChange={(select) => {
               setSortComments(select.target.value);
@@ -102,14 +102,14 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
           >
             <SelectItem key={"First"}>First</SelectItem>
             <SelectItem
-              key={"Recent"}
+              key={"Latest"}
               endContent={
                 <Chip className="h-4 bg-primary-100 p-0 text-xs text-primary">
                   Beta
                 </Chip>
               }
             >
-              Recent
+              Latest
             </SelectItem>
           </Select>
         </div>

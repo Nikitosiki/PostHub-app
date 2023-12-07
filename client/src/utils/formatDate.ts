@@ -24,5 +24,5 @@ export const timeElapsedString = (value: string | Date): string => {
   } else {
     return "now";
   }
-  return "recently";
+  return "Latestly";
 };

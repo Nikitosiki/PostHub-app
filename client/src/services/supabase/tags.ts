@@ -2,13 +2,16 @@ import { client } from "./config/supabase";
 import { TablesInsert, ITags } from "src/interfaces";
 import { toTag } from "./parsers";
 
-export const searchTagsByTitle = async (title: string, limit?: number): Promise<ITags> => {
+export const searchTagsByTitle = async (
+  title: string,
+  limit?: number,
+): Promise<ITags> => {
   const { data, error } = await client
     .from("tags")
     .select(`*, users(*, genders(name))`)
     .filter("title", "ilike", `%${title}%`)
     .limit(limit ?? 50);
-    
+
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];
 
@@ -34,21 +37,21 @@ export const getTagIdByTitle = async (
   return data[0].id;
 };
 
-export const getNewTags = async (
+export const getSortedTags = async (
   pageNumber: number,
   pageSize: number = 10,
+  sortBy: "Latest" | "First" | "Ascending" | "Descending" = "Latest",
 ): Promise<ITags> => {
-  console.log(pageNumber, pageSize);
   const { data, error } = await client
     .from("tags")
     .select(`*, users(*, genders(name))`)
-    .order("created_at", { ascending: false })
+    .order(sortBy === "Latest" || sortBy === "First" ? "created_at" : "title", {
+      ascending: (sortBy === "First" || sortBy === "Ascending"),
+    })
     .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
 
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];
 
-  return data
-    .map((tag) => toTag(tag))
-    .filter((tag) => tag !== null) as ITags;
+  return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
