@@ -28,6 +28,7 @@ const SendCommentModal: FC<SendCommentProps> = ({
 }) => {
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
   const [isLoading, setLoading] = useState(false);
+  const [content, setContent] = useState<string | null>(null);
 
   const closeAuthModal = () => {
     isOpen && onOpenChange();
@@ -56,6 +57,7 @@ const SendCommentModal: FC<SendCommentProps> = ({
         message: error?.message,
       });
     } else {
+      setContent(null);
       closeAuthModal();
       setLoading(false);
       location.reload();
@@ -76,7 +78,7 @@ const SendCommentModal: FC<SendCommentProps> = ({
       >
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
           <ModalContent>
-            <ModalBody className="px-6 py-4">
+            <ModalBody className="flex-none px-6 py-4">
               <p className="text-sm">
                 Comment as{" "}
                 <Link
@@ -104,8 +106,11 @@ const SendCommentModal: FC<SendCommentProps> = ({
                 control={form.control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <EditorComment
-                    value={value ?? ""}
-                    onEditorChange={onChange}
+                    value={content ?? value ?? ""}
+                    onEditorChange={(value) => {
+                      setContent(value);
+                      onChange(value);
+                    }}
                     onBlur={onBlur}
                     disabled={isLoading}
                   />
