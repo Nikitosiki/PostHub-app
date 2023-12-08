@@ -45,15 +45,17 @@ const Tag = () => {
           className="w-full rounded-none border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl sm:rounded-large"
           shadow="none"
         >
-          <CardHeader className="justify-center pb-0">
+          <h2 className="relative -left-1 -top-1 w-[calc(100%+0.5rem)] bg-primary-300 py-2 text-center text-2xl text-white">
+            {tag.title}
+          </h2>
+          {/* <CardHeader className="justify-center pb-0">
             <TagComponent
               size="lg"
               className="bg-primary-100 text-2xl text-primary"
               tag={tag}
               disableLink
             />
-            {/* <h2 className="text-3xl text-primary">{tag.title}</h2> */}
-          </CardHeader>
+          </CardHeader> */}
 
           {tag.description && (
             <CardBody>
