@@ -2,7 +2,6 @@ import { FC } from "react";
 import { Editor as EditorTiny, IAllProps } from "@tinymce/tinymce-react";
 
 import { useSwitchTheme } from "src/hooks";
-import "./style.css";
 
 const EditorComment: FC<IAllProps> = (props) => {
   const [isDarkTheme] = useSwitchTheme();
