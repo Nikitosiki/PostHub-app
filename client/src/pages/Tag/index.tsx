@@ -2,13 +2,11 @@ import {
   Button,
   Card,
   CardBody,
-  CardHeader,
-  Divider,
   Select,
   SelectItem,
 } from "@nextui-org/react";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { default as TagComponent } from "src/components/Tag";
+// import { default as TagComponent } from "src/components/Tag";
 import InnerHTML from "src/components/InnerHTML";
 
 import { ITag } from "src/interfaces";

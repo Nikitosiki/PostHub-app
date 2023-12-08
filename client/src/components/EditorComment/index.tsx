@@ -13,8 +13,9 @@ const EditorComment: FC<IAllProps> = (props) => {
         menubar: false,
         forced_root_block: "div",
         paste_data_images: false,
-        skin: isDarkTheme ? "oxide-dark" : "oxide",
+        // skin: isDarkTheme ? "oxide-dark" : "oxide",
         content_css: isDarkTheme ? "dark" : "default",
+        skin: "oxide",
         plugins: [
           // "accordion",
           // "preview",
