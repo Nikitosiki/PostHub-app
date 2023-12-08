@@ -123,20 +123,34 @@ export const incrementViewPost = async (
   identifier: IUser | string,
 ) => {
   if (typeof identifier === "string") {
-      await client
-        .from("count_views_unauth")
-        .insert({
-          post_id: post_id,
-          fingerprint_id: identifier,
-        },
-    );
+    await client.from("count_views_unauth").insert({
+      post_id: post_id,
+      fingerprint_id: identifier,
+    });
   } else {
-      await client
-        .from("count_views_auth")
-        .insert({
-          post_id: post_id,
-          user_id: identifier.id,
-        },
-    );
+    await client.from("count_views_auth").insert({
+      post_id: post_id,
+      user_id: identifier.id,
+    });
   }
+};
+
+export const getCountPosts = async (): Promise<number> => {
+  const { data, error } = await client.rpc("get_count_post");
+
+  if (error) return 0;
+  return data;
+};
+
+export const getCountPostsByTag = async (tagId: string): Promise<number> => {
+  const { data, error } = await client
+    .from("post_tags")
+    .select("post_id")
+    .eq("tag_id", tagId);
+
+  console.log(data);
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return 0;
+
+  return data.length;
 };

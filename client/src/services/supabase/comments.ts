@@ -62,7 +62,7 @@ export const getFirstComments = async (
 };
 
 export const getCountComments = async (post_id: string): Promise<number> => {
-  const { data, error } = await client.rpc("getCountComments", {
+  const { data, error } = await client.rpc("get_count_comments", {
     post_id_prop: post_id,
   });
 

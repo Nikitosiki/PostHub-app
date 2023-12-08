@@ -1,5 +1,5 @@
 import { client } from "./config/supabase";
-import { TablesInsert, ITags } from "src/interfaces";
+import { TablesInsert, ITags, ITag } from "src/interfaces";
 import { toTag } from "./parsers";
 
 export const searchTagsByTitle = async (
@@ -55,3 +55,18 @@ export const getSortedTags = async (
 
   return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
+
+export const tagById = async (
+  id: string,
+): Promise<ITag | null> => {
+  const { data, error } = await client
+    .from("tags")
+    .select(`*, users(*, genders(name))`)
+    .eq("id", id);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return null;
+
+  return toTag(data[0]);
+};
+

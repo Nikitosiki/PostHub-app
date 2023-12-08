@@ -27,10 +27,12 @@ import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
 import Profile from "src/pages/Profile";
 import PostComments from "./pages/PostComments";
+import Tag from "./pages/Tag";  
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
 import { getPostById } from "./services/supabase/post";
+import { tagById } from "./services/supabase/tags";
 
 const router = createBrowserRouter([
   {
@@ -92,14 +94,23 @@ const router = createBrowserRouter([
         errorElement: <Notfound value="Comment is not found" />,
       },
       {
+        path: TagPagePath,
+        element: <Tag/>,
+        errorElement: <Notfound value="Tag is not found" />,
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("Tag is not found", { status: 404 });
+
+          const data = tagById(params.id);
+          if (!data) throw new Response("Tag is not found", { status: 404 });
+
+          return data;
+        },
+      },
+      {
         path: AuthorPagePath,
         element: <div />,
         errorElement: <Notfound value="User is not found" />,
-      },
-      {
-        path: TagPagePath,
-        element: <div />,
-        errorElement: <Notfound value="Tag is not found" />,
       },
       {
         path: "*",

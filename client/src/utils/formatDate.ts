@@ -26,3 +26,18 @@ export const timeElapsedString = (value: string | Date): string => {
   }
   return "Latestly";
 };
+
+export const shortFormatted = (inputDate: string | Date): string => {
+  const date: Date =
+    typeof inputDate === "string" ? new Date(inputDate) : inputDate;
+
+  const today = new Date();
+  const isSameYear = date.getFullYear() === today.getFullYear();
+  const formatOptions: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "numeric",
+    year: isSameYear ? undefined : "numeric",
+  };
+
+  return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
+};
