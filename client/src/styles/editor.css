@@ -52,6 +52,15 @@
   @apply !fill-default-foreground;
 }
 
+.tox-collection__item--active .tox-collection__item-checkmark svg,
+.tox-collection__item--active .tox-collection__item-caret svg {
+  @apply !fill-default-50;
+}
+
+.tox-collection__item-label code {
+  @apply !text-black;
+}
+
 .tox-tbtn__select-label,
 .tox-statusbar__wordcount,
 .tox-statusbar,
@@ -101,6 +110,7 @@
 .tox .tox-collection--list .tox-collection__item--active div,
 .tox .tox-collection--list .tox-collection__item--active pre {
   @apply !bg-primary;
+  @apply !text-default-50;
 }
 
 .tox .tox-collection--toolbar .tox-collection__item--active,
