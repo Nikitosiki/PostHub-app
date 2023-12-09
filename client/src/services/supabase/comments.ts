@@ -27,7 +27,7 @@ export const createComment = async (comment: Database["public"]["Functions"]["cr
 };
 
 export const getCommentById = async (
-  id: string,
+  id: number,
 ): Promise<ICommentData | null> => {
   const { data, error } = await client
     .from("comments")

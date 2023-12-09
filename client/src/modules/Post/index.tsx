@@ -33,6 +33,8 @@ interface IMainProps {
   contentHeight?: "hidden" | "short" | "normal";
 }
 
+export type PostProps = IMainProps & IActiveParts;
+
 const maxHeightContent = (value: IMainProps["contentHeight"]) => {
   return value === "normal"
     ? "max-h-[330px]"

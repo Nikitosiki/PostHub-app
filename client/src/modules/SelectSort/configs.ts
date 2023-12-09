@@ -1,7 +1,7 @@
 import { SelectConfig } from ".";
 
 export const CommentSortConfig: SelectConfig = {
-  searchParamName: "sort",
+  searchParamName: "sort-c",
   defaultKey: "first",
   items: [
     {
@@ -16,7 +16,7 @@ export const CommentSortConfig: SelectConfig = {
 };
 
 export const TagSortConfig: SelectConfig = {
-  searchParamName: "sort",
+  searchParamName: "sort-t",
   defaultKey: "latest",
   items: [
     {
@@ -39,7 +39,7 @@ export const TagSortConfig: SelectConfig = {
 };
 
 export const PostSortConfig: SelectConfig = {
-  searchParamName: "sort",
+  searchParamName: "sort-p",
   defaultKey: "new",
   items: [
     {
