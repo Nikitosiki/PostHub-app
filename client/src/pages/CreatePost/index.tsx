@@ -25,7 +25,6 @@ import ErrorMessage from "src/components/ErrorMessage";
 import { createTag, getTagIdByTitle } from "src/services/supabase/tags";
 import { addTagsToPost } from "src/services/supabase/postTags";
 import { NavigatePostPage } from "src/paths";
-import InnerHTML from "src/components/InnerHTML";
 
 const CreatePost = () => {
   const [isLoading, setLoading] = useState(false);
@@ -33,8 +32,6 @@ const CreatePost = () => {
   const [newTags, setNewTags] = useState<string[]>([]);
   const { user } = useAuth();
   const navigate = useNavigate();
-
-  const [change, setChange] = useState<string>("");
 
   const addTag = (value: ITag | string) => {
     // Type checking and duplication elimination
@@ -128,8 +125,8 @@ const CreatePost = () => {
               control={form.control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Editor
-                  // value={value ?? ""}
-                  onEditorChange={(val) => setChange(val)}
+                  value={value ?? ""}
+                  onEditorChange={onChange}
                   onBlur={onBlur}
                   disabled={isLoading}
                 />
@@ -189,7 +186,6 @@ const CreatePost = () => {
           </CardFooter>
         </Card>
       </div>
-      <InnerHTML content={change}></InnerHTML>
     </form>
   );
 };
