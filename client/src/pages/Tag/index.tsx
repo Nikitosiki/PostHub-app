@@ -1,10 +1,4 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  Select,
-  SelectItem,
-} from "@nextui-org/react";
+import { Button, Card, CardBody } from "@nextui-org/react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 // import { default as TagComponent } from "src/components/Tag";
 import InnerHTML from "src/components/InnerHTML";
@@ -14,6 +8,10 @@ import { shortFormatted } from "src/utils";
 import { useEffect, useState } from "react";
 import { NavigateCreatePostPage } from "src/paths";
 import { getCountPosts, getCountPostsByTag } from "src/services/supabase/post";
+import SelectSort from "src/modules/SelectSort";
+import { PostSortConfig } from "src/modules/SelectSort/configs";
+
+const sortConfig = PostSortConfig;
 
 const Tag = () => {
   const tag = useLoaderData() as ITag;
@@ -109,29 +107,7 @@ const Tag = () => {
               >
                 Create a new Post
               </Button>
-              <Select
-                size="sm"
-                radius="md"
-                className="max-w-[12rem]"
-                selectedKeys={["First"]}
-                // disabledKeys={["First", "Latest"]}
-                disallowEmptySelection
-                // onChange={(select) => {
-                //   setSortComments(select.target.value);
-                //   reloadInfiniteScroll();
-                // }}
-                startContent={
-                  <span className="material-symbols-rounded">sort</span>
-                }
-                classNames={{
-                  popoverContent: "bg-background",
-                  trigger: "shadow-none py-0 min-h-10 h-10",
-                  value: "pl-1",
-                }}
-              >
-                <SelectItem key={"First"}>First</SelectItem>
-                <SelectItem key={"Latest"}>Latest</SelectItem>
-              </Select>
+              <SelectSort sortConfig={sortConfig} className="max-w-[10rem]" />
             </div>
           </CardBody>
         </Card>

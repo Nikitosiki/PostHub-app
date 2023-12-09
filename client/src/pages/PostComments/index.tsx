@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
   CardHeader,
-  Chip,
-  Select,
-  SelectItem,
 } from "@nextui-org/react";
 
 import {
@@ -22,10 +19,13 @@ import Loading from "src/components/Loading";
 import { NavigatePostPage } from "src/paths";
 import Post from "src/modules/Post";
 import { getPostById } from "src/services/supabase/post";
+import { CommentSortConfig } from "src/modules/SelectSort/configs";
+import SelectSort from "src/modules/SelectSort";
+
+const sortConfig = CommentSortConfig;
 
 const PostComments = () => {
-  const [sortCommentsBy, setSortComments] = useState<string>("First");
-
+  // const [sortCommentsBy, setSortComments] = useState<string>("First");
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
   const [comments, setComments] = useState<IComments>([]);
 
@@ -36,6 +36,7 @@ const PostComments = () => {
 
   const { user } = useAuth();
   const params = useParams();
+  const [searchParams] = useSearchParams();
 
   const [parentComment, setParentComment] = useState<ICommentData | null>(null);
   const [commentPost, setCommentPost] = useState<IPost | null>(null);
@@ -56,7 +57,8 @@ const PostComments = () => {
       Number(params.id),
       numberPage,
       commentsOnPage,
-      sortCommentsBy !== "First",
+      (searchParams.get(sortConfig.searchParamName) ??
+        sortConfig.defaultKey) !== sortConfig.items[0].key,
     );
     setNumberPage(numberPage + 1);
     setHasMoreComments(nextDataComments.length !== 0);
@@ -111,37 +113,10 @@ const PostComments = () => {
                 <span className="pt-0.5">Back to post</span>
               </div>
             </Link>
-            <Select
-              size="sm"
+            <SelectSort
+              sortConfig={sortConfig}
               className="max-w-[10rem]"
-              selectedKeys={[sortCommentsBy]}
-              // disabledKeys={["First", "Latest"]}
-              disallowEmptySelection
-              onChange={(select) => {
-                setSortComments(select.target.value);
-                reloadInfiniteScroll();
-              }}
-              startContent={
-                <span className="material-symbols-rounded">sort</span>
-              }
-              classNames={{
-                popoverContent: "bg-background",
-                trigger: "shadow-none py-0 min-h-10 h-8",
-                value: "pl-1",
-              }}
-            >
-              <SelectItem key={"First"}>First</SelectItem>
-              <SelectItem
-                key={"Latest"}
-                endContent={
-                  <Chip className="h-4 bg-primary-100 p-0 text-xs text-primary">
-                    Beta
-                  </Chip>
-                }
-              >
-                Latest
-              </SelectItem>
-            </Select>
+            />
           </CardHeader>
 
           {/* <CardBody className="pb-0">

@@ -40,13 +40,13 @@ export const getTagIdByTitle = async (
 export const getSortedTags = async (
   pageNumber: number,
   pageSize: number = 10,
-  sortBy: "Latest" | "First" | "Ascending" | "Descending" = "Latest",
+  sortBy: string,
 ): Promise<ITags> => {
   const { data, error } = await client
     .from("tags")
     .select(`*, users(*, genders(name))`)
-    .order(sortBy === "Latest" || sortBy === "First" ? "created_at" : "title", {
-      ascending: (sortBy === "First" || sortBy === "Ascending"),
+    .order(sortBy === "latest" || sortBy === "first" ? "created_at" : "title", {
+      ascending: (sortBy === "first" || sortBy === "ascending"),
     })
     .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
 

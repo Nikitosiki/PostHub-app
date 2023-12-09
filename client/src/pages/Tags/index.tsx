@@ -1,20 +1,19 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Select,
-  SelectItem,
-} from "@nextui-org/react";
-import { useState } from "react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
+import { useSearchParams } from "react-router-dom";
 import Loading from "src/components/Loading";
 
 import Tag from "src/components/Tag";
 import { ITags } from "src/interfaces";
+import SelectSort from "src/modules/SelectSort";
+import { TagSortConfig } from "src/modules/SelectSort/configs";
 import { getSortedTags } from "src/services/supabase/tags";
 
+const sortConfig = TagSortConfig;
+
 const Tags = () => {
-  const [sortTagsBy, setSortTags] = useState<"Latest" | "First" | "Ascending" | "Descending">("Latest");
+  const [searchParams] = useSearchParams();
 
   const [tags, setTags] = useState<ITags>([]);
   const [loading, setLoading] = useState(false);
@@ -22,9 +21,17 @@ const Tags = () => {
   const [numberPage, setNumberPage] = useState<number>(1);
   const tagsOnPage = 10;
 
+  useEffect(() => {
+    reloadInfiniteScroll();
+  }, [searchParams]);
+
   const getNextTags = async () => {
     setLoading(true);
-    const nextTags = await getSortedTags(numberPage, tagsOnPage, sortTagsBy);
+    const nextTags = await getSortedTags(
+      numberPage,
+      tagsOnPage,
+      searchParams.get(sortConfig.searchParamName) ?? sortConfig.defaultKey,
+    );
     setHasMoreTags(nextTags.length !== 0);
     setTags(tags.concat(nextTags));
     setNumberPage(numberPage + 1);
@@ -54,29 +61,7 @@ const Tags = () => {
         >
           <CardHeader className="flex flex-row items-center justify-between">
             <p>All tags</p>
-            <Select
-              size="sm"
-              className="max-w-[10rem]"
-              selectedKeys={[sortTagsBy]}
-              disallowEmptySelection
-              onChange={(select) => {
-                setSortTags(select.target.value as typeof sortTagsBy ?? "Latest");
-                reloadInfiniteScroll();
-              }}
-              startContent={
-                <span className="material-symbols-rounded">sort</span>
-              }
-              classNames={{
-                popoverContent: "bg-background",
-                trigger: "shadow-none py-0 min-h-10 h-8",
-                value: "pl-1",
-              }}
-            >
-              <SelectItem key={"Latest"}>Latest</SelectItem>
-              <SelectItem key={"First"}>First</SelectItem>
-              <SelectItem key={"Ascending"}>Ascending</SelectItem>
-              <SelectItem key={"Descending"}>Descending</SelectItem>
-            </Select>
+            <SelectSort sortConfig={sortConfig} className="max-w-[10rem]" />
           </CardHeader>
 
           <CardBody className="flex-row flex-wrap gap-2">

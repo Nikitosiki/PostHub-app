@@ -1,13 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  CardBody,
-  Chip,
-  Select,
-  SelectItem,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Avatar, Button, CardBody, useDisclosure } from "@nextui-org/react";
 
 import { IComments, ICommentsData, IPost, IUser } from "src/interfaces";
 import Comments from "src/components/Comments";
@@ -20,15 +12,20 @@ import { buildCommentTree } from "src/utils";
 import SendCommentModal from "../SendCommentModal/SendCommentModal";
 import Loading from "src/components/Loading";
 import useInfiniteScroll from "react-infinite-scroll-hook";
+import SelectSort from "src/modules/SelectSort";
+import { CommentSortConfig } from "src/modules/SelectSort/configs";
+import { useSearchParams } from "react-router-dom";
 
 type CardCommentsProps = {
   user: IUser | null;
   fatherContent: IPost;
 };
 
+const sortConfig = CommentSortConfig;
+
 const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [sortCommentsBy, setSortComments] = useState<string>("First");
+  const [searchParams] = useSearchParams();
 
   const [commentsData, setCommentData] = useState<ICommentsData>([]);
   const [comments, setComments] = useState<IComments>([]);
@@ -44,13 +41,18 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
     getCountComments(fatherContent.id).then(setCountComments);
   }, []);
 
+  useEffect(() => {
+    reloadInfiniteScroll();
+  }, [searchParams]);
+
   const getNextComments = async () => {
     setLoading(true);
     const nextDataComments = await getFirstComments(
       fatherContent.id,
       numberPage,
       commentsOnPage,
-      sortCommentsBy !== "First",
+      (searchParams.get(sortConfig.searchParamName) ??
+        sortConfig.defaultKey) !== sortConfig.items[0].key,
     );
     setNumberPage(numberPage + 1);
     setHasMoreComments(nextDataComments.length !== 0);
@@ -66,7 +68,6 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
     setHasMoreComments(true);
     setNumberPage(1);
     setLoading(false);
-    //console.log("reload: ", comments, commentsData, hasMoreComments, numberPage)
   };
 
   const [sentryRef] = useInfiniteScroll({
@@ -81,37 +82,10 @@ const CardComments: FC<CardCommentsProps> = ({ user, fatherContent }) => {
       <CardBody className="pb-0">
         <div className="flex w-full flex-row justify-between">
           <h6 className="my-auto">{`${countComments} comments`}</h6>
-          <Select
-            size="sm"
+          <SelectSort
+            sortConfig={sortConfig}
             className="max-w-[10rem]"
-            selectedKeys={[sortCommentsBy]}
-            // disabledKeys={["First", "Latest"]}
-            disallowEmptySelection
-            onChange={(select) => {
-              setSortComments(select.target.value);
-              reloadInfiniteScroll();
-            }}
-            startContent={
-              <span className="material-symbols-rounded">sort</span>
-            }
-            classNames={{
-              popoverContent: "bg-background",
-              trigger: "shadow-none py-0 min-h-10 h-8",
-              value: "pl-1",
-            }}
-          >
-            <SelectItem key={"First"}>First</SelectItem>
-            <SelectItem
-              key={"Latest"}
-              endContent={
-                <Chip className="h-4 bg-primary-100 p-0 text-xs text-primary">
-                  Beta
-                </Chip>
-              }
-            >
-              Latest
-            </SelectItem>
-          </Select>
+          />
         </div>
       </CardBody>
 

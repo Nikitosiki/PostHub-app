@@ -27,7 +27,7 @@ import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
 import Profile from "src/pages/Profile";
 import PostComments from "./pages/PostComments";
-import Tag from "./pages/Tag";  
+import Tag from "./pages/Tag";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
-    // errorElement: <Notfound />,
+    errorElement: <Notfound />,
     children: [
       {
         index: true,
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
       },
       {
         path: TagPagePath,
-        element: <Tag/>,
+        element: <Tag />,
         errorElement: <Notfound value="Tag is not found" />,
         loader: ({ params }) => {
           if (!params.id)
