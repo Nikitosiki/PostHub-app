@@ -41,8 +41,8 @@
 
 .tox-tinymce {
   @apply !border-default-200;
-  @apply hover:!border-default-400;
-  @apply focus:!border-default-600;
+  /* @apply hover:!border-default-400;
+  @apply focus:!border-default-600; */
 }
 
 .tox-collection__item-caret svg,
