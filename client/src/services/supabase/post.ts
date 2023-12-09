@@ -16,6 +16,31 @@ export const createPost = async (post: TablesInsert<"posts">) => {
   return { data, error };
 };
 
+export const getSortedPosts = async (
+  pageNumber: number,
+  pageSize: number = 10,
+  sortBy: string = "new",
+): Promise<IPost[]> => {
+  console.log(pageNumber, pageSize);
+  const { data, error } = await client
+    .from("posts")
+    .select(
+      ` *, 
+      users!posts_author_id_fkey(*, genders(name)), 
+      tags(*, users(*, genders(name))), 
+      reactions(*)`,
+    )
+    .order(sortBy === "hot" ? "count_view" : "created_at", { ascending: false })
+    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data
+    .map((post) => toPost(post))
+    .filter((post) => post !== null) as IPosts;
+};
+
 export const searchPostsByTitle = async (text: string, limit?: number) => {
   const { data, error } = await client
     .from("posts")
@@ -27,70 +52,6 @@ export const searchPostsByTitle = async (text: string, limit?: number) => {
     )
     .ilike("title", `%${text}%`)
     .range(0, (limit ?? 5) - 1);
-
-  error && console.log(error);
-  if (!Array.isArray(data) || data.length < 1) return [];
-
-  return data
-    .map((post) => toPost(post))
-    .filter((post) => post !== null) as IPosts;
-};
-
-export const getPosts = async (): Promise<IPost[]> => {
-  const { data, error } = await client.from("posts").select(
-    ` *, 
-      users!posts_author_id_fkey(*, genders(name)), 
-      tags(*, users(*, genders(name))), 
-      reactions(*)`,
-  );
-
-  error && console.log(error);
-  if (!Array.isArray(data) || data.length < 1) return [];
-
-  return data
-    .map((post) => toPost(post))
-    .filter((post) => post !== null) as IPosts;
-};
-
-export const getNewPosts = async (
-  pageNumber: number,
-  pageSize: number = 10,
-): Promise<IPost[]> => {
-  console.log(pageNumber, pageSize);
-  const { data, error } = await client
-    .from("posts")
-    .select(
-      ` *, 
-      users!posts_author_id_fkey(*, genders(name)), 
-      tags(*, users(*, genders(name))), 
-      reactions(*)`,
-    )
-    .order("created_at", { ascending: false })
-    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
-
-  error && console.log(error);
-  if (!Array.isArray(data) || data.length < 1) return [];
-
-  return data
-    .map((post) => toPost(post))
-    .filter((post) => post !== null) as IPosts;
-};
-
-export const getHotPosts = async (
-  pageNumber: number,
-  pageSize: number = 10,
-): Promise<IPost[]> => {
-  console.log(pageNumber, pageSize);
-  const { data, error } = await client
-    .from("posts")
-    .select(
-      ` *, 
-      users!posts_author_id_fkey(*, genders(name)), 
-      tags(*, users(*, genders(name))), 
-      reactions(*)`,
-    )
-    .order("count_view", { ascending: false })
-    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
 
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];

@@ -3,7 +3,7 @@ import useInfiniteScroll from "react-infinite-scroll-hook";
 
 import Post from "src/modules/Post";
 import { IPost } from "src/interfaces";
-import { getNewPosts } from "src/services/supabase/post";
+import { getSortedPosts } from "src/services/supabase/post";
 import Loading from "src/components/Loading";
 
 const News = () => {
@@ -15,7 +15,7 @@ const News = () => {
 
   const getNextPosts = async () => {
     setLoading(true);
-    const nextPosts = await getNewPosts(numberPage, postsOnPage);
+    const nextPosts = await getSortedPosts(numberPage, postsOnPage, "new");
     setHasMorePosts(nextPosts.length !== 0);
     setPosts(posts.concat(nextPosts));
     setNumberPage(numberPage + 1);
