@@ -22,17 +22,6 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
 
   const controls = (
     <div className="inline-flex gap-2 text-xs text-default-500">
-      <Button
-        size="sm"
-        variant="light"
-        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
-        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
-        startContent={
-          <span className="material-symbols-rounded">expand_content</span>
-        }
-      >
-        Open
-      </Button>
       {user && (
         <>
           <Button
@@ -55,6 +44,17 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
           />
         </>
       )}
+      <Button
+        size="sm"
+        variant="light"
+        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
+        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
+        startContent={
+          <span className="material-symbols-rounded">expand_content</span>
+        }
+      >
+        Open
+      </Button>
     </div>
   );
 
