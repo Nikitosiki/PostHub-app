@@ -28,11 +28,13 @@ import CreatePost from "src/pages/CreatePost";
 import Profile from "src/pages/Profile";
 import PostComments from "./pages/PostComments";
 import Tag from "./pages/Tag";
+import Author from "./pages/Author";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
 import { getPostById } from "./services/supabase/post";
-import { tagById } from "./services/supabase/tags";
+import { getTagById } from "./services/supabase/tags";
+import { getUserById } from "./services/supabase/user";
 
 const router = createBrowserRouter([
   {
@@ -101,7 +103,7 @@ const router = createBrowserRouter([
           if (!params.id)
             throw new Response("Tag is not found", { status: 404 });
 
-          const data = tagById(params.id);
+          const data = getTagById(params.id);
           if (!data) throw new Response("Tag is not found", { status: 404 });
 
           return data;
@@ -109,8 +111,17 @@ const router = createBrowserRouter([
       },
       {
         path: AuthorPagePath,
-        element: <div />,
+        element: <Author />,
         errorElement: <Notfound value="User is not found" />,
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("User is not found", { status: 404 });
+
+          const data = getUserById(params.id);
+          if (!data) throw new Response("User is not found", { status: 404 });
+
+          return data;
+        },
       },
       {
         path: "*",

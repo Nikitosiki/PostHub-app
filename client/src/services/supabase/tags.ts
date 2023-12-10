@@ -56,7 +56,7 @@ export const getTagIdByTitle = async (
   return data[0].id;
 };
 
-export const tagById = async (
+export const getTagById = async (
   id: string,
 ): Promise<ITag | null> => {
   const { data, error } = await client

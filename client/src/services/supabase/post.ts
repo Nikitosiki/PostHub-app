@@ -109,7 +109,6 @@ export const getPostById = async (id: string): Promise<IPost | null> => {
     .eq("id", id);
 
   error && console.log(error);
-
   if (!Array.isArray(data) || data.length < 1) return null;
 
   return toPost(data[0]);
@@ -145,7 +144,6 @@ export const getCountPostsByTag = async (tagId: string): Promise<number> => {
     .select("post_id")
     .eq("tag_id", tagId);
 
-  console.log(data);
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return 0;
 
