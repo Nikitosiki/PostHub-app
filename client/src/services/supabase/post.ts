@@ -21,7 +21,6 @@ export const getSortedPosts = async (
   pageSize: number = 10,
   sortBy: string = "new",
 ): Promise<IPost[]> => {
-  console.log(pageNumber, pageSize);
   const { data, error } = await client
     .from("posts")
     .select(
@@ -30,6 +29,43 @@ export const getSortedPosts = async (
       tags(*, users(*, genders(name))), 
       reactions(*)`,
     )
+    .order(sortBy === "hot" ? "count_view" : "created_at", { ascending: false })
+    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data
+    .map((post) => toPost(post))
+    .filter((post) => post !== null) as IPosts;
+};
+
+export const getSortedPostsByTag = async (
+  pageNumber: number,
+  pageSize: number = 10,
+  sortBy: string = "new",
+  tagId: string,
+): Promise<IPost[]> => {
+  const dataPostsId = (await client.rpc("get_posts_by_tag", {
+    tag_id_value: tagId,
+    sort_option: sortBy,
+    from: pageNumber * pageSize - pageSize,
+    to: pageSize,
+  }));
+
+  if (!Array.isArray(dataPostsId.data) || dataPostsId.data.length < 1) return [];
+
+  const postsId = dataPostsId.data.map(item => item.post_id);
+
+  const { data, error } = await client
+    .from("posts")
+    .select(
+      ` *, 
+      users!posts_author_id_fkey(*, genders(name)), 
+      tags(*, users(*, genders(name))), 
+      reactions(*)`,
+    )
+    .in("id", postsId)
     .order(sortBy === "hot" ? "count_view" : "created_at", { ascending: false })
     .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
 

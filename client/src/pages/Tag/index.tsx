@@ -107,7 +107,7 @@ const Tag = () => {
 
       {/* List Posts */}
       <div className="flex w-full flex-col gap-4 p-2 pt-4">
-        <ListPosts />
+        <ListPosts parentContent={tag} />
       </div>
     </>
   );
