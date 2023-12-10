@@ -30,7 +30,9 @@ const CardComments: FC<CardCommentsProps> = ({ fatherContent }) => {
       <CardBody className="pb-0">
         <div className="flex w-full flex-row justify-between">
           <h6 className="my-auto">{`${countComments} comments`}</h6>
-          <SelectSort sortConfig={sortConfig} className="max-w-[10rem]" />
+          {countComments > 0 && (
+            <SelectSort sortConfig={sortConfig} className="max-w-[10rem]" />
+          )}
         </div>
       </CardBody>
 

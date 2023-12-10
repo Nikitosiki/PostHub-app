@@ -14,16 +14,17 @@ export interface SelectConfig {
   searchParamName: string;
 }
 
-export interface SelectSortProps {
+export type SelectSortProps = {
   sortConfig: SelectConfig;
   className?: string;
   onChange?: Pick<SelectProps, "onChange">;
-}
+} & Pick<SelectProps, "size" | "radius" | "classNames">
 
 const SelectSort: FC<SelectSortProps> = ({
   sortConfig: { defaultKey, items, disabledKeys, searchParamName, },
   className,
   onChange,
+  ...props
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sort = searchParams.get(searchParamName);
@@ -35,7 +36,7 @@ const SelectSort: FC<SelectSortProps> = ({
 
   return (
     <Select
-      size="sm"
+      size="sm"      
       className={`max-w-max ${className}`}
       selectedKeys={[itemKey]}
       disabledKeys={disabledKeys}
@@ -56,6 +57,7 @@ const SelectSort: FC<SelectSortProps> = ({
         trigger: "shadow-none py-0 min-h-10 h-8",
         value: "pl-1",
       }}
+      {...props}
     >
       {(item) => <SelectItem key={item.key}>{item.value}</SelectItem>}
     </Select>
