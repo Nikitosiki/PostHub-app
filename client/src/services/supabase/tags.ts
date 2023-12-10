@@ -1,23 +1,45 @@
 import { client } from "./config/supabase";
-import { TablesInsert, ITags } from "src/interfaces";
+import { TablesInsert, ITags, ITag } from "src/interfaces";
 import { toTag } from "./parsers";
 
-export const searchTagsByTitle = async (title: string, limit?: number): Promise<ITags> => {
+export const createTag = async (tag: TablesInsert<"tags">) => {
+  const { data, error } = await client.from("tags").insert(tag).select();
+  return { data, error };
+};
+
+export const getSortedTags = async (
+  pageNumber: number,
+  pageSize: number = 10,
+  sortBy: string,
+): Promise<ITags> => {
   const { data, error } = await client
     .from("tags")
     .select(`*, users(*, genders(name))`)
-    .filter("title", "ilike", `%${title}%`)
-    .limit(limit ?? 50);
-    
+    .order(sortBy === "latest" || sortBy === "first" ? "created_at" : "title", {
+      ascending: (sortBy === "first" || sortBy === "ascending"),
+    })
+    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
+
   error && console.log(error);
   if (!Array.isArray(data) || data.length < 1) return [];
 
   return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
 
-export const createTag = async (tag: TablesInsert<"tags">) => {
-  const { data, error } = await client.from("tags").insert(tag).select();
-  return { data, error };
+export const searchTagsByTitle = async (
+  title: string,
+  limit?: number,
+): Promise<ITags> => {
+  const { data, error } = await client
+    .from("tags")
+    .select(`*, users(*, genders(name))`)
+    .filter("title", "ilike", `%${title}%`)
+    .limit(limit ?? 50);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
 };
 
 export const getTagIdByTitle = async (
@@ -34,21 +56,17 @@ export const getTagIdByTitle = async (
   return data[0].id;
 };
 
-export const getNewTags = async (
-  pageNumber: number,
-  pageSize: number = 10,
-): Promise<ITags> => {
-  console.log(pageNumber, pageSize);
+export const getTagById = async (
+  id: string,
+): Promise<ITag | null> => {
   const { data, error } = await client
     .from("tags")
     .select(`*, users(*, genders(name))`)
-    .order("created_at", { ascending: false })
-    .range(pageNumber * pageSize - pageSize, pageNumber * pageSize - 1);
+    .eq("id", id);
 
   error && console.log(error);
-  if (!Array.isArray(data) || data.length < 1) return [];
+  if (!Array.isArray(data) || data.length < 1) return null;
 
-  return data
-    .map((tag) => toTag(tag))
-    .filter((tag) => tag !== null) as ITags;
+  return toTag(data[0]);
 };
+

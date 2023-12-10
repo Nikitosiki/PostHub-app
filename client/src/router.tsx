@@ -27,10 +27,14 @@ import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
 import Profile from "src/pages/Profile";
 import PostComments from "./pages/PostComments";
+import Tag from "./pages/Tag";
+import Author from "./pages/Author";
 
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
 import { getPostById } from "./services/supabase/post";
+import { getTagById } from "./services/supabase/tags";
+import { getUserById } from "./services/supabase/user";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +45,7 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
-    // errorElement: <Notfound />,
+    errorElement: <Notfound />,
     children: [
       {
         index: true,
@@ -92,14 +96,32 @@ const router = createBrowserRouter([
         errorElement: <Notfound value="Comment is not found" />,
       },
       {
-        path: AuthorPagePath,
-        element: <div />,
-        errorElement: <Notfound value="User is not found" />,
+        path: TagPagePath,
+        element: <Tag />,
+        errorElement: <Notfound value="Tag is not found" />,
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("Tag is not found", { status: 404 });
+
+          const data = getTagById(params.id);
+          if (!data) throw new Response("Tag is not found", { status: 404 });
+
+          return data;
+        },
       },
       {
-        path: TagPagePath,
-        element: <div />,
-        errorElement: <Notfound value="Tag is not found" />,
+        path: AuthorPagePath,
+        element: <Author />,
+        errorElement: <Notfound value="User is not found" />,
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("User is not found", { status: 404 });
+
+          const data = getUserById(params.id);
+          if (!data) throw new Response("User is not found", { status: 404 });
+
+          return data;
+        },
       },
       {
         path: "*",

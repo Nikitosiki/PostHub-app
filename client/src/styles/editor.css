@@ -1,0 +1,153 @@
+.tox-statusbar__branding svg {
+  display: none;
+}
+
+.tox,
+.tox-tinymce,
+.toptobottom,
+.tox-editor-container,
+.tox-editor-header,
+.tox-toolbar-overlord,
+.tox-toolbar__primary,
+.tox-tbtn,
+.tox-tbtn--select,
+.tox-tbtn--bespoke,
+.tox-toolbar__group,
+.tox-statusbar,
+.tox .tox-toolbar,
+.tox.tox-tinymce-aux .tox-toolbar__overflow {
+  @apply !bg-background;
+}
+
+.tox-collection__group,
+.tox-menu,
+.tox .tox-collection--list .tox-collection__item--enabled {
+  @apply !bg-background;
+}
+
+.tox .tox-tbtn--bespoke {
+  @apply !bg-background-100;
+}
+
+.tox-editor-header {
+  @apply !border-b-1;
+  @apply !border-solid;
+  @apply !border-b-background-200;
+}
+
+.tox-statusbar {
+  @apply !border-t-background-200;
+}
+
+.tox-tinymce {
+  @apply !border-default-200;
+  /* @apply hover:!border-default-400;
+  @apply focus:!border-default-600; */
+}
+
+.tox-collection__item-caret svg,
+.tox .tox-collection__item-checkmark svg,
+.tox .tox-tbtn svg,
+.tox-collection__item-icon svg {
+  @apply !fill-default-foreground;
+}
+
+.tox-collection__item--active .tox-collection__item-checkmark svg,
+.tox-collection__item--active .tox-collection__item-caret svg {
+  @apply !fill-default-50;
+}
+
+.tox-collection__item-label code {
+  @apply !text-black;
+}
+
+.tox-tbtn__select-label,
+.tox-statusbar__wordcount,
+.tox-statusbar,
+.tox-statusbar__path-item,
+.tox-collection__item-label {
+  @apply !text-default-foreground;
+}
+
+/* .tox .tox-textfield {
+  @apply !border-default-300;
+  @apply !border-2;
+} */
+
+.tox-collection__item-label h1,
+.tox-collection__item-label h2,
+.tox-collection__item-label h3,
+.tox-collection__item-label h4,
+.tox-collection__item-label h5,
+.tox-collection__item-label h6,
+.tox-collection__item-label strong,
+.tox-collection__item-label em,
+.tox-collection__item-label span,
+.tox-collection__item-label s,
+.tox-collection__item-label sup,
+.tox-collection__item-label p,
+.tox-collection__item-label blockquote,
+.tox-collection__item-label div,
+.tox-collection__item-label pre {
+  @apply !bg-background;
+}
+
+/* Primary color */
+.tox .tox-collection--list .tox-collection__item--active,
+.tox .tox-collection--list .tox-collection__item--active h1,
+.tox .tox-collection--list .tox-collection__item--active h2,
+.tox .tox-collection--list .tox-collection__item--active h3,
+.tox .tox-collection--list .tox-collection__item--active h4,
+.tox .tox-collection--list .tox-collection__item--active h5,
+.tox .tox-collection--list .tox-collection__item--active h6,
+.tox .tox-collection--list .tox-collection__item--active strong,
+.tox .tox-collection--list .tox-collection__item--active em,
+.tox .tox-collection--list .tox-collection__item--active span,
+.tox .tox-collection--list .tox-collection__item--active s,
+.tox .tox-collection--list .tox-collection__item--active sup,
+.tox .tox-collection--list .tox-collection__item--active p,
+.tox .tox-collection--list .tox-collection__item--active blockquote,
+.tox .tox-collection--list .tox-collection__item--active div,
+.tox .tox-collection--list .tox-collection__item--active pre {
+  @apply !bg-primary;
+  @apply !text-default-50;
+}
+
+.tox .tox-collection--toolbar .tox-collection__item--active,
+.tox .tox-collection--toolbar .tox-collection__item--enabled {
+  @apply !bg-primary;
+}
+
+/* Dialog page */
+.tox .tox-dialog-wrap__backdrop {
+  @apply !bg-overlay/50;
+}
+
+.tox .tox-dialog,
+.tox .tox-dialog__header,
+.tox .tox-dialog__footer {
+  @apply !bg-background;
+}
+
+.tox .tox-dialog__body-content .tox-form__group,
+.tox .tox-dialog__body-content .tox-form__group h1,
+.tox .tox-dialog__title,
+.tox .tox-dialog__table td,
+.tox .tox-dialog__table th,
+.tox .tox-label,
+.tox .tox-toolbar-label {
+  @apply !text-foreground;
+}
+
+.tox .tox-button--icon .tox-icon svg,
+.tox .tox-button.tox-button--icon .tox-icon svg {
+  @apply !fill-default-foreground;
+}
+
+.tox .tox-dialog__body-nav-item {
+  @apply !text-foreground/70;
+}
+
+.tox .tox-dialog__body-nav-item--active {
+  @apply !text-primary;
+}

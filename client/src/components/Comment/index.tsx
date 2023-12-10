@@ -22,17 +22,6 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
 
   const controls = (
     <div className="inline-flex gap-2 text-xs text-default-500">
-      <Button
-        size="sm"
-        variant="light"
-        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
-        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
-        startContent={
-          <span className="material-symbols-rounded">expand_content</span>
-        }
-      >
-        Open
-      </Button>
       {user && (
         <>
           <Button
@@ -55,6 +44,17 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
           />
         </>
       )}
+      <Button
+        size="sm"
+        variant="light"
+        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
+        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
+        startContent={
+          <span className="material-symbols-rounded">expand_content</span>
+        }
+      >
+        Open
+      </Button>
     </div>
   );
 
@@ -69,7 +69,7 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
             open_in_full
           </span>
         )}
-        <div className="flex flex-row gap-2">
+        <div className="flex w-full flex-row gap-2">
           <div className="flex flex-col">
             <Link to={NavigateAuthorPage(comment.author.id)}>
               <Avatar
@@ -85,7 +85,7 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
               onClick={() => setVisibleContent(!isVisibleContent)}
             />
           </div>
-          <div>
+          <div className="w-full">
             <div className="my-2 text-xs">
               <Link to={NavigateAuthorPage(comment.author.id)}>
                 <span className="text-default-600">{comment.author.name}</span>
@@ -96,7 +96,7 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
               </span>
             </div>
             {isVisibleContent && (
-              <div>
+              <div className="w-full">
                 <InnerHTML content={comment.content} />
                 {controls}
                 <div className="-ml-3">{children}</div>

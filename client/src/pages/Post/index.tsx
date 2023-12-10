@@ -9,7 +9,7 @@ import FullReactions from "src/components/FullReactions";
 
 import { incrementViewPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
-import CardComments from "../../modules/CardComments/CardComments";
+import CardComments from "../../modules/CardComments";
 
 const Post = () => {
   const post = useLoaderData() as IPost;
@@ -56,7 +56,7 @@ const Post = () => {
             <FullReactions reactions={post.reactions} />
           </CardBody>
 
-          <CardComments user={user} fatherContent={post} />
+          <CardComments fatherContent={post} />
         </Card>
       </div>
     </>

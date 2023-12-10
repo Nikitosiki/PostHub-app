@@ -19,7 +19,7 @@ const Author: FC<TypeAuthorProps> = ({
   ...rest
 }) => {
   return (
-    <div className={`pt-1 ${className}`}>
+    <div className={`py-1 ${className}`}>
       <Link to={NavigateAuthorPage(author.id)}>
         {/* <User
           name={author.name}

@@ -5,7 +5,8 @@ import { NextUIProvider } from "@nextui-org/react";
 
 import { AuthProvider } from "./contexts/index.ts";
 import router from "./router.tsx";
-import "./index.css";
+import "src/styles/index.css"
+import "src/styles/editor.css"
 import "material-symbols/material-symbols-rounded.woff2";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

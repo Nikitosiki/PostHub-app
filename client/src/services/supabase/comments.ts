@@ -1,7 +1,6 @@
 import { ICommentData, ICommentsData, Database } from "src/interfaces";
 import { client } from "./config/supabase";
 import { toCommentData } from "./parsers";
-import { TableCommentsPars } from "./parsers/types";
 
 // export const getComments = async (post_id: string): Promise<IComments> => {
 //   const { data, error } = await client
@@ -21,13 +20,15 @@ import { TableCommentsPars } from "./parsers/types";
 //     .filter((comment) => comment !== null) as IComments;
 // };
 
-export const createComment = async (comment: Database["public"]["Functions"]["create_comment"]["Args"]) => {
+export const createComment = async (
+  comment: Database["public"]["Functions"]["create_comment"]["Args"],
+) => {
   const { data, error } = await client.rpc("create_comment", comment);
   return { data, error };
 };
 
 export const getCommentById = async (
-  id: string,
+  id: number,
 ): Promise<ICommentData | null> => {
   const { data, error } = await client
     .from("comments")
@@ -62,7 +63,7 @@ export const getFirstComments = async (
 };
 
 export const getCountComments = async (post_id: string): Promise<number> => {
-  const { data, error } = await client.rpc("getCountComments", {
+  const { data, error } = await client.rpc("get_count_comments", {
     post_id_prop: post_id,
   });
 
@@ -76,30 +77,31 @@ export const getFirstChildrensComment = async (
   pageSize: number = 20,
   inReverseOrder: boolean = false,
 ): Promise<ICommentsData> => {
-  const { data, error } = await client.rpc(inReverseOrder ? "get_reverse_childrens_comment" : "get_childrens_comment", {
-    parent_id: comment_id,
-    from: pageNumber * pageSize - pageSize,
-    to: pageSize,
-  });
+  const responseData = await client.rpc(
+    inReverseOrder ? "get_reverse_childrens_comment" : "get_childrens_comment",
+    {
+      parent_id: comment_id,
+      from: pageNumber * pageSize - pageSize,
+      to: pageSize,
+    },
+  );
 
-  error && console.log(error);
-  if (!Array.isArray(data) || data.length < 1) return [];
+  responseData.error && console.log(responseData.error);
+  if (!Array.isArray(responseData.data) || responseData.data.length < 1)
+    return [];
 
-  const comments = data.map(async (dataComment) => {
-    const { data, error } = await client
-      .from("comments")
-      .select("*, users!comments_author_id_fkey(*, genders(name)), reactions(*)")
-      .eq("id", dataComment.id);
-    
-    error && console.log(error);
-    if (!Array.isArray(data) || data.length < 1) return [];
+  const dataCommentsIds = responseData.data.map((value) => value.id);
 
-    return data[0];
-  });
+  const responseComments = await client
+    .from("comments")
+    .select("*, users!comments_author_id_fkey(*, genders(name)), reactions(*)")
+    .in("id", dataCommentsIds);
 
-  const value = await Promise.all(comments) as TableCommentsPars[];
+  responseComments.error && console.log(responseComments.error);
+  if (!Array.isArray(responseComments.data) || responseComments.data.length < 1)
+    return [];
 
-  return value
+  return responseComments.data
     .map((dataComment) => (dataComment ? toCommentData(dataComment) : null))
     .filter((comment) => comment !== null) as ICommentsData;
 };

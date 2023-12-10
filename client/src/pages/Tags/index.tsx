@@ -1,71 +1,82 @@
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-// import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import { useSearchParams } from "react-router-dom";
+import Loading from "src/components/Loading";
 
-// import Bigtag from "src/modules/Bigtag";
 import Tag from "src/components/Tag";
 import { ITags } from "src/interfaces";
-import { getNewTags } from "src/services/supabase/tags";
+import SelectSort from "src/modules/SelectSort";
+import { TagSortConfig } from "src/modules/SelectSort/configs";
+import { getSortedTags } from "src/services/supabase/tags";
 
-// const responsive = {
-//   superLargeDesktop: {
-//     // the naming can be any, depends on you.
-//     breakpoint: { max: 4000, min: 3000 },
-//     items: 5,
-//   },
-//   desktop: {
-//     breakpoint: { max: 3000, min: 1024 },
-//     items: 4,
-//   },
-//   tablet: {
-//     breakpoint: { max: 1024, min: 464 },
-//     items: 3,
-//   },
-//   mobile: {
-//     breakpoint: { max: 464, min: 0 },
-//     items: 2,
-//   },
-// };
+const sortConfig = TagSortConfig;
 
 const Tags = () => {
-  const [newTags, setNewTags] = useState<ITags>([])
+  const [searchParams] = useSearchParams();
+
+  const [tags, setTags] = useState<ITags>([]);
+  const [loading, setLoading] = useState(false);
+  const [hasMoreTags, setHasMoreTags] = useState<boolean>(true);
+  const [numberPage, setNumberPage] = useState<number>(1);
+  const tagsOnPage = 10;
 
   useEffect(() => {
-    getNewTags(1, 50).then(tags => setNewTags(tags))
-  }, [])
-  
+    reloadInfiniteScroll();
+  }, [searchParams]);
+
+  const getNextTags = async () => {
+    setLoading(true);
+    const nextTags = await getSortedTags(
+      numberPage,
+      tagsOnPage,
+      searchParams.get(sortConfig.searchParamName) ?? sortConfig.defaultKey,
+    );
+    setHasMoreTags(nextTags.length !== 0);
+    setTags(tags.concat(nextTags));
+    setNumberPage(numberPage + 1);
+    setLoading(false);
+  };
+
+  const reloadInfiniteScroll = async () => {
+    setLoading(true);
+    tags.length = 0;
+    setHasMoreTags(true);
+    setNumberPage(1);
+    setLoading(false);
+  };
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: loading,
+    hasNextPage: hasMoreTags,
+    onLoadMore: getNextTags,
+  });
 
   return (
     <>
-      <div className="flex w-full flex-col gap-4 p-2">
-        {/* <Card
-          className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
-          shadow="none"
-        >
-          <CardBody className="p-0">
-            <Carousel responsive={responsive} infinite={true}>
-              {getBigTags().map((tag) => (
-                <div key={tag.id} className="m-2">
-                  <Bigtag tag={tag} />
-                </div>
-              ))}
-            </Carousel>
-          </CardBody>
-        </Card> */}
-
+      <div className="flex w-full flex-col sm:gap-4 sm:p-2">
         <Card
-          className="border-none bg-background drop-shadow-lg hover:drop-shadow-xl"
+          className="w-full rounded-t-none border-none bg-background p-1 drop-shadow-lg hover:drop-shadow-xl sm:rounded-t-large"
           shadow="none"
         >
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between">
             <p>All tags</p>
+            <SelectSort sortConfig={sortConfig} className="max-w-[10rem]" />
           </CardHeader>
+
           <CardBody className="flex-row flex-wrap gap-2">
-            {newTags.map((tag) => (
-                <Tag key={tag.id} tag={tag} />
+            {tags.map((tag) => (
+              <Tag key={tag.id} tag={tag} />
             ))}
           </CardBody>
+
+          {(loading || hasMoreTags) && (
+            <CardBody>
+              <div ref={sentryRef}>
+                <Loading className="mx-auto mt-2" />
+              </div>
+            </CardBody>
+          )}
         </Card>
       </div>
     </>
