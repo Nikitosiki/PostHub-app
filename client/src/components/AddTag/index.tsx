@@ -20,7 +20,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
 
   const list = useAsyncList<ITag>({
     async load({ filterText }) {
-      const tags = await searchTagsByTitle(filterText ?? "");
+      const tags = await searchTagsByTitle(filterText ?? "", 30);
       return {
         items: tags,
       };

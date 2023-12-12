@@ -12,7 +12,6 @@ import {
   NewsPagePath,
   PostCommentsPagePath,
   PostPagePath,
-  ProfilePagePath,
   TagPagePath,
   TagsPagePath,
 } from "./paths";
@@ -25,7 +24,6 @@ import News from "src/pages/News";
 import Tags from "src/pages/Tags";
 import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
-import Profile from "src/pages/Profile";
 import PostComments from "./pages/PostComments";
 import Tag from "./pages/Tag";
 import Author from "./pages/Author";
@@ -67,10 +65,6 @@ const router = createBrowserRouter([
       {
         path: CreatePostPagePath,
         element: <PrivateRoute element={<CreatePost />} />,
-      },
-      {
-        path: ProfilePagePath,
-        element: <PrivateRoute element={<Profile />} />,
       },
       // {
       //   path: "/profile/settings",

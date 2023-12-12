@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { Card, CardHeader, Image } from "@nextui-org/react";
+import { Card, CardHeader, Image, Tooltip } from "@nextui-org/react";
 
 import { useAuth } from "src/contexts";
 import { IUser } from "src/interfaces";
@@ -26,10 +26,21 @@ const Author = () => {
     <>
       <div className="p-2">
         <Card
-          className="mx-auto w-72 rounded-t-large border-none bg-background p-1 drop-shadow-lg"
+          className="mx-auto w-60 rounded-t-large border-none bg-background p-4 drop-shadow-lg"
           shadow="none"
         >
           <CardHeader className="flex flex-col justify-center gap-2">
+            <div className="absolute right-3 top-2 cursor-default">
+              <Tooltip
+                closeDelay={100}
+                content="Only active users receive it"
+                classNames={{ content: "text-xs" }}
+              >
+                <span className="material-symbols-rounded text-base text-primary">
+                  verified
+                </span>
+              </Tooltip>
+            </div>
             <Image
               isZoomed
               isBlurred
@@ -40,14 +51,23 @@ const Author = () => {
               classNames={{ blurredImg: "m-5" }}
             />
             <b>{author.name}</b>
-            <span
-              className="-mt-1 cursor-pointer font-mono text-[0.5rem]"
-              onClick={() => {
-                window.location.href = mailtoLink;
-              }}
-            >
-              {author.email}
+            {false && (
+              <span
+                className="-mt-1 cursor-pointer font-mono text-[0.5rem]"
+                onClick={() => {
+                  window.location.href = mailtoLink;
+                }}
+              >
+                {author.email}
+              </span>
+            )}
+            {/* <span className="pr-full w-full text-[0.66rem] text-default-foreground/50">
+              hot post 🔥
             </span>
+            <span className="-mt-2 text-xs">
+              Doggo has to be comfy too. Doggo has to be comfy too. Doggo has to
+              be comfy too.
+            </span> */}
           </CardHeader>
         </Card>
       </div>
