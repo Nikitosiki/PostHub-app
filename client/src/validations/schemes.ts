@@ -7,6 +7,7 @@ import {
   nameSchema,
   passwordSchema,
   titlePostSchema,
+  imageUrlSchema,
 } from "./parts";
 
 export const LoginSchema = yup
@@ -38,7 +39,15 @@ export const CommentSchema = yup
   })
   .required();
 
+export const ProfileSchema = yup
+  .object({
+    name: nameSchema,
+    imageUrl: imageUrlSchema,
+  })
+  .required();
+
 export type LoginSchemaType = yup.InferType<typeof LoginSchema>;
 export type SingUpSchemaType = yup.InferType<typeof SingUpSchema>;
 export type CreatePostSchemaType = yup.InferType<typeof CreatePostSchema>;
 export type CommentSchemaType = yup.InferType<typeof CommentSchema>;
+export type ProfileSchemaType = yup.InferType<typeof ProfileSchema>;

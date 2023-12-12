@@ -53,3 +53,6 @@ export const commentSchema = yup
   .string()
   .max(1000, "Comment is too long")
   .required("Comment is required");
+
+export const imageUrlSchema = yup
+  .string();

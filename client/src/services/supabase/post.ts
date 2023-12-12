@@ -149,3 +149,15 @@ export const getCountPostsByTag = async (tagId: string): Promise<number> => {
 
   return data.length;
 };
+
+export const getCountPostsByAuthor = async (userId: string): Promise<number> => {
+  const { data, error } = await client
+    .from("posts")
+    .select("id")
+    .eq("author_id", userId);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return 0;
+
+  return data.length;
+};

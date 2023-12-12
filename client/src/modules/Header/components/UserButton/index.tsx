@@ -99,11 +99,11 @@ const UserButton = () => {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem key="settings">
-              {/* <Link to={NavigateProfilePage()}>
+            {/* <DropdownItem key="settings">
+              <Link to={NavigateProfilePage()}>
                 <p>Settings</p>
-              </Link> */}
-            </DropdownItem>
+              </Link>
+            </DropdownItem> */}
           </DropdownSection>
 
           <DropdownSection aria-label="Help & Feedback" className="mb-0">
