@@ -46,9 +46,9 @@ const SearchModal: FC<SearchModalProps> = ({ isOpen, onOpenChange }) => {
 
   const handleSearch = () => {
     if (isSearchQuery) {
-      searchPostsByTitle(isSearchQuery, 6).then((posts) => setPosts(posts));
-      searchTagsByTitle(isSearchQuery, 10).then((tags) => setTags(tags));
-      searchUsersByName(isSearchQuery, 10).then((users) => setUsers(users));
+      searchPostsByTitle(isSearchQuery, 10).then((posts) => setPosts(posts));
+      searchTagsByTitle(isSearchQuery, 30).then((tags) => setTags(tags));
+      searchUsersByName(isSearchQuery, 20).then((users) => setUsers(users));
     } else setContentState("noContent");
   };
 

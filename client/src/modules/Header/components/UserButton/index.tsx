@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 import { useSwitchTheme } from "src/hooks";
 import { useAuth } from "src/contexts";
-import { NavigateCreatePostPage, NavigateProfilePage } from "src/paths";
+import { NavigateAuthorPage, NavigateCreatePostPage } from "src/paths";
 
 const UserButton = () => {
   const [isDarkTheme, setIsDarkTheme] = useSwitchTheme();
@@ -33,6 +33,7 @@ const UserButton = () => {
                 size={"sm"}
                 isBordered={true}
                 color={"primary"}
+                className="bg-default"
               />
               <p className="hidden max-w-[20rem] truncate md:block md:max-w-[10rem] md:pl-4">
                 {user?.name}
@@ -65,9 +66,11 @@ const UserButton = () => {
             }}
           >
             <DropdownItem key="user" className="max-w-[15rem] text-default-500">
-              <Link to={NavigateProfilePage()}>
-                <p className="whitespace-normal">{user?.name}</p>
-              </Link>
+              {user && (
+                <Link to={NavigateAuthorPage(user.id)}>
+                  <p className="whitespace-normal">{user?.name}</p>
+                </Link>
+              )}
             </DropdownItem>
           </DropdownSection>
 
@@ -97,11 +100,11 @@ const UserButton = () => {
                 </span>
               </div>
             </DropdownItem>
-            <DropdownItem key="settings">
+            {/* <DropdownItem key="settings">
               <Link to={NavigateProfilePage()}>
                 <p>Settings</p>
               </Link>
-            </DropdownItem>
+            </DropdownItem> */}
           </DropdownSection>
 
           <DropdownSection aria-label="Help & Feedback" className="mb-0">

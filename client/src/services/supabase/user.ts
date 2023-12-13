@@ -38,3 +38,21 @@ export const getUserByUid = async (uid: string): Promise<IUser | null> => {
 
   return toUser(data[0]);
 };
+
+export const updateUserById = async (id: string, name?: string, imageUrl?: string): Promise<Boolean> => {
+  const nameObj = name ? {
+    name: name,
+  } : {}
+
+  const imageObj = imageUrl ? {
+    avatar_url: imageUrl,
+  } : {}
+
+  const { data } = await client
+    .from("users")
+    .update({...nameObj, ...imageObj})
+    .eq("id", id)
+    .select();
+
+  return Array.isArray(data) && data.length > 0;
+};

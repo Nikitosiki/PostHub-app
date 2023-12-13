@@ -8,6 +8,10 @@ export const nameSchema = yup
     /^[a-zA-Z0-9а-яА-ЯёЁіІїЇєЄ\s]+$/,
     "Name can only contain letters, numbers, and spaces",
   )
+  .matches(
+    /^[a-zA-Z0-9а-яА-ЯёЁіІїЇєЄ]+$/,
+    "The name must contain more than just spaces",
+  )
   .required("Name is required");
 
 export const emailSchema = yup
@@ -53,3 +57,6 @@ export const commentSchema = yup
   .string()
   .max(1000, "Comment is too long")
   .required("Comment is required");
+
+export const imageUrlSchema = yup
+  .string();

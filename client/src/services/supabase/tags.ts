@@ -70,3 +70,14 @@ export const getTagById = async (
   return toTag(data[0]);
 };
 
+export const getCountTagsByAuthor = async (userId: string): Promise<number> => {
+  const { data, error } = await client
+    .from("tags")
+    .select("id")
+    .eq("author_id", userId);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return 0;
+
+  return data.length;
+};
