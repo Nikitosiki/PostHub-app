@@ -73,11 +73,13 @@ const Author = () => {
             <Image
               isZoomed
               isBlurred
-              width={96}
               radius="full"
               src={author.image_url ?? ""}
               alt={(author.name ?? "Author's") + " avatar"}
-              classNames={{ blurredImg: "m-5" }}
+              classNames={{
+                blurredImg: "m-5",
+                img: "max-w-[96px] max-h-[96px] min-w-[96px] min-h-[96px]",
+              }}
             />
             <b>{author.name}</b>
             {false && (

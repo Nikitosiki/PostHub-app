@@ -15,94 +15,103 @@ import { useAuth } from "src/contexts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { ProfileSchema, ProfileSchemaType } from "src/validations";
+import { updateUserById } from "src/services/supabase/user";
 
 type ProfileModalProps = Pick<UseDisclosureReturn, "isOpen" | "onOpenChange">;
 const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
   const nameRef = useRef<HTMLSpanElement>(null);
 
-  const [imageUrl, setImageUrl] = useState("");
-  const [isValid, setIsValid] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [verifImageUrl, setVerifImageUrl] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useAuth();
 
   const {
-    reset,
     register,
     setError,
+    clearErrors,
     handleSubmit,
     formState: { errors },
   } = useForm<ProfileSchemaType>({
     resolver: yupResolver(ProfileSchema),
+    defaultValues: {
+      name: user?.name,
+    },
   });
 
   const closeAuthModal = () => {
     isOpen && onOpenChange();
   };
 
-  const handleButtonCheck = () => {
+  const handleButtonCheck = async () => {
     if (imageUrl) {
       setIsLoading(true);
-      checkImageSize(imageUrl);
+      if (await isImageValid(imageUrl)) setVerifImageUrl(imageUrl);
+      setIsLoading(false);
     }
   };
 
-  const checkImageSize = async (url: string) => {
-    const img = new Image();
-    img.src = url;
+  const isImageValid = async (url: string): Promise<boolean> => {
+    try {
+      const img = new Image();
+      img.src = url;
 
-    img.onload = () => {
-      const maxWidth = 512;
-      const maxHeight = 512;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
 
-      if (img.width <= maxWidth && img.height <= maxHeight) {
-        setIsValid(true);
-      } else {
-        setIsValid(false);
+      if (img.width > 512 || img.height > 512) {
         setError("imageUrl", {
           message: "The image must be less than 512 x 512",
         });
+        return false;
       }
-      setIsLoading(false);
-    };
 
-    img.onerror = () => {
-      setIsValid(false);
+      const startTime = performance.now();
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      const endTime = performance.now();
+      const loadingTime = endTime - startTime;
+
+      if (loadingTime > 2000) {
+        setError("imageUrl", {
+          message: "Failed to load this image",
+        });
+        return false;
+      }
+
+      return true;
+    } catch (error) {
       setError("imageUrl", {
-        message: "Error loading image",
+        message: "Failed to load this image",
       });
-      setIsLoading(false);
-    };
+      return false;
+    }
   };
 
   const onSubmit = async (submitData: ProfileSchemaType) => {
-    // const { error } = await signInEmailAndPassword(
-    //   submitData.email,
-    //   submitData.password,
-    // );
-    // if (error) {
-    //   setError("password", {
-    //     type: error?.status?.toString(),
-    //     message: error?.message,
-    //   });
-    // } else {
-    //   closeAuthModal();
-    //   location.reload();
-    // }
+    if (!user) return;
+    updateUserById(user?.id, submitData.name, verifImageUrl).then((response) => {
+      if (response) {
+        closeAuthModal();
+        location.reload();
+      }
+    });
   };
 
   return (
     <>
       {user && (
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <Modal
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-            placement="center"
-            backdrop="opaque"
-            hideCloseButton
-            className="bg-background"
-          >
+        <Modal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          placement="center"
+          backdrop="opaque"
+          hideCloseButton
+          className="bg-background"
+        >
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <ModalContent>
               <ModalHeader>Edit Profile</ModalHeader>
 
@@ -111,7 +120,7 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
                   <Avatar
                     isBordered
                     size="lg"
-                    src={isValid ? imageUrl : user.image_url ?? ""}
+                    src={verifImageUrl ?? user.image_url ?? ""}
                     className="shrink-0 text-tiny ring-primary"
                   />
                   <div className="flex flex-col flex-nowrap overflow-hidden">
@@ -132,11 +141,12 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
                     label="Avatar url"
                     placeholder="https://"
                     onValueChange={(val) => {
-                      reset();
+                      // reset();
+                      clearErrors("imageUrl");
                       setImageUrl(val);
-                      setIsValid(false);
+                      // setIsValid(false);
                     }}
-                    {...register("imageUrl")}
+                    // {...register("imageUrl")}
                     errorMessage={errors.imageUrl?.message}
                   />
                   <Button
@@ -151,6 +161,7 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
                 <Input
                   type="name"
                   label="Name"
+                  placeholder="name"
                   onValueChange={(value) => {
                     nameRef.current && (nameRef.current.textContent = value);
                   }}
@@ -169,8 +180,8 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
                 </Button>
               </ModalFooter>
             </ModalContent>
-          </Modal>
-        </form>
+          </form>
+        </Modal>
       )}
     </>
   );
