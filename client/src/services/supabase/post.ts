@@ -1,5 +1,5 @@
 import { client } from "./config/supabase";
-import { IPost, IPosts, IUser, TablesInsert, TablesUpdate } from "src/interfaces";
+import { IPost, IPosts, IUser, TablesInsert } from "src/interfaces";
 import { toPost } from "./parsers";
 
 // export const createPost = async (post: ICreatePost) => {
@@ -12,26 +12,8 @@ import { toPost } from "./parsers";
 // };
 
 export const createPost = async (post: TablesInsert<"posts">) => {
-  const { data, error } = await client.from("posts").insert(post).select();
+  const { data, error } = await client.from("posts").upsert(post).select();
   return { data, error };
-};
-
-export const updatePostById = async (id: string, title?: string, content?: string): Promise<Boolean> => {
-  const titleObj = title ? {
-    title: title,
-  } : {}
-
-  const contentObj = content ? {
-    content: content,
-  } : {}
-
-  const { data } = await client
-    .from("posts")
-    .update({...titleObj, ...contentObj})
-    .eq("id", id)
-    .select();
-
-  return Array.isArray(data) && data.length > 0;
 };
 
 export const getSortedPosts = async (

@@ -9,7 +9,7 @@ export const nameSchema = yup
     "Name can only contain letters, numbers, and spaces",
   )
   .matches(
-    /^[a-zA-Z0-9а-яА-ЯёЁіІїЇєЄ]+$/,
+    /^[a-zA-Z0-9а-яА-ЯёЁіІїЇєЄ]/,
     "The name must contain more than just spaces",
   )
   .required("Name is required");

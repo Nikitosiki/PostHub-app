@@ -1,12 +1,13 @@
-import { FC, ReactNode, useRef, useEffect } from "react";
+import { FC, ReactNode, useRef, useEffect, useState } from "react";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   ScrollShadow,
 } from "@nextui-org/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
@@ -15,14 +16,18 @@ import Author from "src/components/Author";
 import Reactions from "src/components/Reactions";
 import Tag from "src/components/Tag";
 import InnerHTML from "src/components/InnerHTML";
-import { NavigatePostPage } from "src/paths";
+import { NavigateEditPostPage, NavigatePostPage } from "src/paths";
+import { getCountComments } from "src/services/supabase/comments";
+import { useAuth } from "src/contexts";
 
 interface IActiveParts {
   fullContent?: boolean;
   tagsVisible?: boolean;
   reactionVisible?: boolean;
   countViewVisible?: boolean;
+  countCommentVisible?: boolean;
   userViewVisible?: boolean;
+  editButtonVisible?: boolean;
 }
 
 interface IMainProps {
@@ -52,12 +57,18 @@ const Post: FC<IMainProps & IActiveParts> = ({
   tagsVisible = true,
   reactionVisible = true,
   countViewVisible = true,
+  countCommentVisible = true,
   userViewVisible = true,
+  editButtonVisible = false,
   contentHeight = "normal",
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<HTMLDivElement>(null);
   const windowSize = useStateWindowSize();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const [countComments, setCountComments] = useState<number>(0);
 
   useEffect(() => {
     const contentElement = contentRef.current;
@@ -74,28 +85,55 @@ const Post: FC<IMainProps & IActiveParts> = ({
     }
   }, [post.content, windowSize]);
 
+  useEffect(() => {
+    getCountComments(post.id).then(setCountComments);
+  }, []);
+
   const thisContent = (
     <>
       <CardHeader className="flex-col items-start gap-2 pb-2">
-        {(userViewVisible || countViewVisible) && (
+        {(userViewVisible || countViewVisible || countCommentVisible) && (
           <div className="flex w-full flex-row justify-between">
             {userViewVisible && (
-              <Author
-                className="max-w-[90%] text-left"
-                author={post.author}
-                description={`Posted on ${timeElapsedString(
-                  post.published_at,
-                )}`}
-              />
-            )}
-            {countViewVisible && (
-              <div className="flex text-default-500">
-                <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
-                  visibility
-                </span>
-                <p className="font-sans text-sm">{post.views}</p>
+              <div className="overflow-auto px-2">
+                <Author
+                  className="text-left"
+                  author={post.author}
+                  description={`Posted on ${timeElapsedString(
+                    post.published_at,
+                  )}`}
+                />
               </div>
             )}
+            <div className="flex shrink-0 gap-2">
+              {editButtonVisible && user?.id === post.author.id && (
+                <Button
+                  // size="sm"
+                  variant="flat"
+                  // className="h-6 min-w-0 gap-1 px-2 text-default-500"
+                  className="h-8 w-12 min-w-0 px-2 text-default-500"
+                  onClick={() => navigate(NavigateEditPostPage(post.id))}
+                >
+                  Edit
+                </Button>
+              )}
+              {countCommentVisible && countComments > 0 && (
+                <div className="flex text-default-500">
+                  <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
+                    chat_bubble
+                  </span>
+                  <p className="font-sans text-sm">{countComments}</p>
+                </div>
+              )}
+              {countViewVisible && (
+                <div className="flex text-default-500">
+                  <span className="material-symbols-rounded -mt-[3px] mr-1 text-lg">
+                    visibility
+                  </span>
+                  <p className="font-sans text-sm">{post.views}</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
         <h2 className="text-left text-xl font-bold text-primary">

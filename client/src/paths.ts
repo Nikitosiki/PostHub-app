@@ -21,3 +21,6 @@ export const NavigateTagPage = (tagId: string): string => `/tag/${tagId}`;
 
 export const CreatePostPagePath = "/post/create";
 export const NavigateCreatePostPage = (): string => "/post/create";
+
+export const EditPostPagePath = "/post/:id/edit";
+export const NavigateEditPostPage = (postId: string): string => `/post/${postId}/edit`;

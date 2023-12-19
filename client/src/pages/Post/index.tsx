@@ -28,6 +28,9 @@ const Post = () => {
           isPressable={false}
           tagsVisible={false}
           reactionVisible={false}
+          countViewVisible={false}
+          countCommentVisible={false}
+          editButtonVisible={true}
           cardClassName="rounded-none sm:rounded-large"
         >
           <CardBody>

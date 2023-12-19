@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ import { BsStars } from "react-icons/bs";
 
 import { createPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
-import { ITag, ITags } from "src/interfaces";
+import { IPost, ITag, ITags } from "src/interfaces";
 import Editor from "src/components/Editor";
 import AddTag from "src/components/AddTag";
 import TagPrev from "src/components/TagPrev";
@@ -23,10 +23,10 @@ import { CreatePostSchema, CreatePostSchemaType } from "src/validations";
 import InputTitle from "./components/InputTitle";
 import ErrorMessage from "src/components/ErrorMessage";
 import { createTag, getTagIdByTitle } from "src/services/supabase/tags";
-import { addTagsToPost } from "src/services/supabase/postTags";
+import { addTagsToPost, changeTagsOnPost, removeTagsToPost } from "src/services/supabase/postTags";
 import { NavigatePostPage } from "src/paths";
 
-const CreatePost = () => {
+const CreatePost: FC<{ editPostData?: IPost }> = ({ editPostData }) => {
   const [isLoading, setLoading] = useState(false);
   const [tags, setTags] = useState<ITags>([]);
   const [newTags, setNewTags] = useState<string[]>([]);
@@ -41,9 +41,17 @@ const CreatePost = () => {
       !tags.some((tag) => tag.id === value.id) && setTags([...tags, value]);
   };
 
+  useEffect(() => {
+    editPostData?.tags && setTags(editPostData?.tags);
+  }, []);
+
   // -------- Validations -----------
   const form = useForm<CreatePostSchemaType>({
     resolver: yupResolver(CreatePostSchema),
+    defaultValues: {
+      title: editPostData?.title,
+      content: editPostData?.content,
+    },
   });
 
   const onSubmit = async (submitData: CreatePostSchemaType) => {
@@ -70,11 +78,20 @@ const CreatePost = () => {
         idCreatedTags.filter((item) => typeof item === "string") as string[],
       );
 
-    const postResult = await createPost({
-      title: submitData.title,
-      content: submitData.content,
-      author_id: user?.id || "",
-    });
+    const postResult = await createPost(
+      editPostData
+        ? {
+            id: editPostData.id,
+            title: submitData.title,
+            content: submitData.content,
+            author_id: user?.id || "",
+          }
+        : {
+            title: submitData.title,
+            content: submitData.content,
+            author_id: user?.id || "",
+          },
+    );
     if (postResult.error || !postResult.data || postResult.data.length < 1) {
       form.setError("title", {
         message: "Failed to create post",
@@ -85,7 +102,7 @@ const CreatePost = () => {
     }
 
     const postId = postResult.data[0].id;
-    await addTagsToPost(IdTags, postId);
+    await changeTagsOnPost(IdTags, postId);
 
     navigate(NavigatePostPage(postId));
     setLoading(false);
@@ -99,7 +116,9 @@ const CreatePost = () => {
           shadow="none"
         >
           <CardHeader className="flex flex-col">
-            <h1 className="w-full text-left text-lg">Create post</h1>
+            <h1 className="w-full text-left text-lg">
+              {editPostData ? "Edit post" : "Create post"}
+            </h1>
           </CardHeader>
 
           {/* ------- Input Title  ------- */}
@@ -110,6 +129,7 @@ const CreatePost = () => {
               render={({ field }) => (
                 <InputTitle
                   type="title"
+                  defaultValue={editPostData?.title}
                   isDisabled={isLoading}
                   errorMessage={form.formState.errors.title?.message}
                   {...field}
@@ -125,7 +145,8 @@ const CreatePost = () => {
               control={form.control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <Editor
-                  value={value ?? ""}
+                  value={value}
+                  initialValue={editPostData?.content}
                   onEditorChange={onChange}
                   onBlur={onBlur}
                   disabled={isLoading}
