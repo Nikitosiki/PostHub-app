@@ -61,7 +61,7 @@ const CardComments: FC<CardCommentsProps> = ({ fatherContent }) => {
             </Button>
             <SendCommentModal
               user={user}
-              postId={fatherContent.id}
+              action={{ postId: fatherContent.id }}
               isOpen={isOpen}
               onOpenChange={onOpenChange}
             />

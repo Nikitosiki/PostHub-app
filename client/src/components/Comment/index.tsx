@@ -17,6 +17,7 @@ interface ICommentProps {
 
 const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [typeAction, setTypeAction] = useState<"new" | "edit">("new");
   const navigate = useNavigate();
   const [isVisibleContent, setVisibleContent] = useState<boolean>(true);
 
@@ -28,17 +29,41 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
             size="sm"
             variant="light"
             className="h-6 min-w-0 gap-2 px-2 text-default-500"
-            onClick={onOpen}
+            onClick={() => {
+              setTypeAction("new");
+              onOpen();
+            }}
             startContent={
               <span className="material-symbols-rounded text-lg">sms</span>
             }
           >
             Reply
           </Button>
+          {user?.id === comment.author.id && (
+            <Button
+              size="sm"
+              variant="light"
+              className="h-6 min-w-0 gap-2 px-2 text-default-500"
+              onClick={() => {
+                setTypeAction("edit");
+                onOpen();
+              }}
+              startContent={
+                <span className="material-symbols-rounded text-lg">
+                  ink_pen
+                </span>
+              }
+            >
+              Edit
+            </Button>
+          )}
           <SendCommentModal
             user={user}
-            postId={postId}
-            responseToComment={comment}
+            action={
+              typeAction === "new"
+                ? { postId: postId, responseToComment: comment }
+                : { editCommentId: comment.id, content: comment.content }
+            }
             isOpen={isOpen}
             onOpenChange={onOpenChange}
           />

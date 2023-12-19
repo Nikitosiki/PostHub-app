@@ -27,6 +27,16 @@ export const createComment = async (
   return { data, error };
 };
 
+export const updateCommentById = async (id: number, content?: string): Promise<Boolean> => {
+  const { data } = await client
+    .from("comments")
+    .update({content: content})
+    .eq("id", id)
+    .select();
+
+  return Array.isArray(data) && data.length > 0;
+};
+
 export const getCommentById = async (
   id: number,
 ): Promise<ICommentData | null> => {

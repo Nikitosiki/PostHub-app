@@ -11,32 +11,53 @@ import { NavigateAuthorPage } from "src/paths";
 import { IComment, IUser } from "src/interfaces";
 import { CommentSchema, CommentSchemaType } from "src/validations";
 import ErrorMessage from "src/components/ErrorMessage";
-import { createComment } from "src/services/supabase/comments";
+import {
+  createComment,
+  updateCommentById,
+} from "src/services/supabase/comments";
+
+interface ICreateNewComment {
+  postId: string;
+  responseToComment?: IComment | null;
+}
+
+interface IEditYourComment {
+  editCommentId: number;
+  content: string;
+}
 
 type SendCommentProps = {
   user: IUser | null;
-  postId: string;
-  responseToComment?: IComment | null;
+  action: ICreateNewComment | IEditYourComment;
 } & Pick<UseDisclosureReturn, "isOpen" | "onOpenChange">;
 
 const SendCommentModal: FC<SendCommentProps> = ({
   user,
-  postId,
-  responseToComment = null,
+  action,
   isOpen,
   onOpenChange,
 }) => {
   const isDesktop = useMediaQuery({ query: "(min-width: 640px)" });
   const [isLoading, setLoading] = useState(false);
-  const [content, setContent] = useState<string | null>(null);
+  const defaultContent = "content" in action ? action.content : undefined;
+  const [content, setContent] = useState<string | undefined>(defaultContent);
 
   const closeAuthModal = () => {
     isOpen && onOpenChange();
   };
 
-  const form = useForm<CommentSchemaType>({
-    resolver: yupResolver(CommentSchema),
-  });
+  // console.log("123", defaultContent, "das", content)
+
+  const form = useForm<CommentSchemaType>(
+    defaultContent === ""
+    ? {
+        resolver: yupResolver(CommentSchema),
+      }
+    : {
+        defaultValues: { content: defaultContent },
+        resolver: yupResolver(CommentSchema),
+      },
+  );
 
   const onSubmit = async (submitData: CommentSchemaType) => {
     setLoading(true);
@@ -46,21 +67,35 @@ const SendCommentModal: FC<SendCommentProps> = ({
       });
       return;
     }
-    const { error } = await createComment({
-      content: submitData.content,
-      author_id: user?.id,
-      post_id: postId,
-      parent_comment_id: responseToComment?.id,
-    });
-    if (error) {
-      form.setError("content", {
-        message: error?.message,
-      });
+
+    if ("editCommentId" in action) {
+      if (await updateCommentById(action.editCommentId, submitData.content)) {
+        setContent(undefined);
+        closeAuthModal();
+        setLoading(false);
+        location.reload();
+      } else
+        form.setError("content", {
+          message: "Failed to edit comment",
+        });
     } else {
-      setContent(null);
-      closeAuthModal();
-      setLoading(false);
-      location.reload();
+      const { error } = await createComment({
+        content: submitData.content,
+        author_id: user?.id,
+        post_id: action.postId,
+        parent_comment_id: action.responseToComment?.id,
+      });
+
+      if (error) {
+        form.setError("content", {
+          message: error?.message,
+        });
+      } else {
+        setContent(undefined);
+        closeAuthModal();
+        setLoading(false);
+        location.reload();
+      }
     }
   };
 
@@ -79,34 +114,47 @@ const SendCommentModal: FC<SendCommentProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
           <ModalContent>
             <ModalBody className="flex-none px-6 py-4">
-              <p className="text-sm">
-                Comment as{" "}
-                <Link
-                  className="text-primary"
-                  to={NavigateAuthorPage(user?.id ?? "")}
-                >
-                  {user?.name}
-                </Link>
-                {responseToComment && (
-                  <span className="text-sm">
-                    , responding to{" "}
-                    <Link
-                      className="text-primary"
-                      to={NavigateAuthorPage(
-                        responseToComment.author?.id ?? "",
-                      )}
-                    >
-                      {responseToComment.author?.name}
-                    </Link>
-                  </span>
-                )}
-              </p>
+              {"editCommentId" in action ? (
+                <p className="text-sm">
+                  Edit as{" "}
+                  <Link
+                    className="text-primary"
+                    to={NavigateAuthorPage(user?.id ?? "")}
+                  >
+                    {user?.name}
+                  </Link>
+                </p>
+              ) : (
+                <p className="text-sm">
+                  Comment as{" "}
+                  <Link
+                    className="text-primary"
+                    to={NavigateAuthorPage(user?.id ?? "")}
+                  >
+                    {user?.name}
+                  </Link>
+                  {action.responseToComment && (
+                    <span className="text-sm">
+                      , responding to{" "}
+                      <Link
+                        className="text-primary"
+                        to={NavigateAuthorPage(
+                          action.responseToComment.author?.id ?? "",
+                        )}
+                      >
+                        {action.responseToComment.author?.name}
+                      </Link>
+                    </span>
+                  )}
+                </p>
+              )}
               <Controller
                 name="content"
                 control={form.control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <EditorComment
-                    value={content ?? value ?? ""}
+                    value={content ?? value ?? ""} // content ?? ...
+                    initialValue={defaultContent}
                     onEditorChange={(value) => {
                       setContent(value);
                       onChange(value);
@@ -121,6 +169,7 @@ const SendCommentModal: FC<SendCommentProps> = ({
             <ModalBody className="pb-4">
               <div className="flex flex-row justify-end gap-4">
                 <Button onClick={() => closeAuthModal()}>Cancel</Button>
+                {/* isDisabled={defaultContent === content} */}
                 <Button color="primary" type="submit" isLoading={isLoading}>
                   Public
                 </Button>
