@@ -23,7 +23,7 @@ import { CreatePostSchema, CreatePostSchemaType } from "src/validations";
 import InputTitle from "./components/InputTitle";
 import ErrorMessage from "src/components/ErrorMessage";
 import { createTag, getTagIdByTitle } from "src/services/supabase/tags";
-import { addTagsToPost, changeTagsOnPost, removeTagsToPost } from "src/services/supabase/postTags";
+import { changeTagsOnPost } from "src/services/supabase/postTags";
 import { NavigatePostPage } from "src/paths";
 
 const CreatePost: FC<{ editPostData?: IPost }> = ({ editPostData }) => {
