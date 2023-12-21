@@ -27,7 +27,10 @@ const AddReactionButton: FC<AddReactionProps> = ({ add }) => {
     <>
       <Dropdown placement="top">
         <DropdownTrigger>
-          <Button size="sm" className="h-7 w-7 min-w-0 rounded-full">
+          <Button
+            size="sm"
+            className="h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm"
+          >
             +
           </Button>
         </DropdownTrigger>

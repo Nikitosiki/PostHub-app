@@ -11,7 +11,6 @@ import { useAuth } from "src/contexts";
 import CardComments from "../../modules/CardComments";
 import AddReactionButton from "src/components/AddReactionButton";
 import { addReactionToPost } from "src/services/supabase/reactions";
-import ShortReactions from "src/components/ShortReactions";
 import Reaction from "src/components/Reaction";
 import { toReactionViews } from "src/utils";
 
@@ -46,18 +45,19 @@ const Post = () => {
           editButtonVisible={true}
           cardClassName="rounded-none sm:rounded-large"
         >
-          <CardBody>
-            <div className="flex flex-row flex-wrap gap-2">
-              {post.tags &&
-                post.tags.map((tag) => (
+          {post.tags.length > 0 && (
+            <CardBody>
+              <div className="flex flex-row flex-wrap gap-2">
+                {post.tags.map((tag) => (
                   <Tag
                     key={tag.id}
                     tag={tag}
                     className="whitespace-nowrap text-xs"
                   />
                 ))}
-            </div>
-          </CardBody>
+              </div>
+            </CardBody>
+          )}
 
           <CardBody className="flex flex-row gap-2">
             {toReactionViews(post.reactions).map((reaction) => (
@@ -65,12 +65,6 @@ const Post = () => {
             ))}
             {user && <AddReactionButton add={handlerReaction} />}
           </CardBody>
-
-          {/* <CardBody
-            className={`items-center ${post.reactions.length < 1 && "hidden"}`}
-          >
-            <FullReactions reactions={post.reactions} />
-          </CardBody> */}
         </PostComponent>
 
         <Card
