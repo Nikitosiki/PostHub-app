@@ -9,20 +9,26 @@ type TypeReactionsProps = {
 };
 
 const ShortReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
-  const reactionsView = toReactionViews(reactions);
-  let reactionsCount: number = 0;
+  const reactionsTemp = toReactionViews(reactions);
+  const reactionsView = reactionsTemp.slice(0, 5).reverse();
+  const reactionsCount = reactionsTemp.reduce((a, b) => a + b.count, 0 );
 
   return (
     <>
-      <Chip className={`${reactionsView.length === 0 && "hidden"} bg-default-100 p-1 text-base ${className}`}>
+      <Chip
+        className={`${
+          reactionsView.length === 0 && "hidden"
+        } bg-default-100 p-1 text-base ${className}`}
+      >
         <div className="flex flex-row">
           {reactionsView
-            .filter((reaction) => reaction.count > 0)
             .map((reaction) => {
-              reactionsCount += reaction.count;
               return (
                 // font-notocolor dark:font-noto
-                <div key={reaction.emoji} className="-ml-2 h-6 w-6 rounded-full bg-default-100">
+                <div
+                  key={reaction.emoji}
+                  className="-ml-2 h-6 w-6 rounded-full bg-default-100"
+                >
                   {reaction.emoji}
                 </div>
               );
