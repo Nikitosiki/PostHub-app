@@ -8,7 +8,7 @@ type TypeReactionsProps = {
   className?: string;
 };
 
-const Reactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
+const ShortReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
   const reactionsView = toReactionViews(reactions);
   let reactionsCount: number = 0;
 
@@ -21,7 +21,8 @@ const Reactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
             .map((reaction) => {
               reactionsCount += reaction.count;
               return (
-                <div key={reaction.emoji} className="-ml-2 h-6 w-6 rounded-full bg-default-100 font-notocolor dark:font-noto">
+                // font-notocolor dark:font-noto
+                <div key={reaction.emoji} className="-ml-2 h-6 w-6 rounded-full bg-default-100">
                   {reaction.emoji}
                 </div>
               );
@@ -33,4 +34,4 @@ const Reactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
   );
 };
 
-export default Reactions;
+export default ShortReactions;

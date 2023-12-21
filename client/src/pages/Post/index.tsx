@@ -5,11 +5,15 @@ import { Card, CardBody } from "@nextui-org/react";
 import { default as PostComponent } from "src/modules/Post";
 import { IPost } from "src/interfaces";
 import Tag from "src/components/Tag";
-import FullReactions from "src/components/FullReactions";
 
 import { incrementViewPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
 import CardComments from "../../modules/CardComments";
+import AddReactionButton from "src/components/AddReactionButton";
+import { addReactionToPost } from "src/services/supabase/reactions";
+import ShortReactions from "src/components/ShortReactions";
+import Reaction from "src/components/Reaction";
+import { toReactionViews } from "src/utils";
 
 const Post = () => {
   const post = useLoaderData() as IPost;
@@ -18,6 +22,15 @@ const Post = () => {
   useEffect(() => {
     if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
   }, []);
+
+  const handlerReaction = (reactionId: number) => {
+    if (!user) return;
+    addReactionToPost({
+      post_id: post.id,
+      user_id: user?.id,
+      reaction_id: reactionId,
+    });
+  };
 
   return (
     <>
@@ -45,6 +58,19 @@ const Post = () => {
                 ))}
             </div>
           </CardBody>
+
+          <CardBody className="flex flex-row gap-2">
+            {toReactionViews(post.reactions).map((reaction) => (
+              <Reaction emoji={reaction.emoji} count={reaction.count} />
+            ))}
+            {user && <AddReactionButton add={handlerReaction} />}
+          </CardBody>
+
+          {/* <CardBody
+            className={`items-center ${post.reactions.length < 1 && "hidden"}`}
+          >
+            <FullReactions reactions={post.reactions} />
+          </CardBody> */}
         </PostComponent>
 
         <Card
@@ -53,12 +79,6 @@ const Post = () => {
           }
           shadow="none"
         >
-          <CardBody
-            className={`items-center ${post.reactions.length < 1 && "hidden"}`}
-          >
-            <FullReactions reactions={post.reactions} />
-          </CardBody>
-
           <CardComments fatherContent={post} />
         </Card>
       </div>

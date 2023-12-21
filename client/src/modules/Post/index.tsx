@@ -13,7 +13,7 @@ import { IPost } from "src/interfaces";
 import { useStateWindowSize } from "src/hooks";
 import { timeElapsedString } from "src/utils";
 import Author from "src/components/Author";
-import Reactions from "src/components/Reactions";
+import ShortReactions from "src/components/ShortReactions";
 import Tag from "src/components/Tag";
 import InnerHTML from "src/components/InnerHTML";
 import { NavigateEditPostPage, NavigatePostPage } from "src/paths";
@@ -196,7 +196,7 @@ const Post: FC<IMainProps & IActiveParts> = ({
                 />
               ))}
           </ScrollShadow>
-          {reactionVisible && <Reactions reactions={post.reactions} />}
+          {reactionVisible && <ShortReactions reactions={post.reactions} />}
         </CardFooter>
       )}
 

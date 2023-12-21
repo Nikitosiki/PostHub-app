@@ -46,12 +46,12 @@ export const getSortedPostsByTag = async (
   sortBy: string = "new",
   tagId: string,
 ): Promise<IPost[]> => {
-  const dataPostsId = (await client.rpc("get_posts_by_tag", {
+  const dataPostsId = await client.rpc("get_posts_by_tag", {
     tag_id_value: tagId,
     sort_option: sortBy,
     from: pageNumber * pageSize - pageSize,
     to: pageSize,
-  }));
+  });
 
   if (!Array.isArray(dataPostsId.data) || dataPostsId.data.length < 1) return [];
 
@@ -62,7 +62,7 @@ export const getSortedPostsByTag = async (
     .select(
       ` *, 
       users!posts_author_id_fkey(*, genders(name)), 
-      tags(*, users(*, genders(name))), 
+      tags(*, users(*, genders(name))),
       reactions(*)`,
     )
     .in("id", postsId)
@@ -150,7 +150,9 @@ export const getCountPostsByTag = async (tagId: string): Promise<number> => {
   return data.length;
 };
 
-export const getCountPostsByAuthor = async (userId: string): Promise<number> => {
+export const getCountPostsByAuthor = async (
+  userId: string,
+): Promise<number> => {
   const { data, error } = await client
     .from("posts")
     .select("id")

@@ -17,6 +17,6 @@ export const toReactionViews = (value: IReactions): IReactionViews => {
       reactions[existingIndex].count += 1;
     }
   });
-
-  return reactions;
+  
+  return reactions.sort((a, b) => { return b.count - a.count });
 };
