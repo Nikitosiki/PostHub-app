@@ -9,10 +9,7 @@ import Tag from "src/components/Tag";
 import { incrementViewPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
 import CardComments from "../../modules/CardComments";
-import AddReactionButton from "src/components/AddReactionButton";
-import { addReactionToPost } from "src/services/supabase/reactions";
-import Reaction from "src/components/Reaction";
-import { toReactionViews } from "src/utils";
+import Reactions from "./Reactions";
 
 const Post = () => {
   const post = useLoaderData() as IPost;
@@ -21,15 +18,6 @@ const Post = () => {
   useEffect(() => {
     if (fsUserId || user) incrementViewPost(post.id, user ?? fsUserId ?? "");
   }, []);
-
-  const handlerReaction = (reactionId: number) => {
-    if (!user) return;
-    addReactionToPost({
-      post_id: post.id,
-      user_id: user?.id,
-      reaction_id: reactionId,
-    });
-  };
 
   return (
     <>
@@ -59,11 +47,8 @@ const Post = () => {
             </CardBody>
           )}
 
-          <CardBody className="flex flex-row gap-2">
-            {toReactionViews(post.reactions).map((reaction) => (
-              <Reaction emoji={reaction.emoji} count={reaction.count} />
-            ))}
-            {user && <AddReactionButton add={handlerReaction} />}
+          <CardBody>
+            <Reactions user={user} post={post}/>
           </CardBody>
         </PostComponent>
 

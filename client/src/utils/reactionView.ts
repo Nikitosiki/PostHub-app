@@ -10,6 +10,7 @@ export const toReactionViews = (value: IReactions): IReactionViews => {
 
     if (existingIndex === -1) {
       reactions.push({
+        id: userReaction.id,
         emoji: userReaction.emoji,
         count: 1,
       });

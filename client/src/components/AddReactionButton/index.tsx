@@ -10,10 +10,10 @@ import { Tables } from "src/interfaces";
 import { getAllReactions } from "src/services/supabase/reactions";
 
 type AddReactionProps = {
-  add(reactionId: number): void;
+  onClick(reactionId: number): void;
 };
 
-const AddReactionButton: FC<AddReactionProps> = ({ add }) => {
+const AddReactionButton: FC<AddReactionProps> = ({ onClick }) => {
   const [reactions, setReactions] = useState<Tables<"reactions">[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<
     Iterable<React.Key> | undefined
@@ -52,7 +52,7 @@ const AddReactionButton: FC<AddReactionProps> = ({ add }) => {
             <DropdownItem
               key={reaction.id}
               className="w-auto"
-              onClick={() => add(reaction.id)}
+              onClick={() => onClick(reaction.id)}
             >
               <span className="text-xl">{reaction.emoji}</span>
             </DropdownItem>
