@@ -10,13 +10,15 @@ import {
 import { toReactionViews } from "src/utils";
 import AddReactionButton from "src/components/AddReactionButton";
 import Reaction from "src/components/Reaction";
+import ShortReactions from "src/components/ShortReactions";
 
 type ReactionsProps = {
   user: IUser | null;
   post: IPost;
+  variant: "full" | "short";
 };
 
-const Reactions: FC<ReactionsProps> = ({ user, post }) => {
+const Reactions: FC<ReactionsProps> = ({ user, post, variant = "full" }) => {
   const [reaction, setReaction] = useState<IReactions>(post.reactions);
   const [selectReaction, setSelectReaction] = useState<number | null>(null);
 
@@ -48,7 +50,7 @@ const Reactions: FC<ReactionsProps> = ({ user, post }) => {
     });
   };
 
-  return (
+  const fullView = (
     <div className="flex flex-row gap-2">
       {toReactionViews(reaction).map((reaction) => (
         <Reaction
@@ -61,6 +63,15 @@ const Reactions: FC<ReactionsProps> = ({ user, post }) => {
       {user && <AddReactionButton onClick={handlerReaction} />}
     </div>
   );
+
+  const shortView = (
+    <AddReactionButton
+      onClick={handlerReaction}
+      // contentTrigger={<ShortReactions reactions={reaction} />}
+    />
+  );
+
+  return variant === "full" ? fullView : shortView;
 };
 
 export default Reactions;

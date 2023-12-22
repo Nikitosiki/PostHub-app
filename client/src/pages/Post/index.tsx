@@ -9,7 +9,7 @@ import Tag from "src/components/Tag";
 import { incrementViewPost } from "src/services/supabase/post";
 import { useAuth } from "src/contexts";
 import CardComments from "../../modules/CardComments";
-import Reactions from "./Reactions";
+import Reactions from "../../modules/Reactions";
 
 const Post = () => {
   const post = useLoaderData() as IPost;
