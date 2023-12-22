@@ -16,7 +16,7 @@ import {
 import { toReactionViews } from "src/utils";
 import AddReactionButton from "src/components/AddReactionButton";
 import Reaction from "src/components/Reaction";
-import ShortReactions from "src/components/ShortReactions";
+// import ShortReactions from "src/components/ShortReactions";
 
 type ReactionsProps = {
   user: IUser | null;
@@ -130,25 +130,33 @@ const Reactions: FC<ReactionsProps> = ({
         ))}
       </div>
 
-      <div className="flex flex-row gap-2">
-      {user && (
-        <AddReactionButton
-          onClick={handlerReaction}
-          classNameButton="h-6 w-6"
-        />
-      )}
-      {children}
+      <div className="flex flex-row flex-wrap gap-2">
+        {user && (
+          <AddReactionButton
+            onClick={handlerReaction}
+            buttonProps={{
+              size: "sm",
+              variant: "light",
+              startContent: (
+                <span className="material-symbols-rounded text-lg">add</span>
+              ),
+              className: "h-6 min-w-0 gap-2 px-2 text-sm text-default-500",
+              content: "React",
+            }}
+          />
+        )}
+        {children}
       </div>
     </div>
   );
 
   const shortView = (
     <div className="flex flex-row gap-2">
-    <AddReactionButton
-      onClick={handlerReaction}
-      // contentTrigger={<ShortReactions reactions={reaction} />}
-    />
-    {children}
+      <AddReactionButton
+        onClick={handlerReaction}
+        // contentTrigger={<ShortReactions reactions={reaction} />}
+      />
+      {children}
     </div>
   );
 

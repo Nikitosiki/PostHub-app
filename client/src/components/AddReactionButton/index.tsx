@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonProps,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -11,10 +12,10 @@ import { getAllReactions } from "src/services/supabase/reactions";
 
 type AddReactionProps = {
   onClick(reactionId: number): void;
-  classNameButton?: string;
+  buttonProps?: ButtonProps;
 };
 
-const AddReactionButton: FC<AddReactionProps> = ({ onClick, classNameButton }) => {
+const AddReactionButton: FC<AddReactionProps> = ({ onClick, buttonProps }) => {
   const [reactions, setReactions] = useState<Tables<"reactions">[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<
     Iterable<React.Key> | undefined
@@ -30,9 +31,10 @@ const AddReactionButton: FC<AddReactionProps> = ({ onClick, classNameButton }) =
         <DropdownTrigger>
           <Button
             size="sm"
-            className={`h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm ${classNameButton}`}
+            className={buttonProps?.className ?? "h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm"}
+            {...buttonProps}
           >
-            +
+            {buttonProps?.content ?? "+"}
           </Button>
         </DropdownTrigger>
         <DropdownMenu
