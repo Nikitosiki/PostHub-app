@@ -33,7 +33,7 @@ import Author from "./pages/Author";
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
 import { getPostById } from "./services/supabase/post";
-import { getTagById } from "./services/supabase/tags";
+import { getTagById } from "./services/supabase/tag";
 import { getUserById } from "./services/supabase/user";
 
 const router = createBrowserRouter([

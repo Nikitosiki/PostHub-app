@@ -11,9 +11,10 @@ import { getAllReactions } from "src/services/supabase/reactions";
 
 type AddReactionProps = {
   onClick(reactionId: number): void;
+  classNameButton?: string;
 };
 
-const AddReactionButton: FC<AddReactionProps> = ({ onClick }) => {
+const AddReactionButton: FC<AddReactionProps> = ({ onClick, classNameButton }) => {
   const [reactions, setReactions] = useState<Tables<"reactions">[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<
     Iterable<React.Key> | undefined
@@ -29,7 +30,7 @@ const AddReactionButton: FC<AddReactionProps> = ({ onClick }) => {
         <DropdownTrigger>
           <Button
             size="sm"
-            className="h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm"
+            className={`h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm ${classNameButton}`}
           >
             +
           </Button>

@@ -22,7 +22,7 @@ import Tag from "src/components/Tag";
 import { CreatePostSchema, CreatePostSchemaType } from "src/validations";
 import InputTitle from "./components/InputTitle";
 import ErrorMessage from "src/components/ErrorMessage";
-import { createTag, getTagIdByTitle } from "src/services/supabase/tags";
+import { createTag, getTagIdByTitle } from "src/services/supabase/tag";
 import { changeTagsOnPost } from "src/services/supabase/postTags";
 import { NavigatePostPage } from "src/paths";
 

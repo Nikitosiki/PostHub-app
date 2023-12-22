@@ -7,6 +7,7 @@ import { NavigateAuthorPage, NavigatePostCommentsPage } from "src/paths";
 import { IComment, IUser } from "src/interfaces";
 import InnerHTML from "../InnerHTML";
 import SendCommentModal from "src/modules/SendCommentModal/SendCommentModal";
+import Reactions from "src/modules/Reactions";
 
 interface ICommentProps {
   comment: IComment;
@@ -23,63 +24,76 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
 
   const controls = (
     <div className="inline-flex gap-2 text-xs text-default-500">
-      {user && (
-        <>
-          <Button
-            size="sm"
-            variant="light"
-            className="h-6 min-w-0 gap-2 px-2 text-default-500"
-            onClick={() => {
-              setTypeAction("new");
-              onOpen();
-            }}
-            startContent={
-              <span className="material-symbols-rounded text-lg">sms</span>
-            }
-          >
-            Reply
-          </Button>
-          {user?.id === comment.author.id && (
+      <Reactions
+        user={user ?? null}
+        dependence={comment}
+        variant="comment"
+        children={
+          <>
+            {user && (
+              <>
+                <Button
+                  size="sm"
+                  variant="light"
+                  className="h-6 min-w-0 gap-2 px-2 text-sm text-default-500"
+                  onClick={() => {
+                    setTypeAction("new");
+                    onOpen();
+                  }}
+                  startContent={
+                    <span className="material-symbols-rounded text-lg">
+                      sms
+                    </span>
+                  }
+                >
+                  Reply
+                </Button>
+                {user?.id === comment.author.id && (
+                  <Button
+                    size="sm"
+                    variant="light"
+                    className="h-6 min-w-0 gap-2 px-2 text-sm text-default-500"
+                    onClick={() => {
+                      setTypeAction("edit");
+                      onOpen();
+                    }}
+                    startContent={
+                      <span className="material-symbols-rounded text-lg">
+                        ink_pen
+                      </span>
+                    }
+                  >
+                    Edit
+                  </Button>
+                )}
+                <SendCommentModal
+                  user={user}
+                  action={
+                    typeAction === "new"
+                      ? { postId: postId, responseToComment: comment }
+                      : { editCommentId: comment.id, content: comment.content }
+                  }
+                  isOpen={isOpen}
+                  onOpenChange={onOpenChange}
+                />
+              </>
+            )}
             <Button
               size="sm"
               variant="light"
-              className="h-6 min-w-0 gap-2 px-2 text-default-500"
-              onClick={() => {
-                setTypeAction("edit");
-                onOpen();
-              }}
+              className="h-6 min-w-0 gap-1.5 px-2 text-sm text-default-500"
+              onClick={() =>
+                navigate(NavigatePostCommentsPage(postId, comment.id))
+              }
               startContent={
-                <span className="material-symbols-rounded text-lg">
-                  ink_pen
-                </span>
+                <span className="material-symbols-rounded">expand_content</span>
               }
             >
-              Edit
+              Open
             </Button>
-          )}
-          <SendCommentModal
-            user={user}
-            action={
-              typeAction === "new"
-                ? { postId: postId, responseToComment: comment }
-                : { editCommentId: comment.id, content: comment.content }
-            }
-            isOpen={isOpen}
-            onOpenChange={onOpenChange}
-          />
-        </>
-      )}
-      <Button
-        size="sm"
-        variant="light"
-        className="h-6 min-w-0 gap-1.5 px-2 text-default-500"
-        onClick={() => navigate(NavigatePostCommentsPage(postId, comment.id))}
-        startContent={
-          <span className="material-symbols-rounded">expand_content</span>
+          </>
         }
-      >
-        Open
-      </Button>
+      />
     </div>
   );
 
@@ -111,7 +125,7 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
             />
           </div>
           <div className="w-full">
-            <div className="my-2 text-xs">
+            <div className="my-2 text-sm">
               <Link to={NavigateAuthorPage(comment.author.id)}>
                 <span className="text-default-600">{comment.author.name}</span>
               </Link>
@@ -120,8 +134,9 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
                 {timeElapsedString(comment.created_at)}
               </span>
             </div>
+
             {isVisibleContent && (
-              <div className="w-full">
+              <div className="flex w-full flex-col gap-2">
                 <InnerHTML content={comment.content} />
                 {controls}
                 <div className="-ml-3">{children}</div>

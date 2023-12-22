@@ -14,7 +14,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { useAuth } from "src/contexts";
 import { IUser } from "src/interfaces";
 import { getCountPostsByAuthor } from "src/services/supabase/post";
-import { getCountTagsByAuthor } from "src/services/supabase/tags";
+import { getCountTagsByAuthor } from "src/services/supabase/tag";
 import { getCountCommentsByAuthor } from "src/services/supabase/comments";
 import ProfileEditModal from "src/modules/ProfileEditModal";
 import { motion } from "framer-motion";

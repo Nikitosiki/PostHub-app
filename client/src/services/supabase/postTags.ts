@@ -1,6 +1,6 @@
 import { client } from "./config/supabase";
 import { TablesInsert } from "src/interfaces";
-import { getTagsByPostId } from "./tags";
+import { getTagsByPostId } from "./tag";
 
 export const addTagOnPost = async (post_tag: TablesInsert<"post_tags">) => {
   const { data, error } = await client

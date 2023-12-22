@@ -48,7 +48,7 @@ const Post = () => {
           )}
 
           <CardBody>
-            <Reactions user={user} post={post}/>
+            <Reactions user={user} dependence={post} variant="full"/>
           </CardBody>
         </PostComponent>
 
