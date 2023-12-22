@@ -34,6 +34,7 @@ const PostComments = () => {
             tagsVisible={false}
             reactionVisible={false}
             countViewVisible={false}
+            countCommentVisible={false}
             userViewVisible={false}
             contentHeight="short"
             cardClassName="rounded-none sm:rounded-large"

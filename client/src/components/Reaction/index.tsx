@@ -1,25 +1,33 @@
 import { FC } from "react";
-import { Chip } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+import { IReactionView } from "src/interfaces";
 
 type TypeReactionProps = {
+  reaction: IReactionView;
+  isSelected: boolean;
   className?: string;
-  emoji: string;
-  count: number;
-}
+  onClick?: (id: number) => {};
+};
 
-const Reaction: FC<TypeReactionProps> = ({ emoji, count, className }) => {
+const Reaction: FC<TypeReactionProps> = ({
+  reaction,
+  isSelected = false,
+  className,
+  onClick,
+}) => {
   return (
     <>
-      <Chip
-        className={`border-1 border-primary-200 bg-inherit pl-0 pr-1 ${className}`}
-      >
-        <div className="flex flex-row gap-1">
-          <div className="font-notocolor dark:font-noto">
-            {emoji}
-          </div>
-          <div>{count}</div>
-        </div>
-      </Chip>
+      {/* className="font-notocolor dark:font-noto" */}
+      <Button
+        size="sm"
+        className={
+          `h-7 min-w-unit-7 gap-2 rounded-full bg-default-100 pl-1 text-sm ` +
+          `${isSelected ? "bg-default-200 text-primary" : ""} ${className}`
+        }
+        startContent={<span className="text-lg">{reaction.emoji}</span>}
+        endContent={<span>{reaction.count}</span>}
+        onClick={() => onClick && onClick(reaction.id)}
+      />
     </>
   );
 };

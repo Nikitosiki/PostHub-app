@@ -10,6 +10,7 @@ export const toReactionViews = (value: IReactions): IReactionViews => {
 
     if (existingIndex === -1) {
       reactions.push({
+        id: userReaction.id,
         emoji: userReaction.emoji,
         count: 1,
       });
@@ -17,6 +18,6 @@ export const toReactionViews = (value: IReactions): IReactionViews => {
       reactions[existingIndex].count += 1;
     }
   });
-
-  return reactions;
+  
+  return reactions.sort((a, b) => { return b.count - a.count });
 };

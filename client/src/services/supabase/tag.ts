@@ -81,3 +81,17 @@ export const getCountTagsByAuthor = async (userId: string): Promise<number> => {
 
   return data.length;
 };
+
+export const getTagsByPostId = async (postId: string): Promise<ITags> => {
+  const { data, error } = await client
+    .from("posts")
+    .select(
+      `tags(*, users(*, genders(name)))`,
+    )
+    .eq("id", postId);
+
+  error && console.log(error);
+  if (!Array.isArray(data) || data.length < 1) return [];
+
+  return data[0].tags.map((tag) => toTag(tag)).filter((tag) => tag !== null) as ITags;
+};

@@ -8,6 +8,7 @@ import {
 import {
   AuthorPagePath,
   CreatePostPagePath,
+  EditPostPagePath,
   HotsPagePath,
   NewsPagePath,
   PostCommentsPagePath,
@@ -24,6 +25,7 @@ import News from "src/pages/News";
 import Tags from "src/pages/Tags";
 import Hots from "src/pages/Hots";
 import CreatePost from "src/pages/CreatePost";
+import EditPost from "./pages/EditPost";
 import PostComments from "./pages/PostComments";
 import Tag from "./pages/Tag";
 import Author from "./pages/Author";
@@ -31,7 +33,7 @@ import Author from "./pages/Author";
 // api functions
 import PrivateRoute from "./components/PrivateRoute";
 import { getPostById } from "./services/supabase/post";
-import { getTagById } from "./services/supabase/tags";
+import { getTagById } from "./services/supabase/tag";
 import { getUserById } from "./services/supabase/user";
 
 const router = createBrowserRouter([
@@ -65,6 +67,20 @@ const router = createBrowserRouter([
       {
         path: CreatePostPagePath,
         element: <PrivateRoute element={<CreatePost />} />,
+      },
+      {
+        path: EditPostPagePath,
+        errorElement: <Notfound value="Post is not found" />,
+        element: <PrivateRoute element={<EditPost />} />,
+        loader: ({ params }) => {
+          if (!params.id)
+            throw new Response("Post is not found", { status: 404 });
+
+          const data = getPostById(params.id);
+          if (!data) throw new Response("Post is not found", { status: 404 });
+
+          return data;
+        },
       },
       // {
       //   path: "/profile/settings",

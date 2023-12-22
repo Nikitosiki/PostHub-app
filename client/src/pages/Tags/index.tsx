@@ -8,7 +8,7 @@ import Tag from "src/components/Tag";
 import { ITags } from "src/interfaces";
 import SelectSort from "src/modules/SelectSort";
 import { TagSortConfig } from "src/modules/SelectSort/configs";
-import { getSortedTags } from "src/services/supabase/tags";
+import { getSortedTags } from "src/services/supabase/tag";
 
 const sortConfig = TagSortConfig;
 

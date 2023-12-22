@@ -14,7 +14,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import { useAuth } from "src/contexts";
 import { IUser } from "src/interfaces";
 import { getCountPostsByAuthor } from "src/services/supabase/post";
-import { getCountTagsByAuthor } from "src/services/supabase/tags";
+import { getCountTagsByAuthor } from "src/services/supabase/tag";
 import { getCountCommentsByAuthor } from "src/services/supabase/comments";
 import ProfileEditModal from "src/modules/ProfileEditModal";
 import { motion } from "framer-motion";
@@ -81,7 +81,7 @@ const Author = () => {
                 img: "max-w-[96px] max-h-[96px] min-w-[96px] min-h-[96px]",
               }}
             />
-            <b>{author.name}</b>
+            <b className="break-all">{author.name}</b>
             {false && (
               <span
                 className="-mt-1 cursor-pointer font-mono text-[0.5rem]"

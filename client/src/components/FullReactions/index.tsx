@@ -44,7 +44,7 @@ const FullReactions: FC<TypeReactionsProps> = ({ reactions, className }) => {
                 className="mr-[4px] border-none"
               >
                 <div
-                  className="h-12 w-12 cursor-pointer text-center font-notocolor text-3xl dark:font-noto"
+                  className="h-12 w-12 cursor-pointer text-center text-3xl" //font-notocolor dark:font-noto
                   onClick={() => {
                     handleReactionClick(reaction.emoji);
                   }}

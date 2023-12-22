@@ -23,6 +23,7 @@ const InnerHTML: FC<TypeInnerHTMLProps> = ({ content, className }) => {
           `prose-code:rounded-[3px] prose-code:bg-default-200 prose-code:px-[0.2em] prose-code:py-[0.1em] prose-code:font-light prose-code:before:content-none prose-code:after:content-none ` +
           `prose-pre:my-[1em] prose-pre:whitespace-pre prose-pre:rounded-none prose-pre:bg-inherit prose-pre:p-0 prose-pre:font-mono prose-pre:text-[1em] prose-pre:leading-[1.4em] prose-pre:text-default-foreground ` +
           `prose-img:m-0 prose-img:inline prose-img:overflow-clip ` +
+          `prose-li:m-0 prose-li:p-0` +
           `${className ?? ""}`
         } //prose-sm sm:prose-base
         dangerouslySetInnerHTML={{ __html: content }}

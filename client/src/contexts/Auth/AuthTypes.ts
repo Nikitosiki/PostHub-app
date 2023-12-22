@@ -10,7 +10,7 @@ export type AuthModalType = {
 
 export type UserAuthType = IUser | null;
 
-export type AuthContextPops = {
+export type AuthContextProps = {
   user: UserAuthType;
   fsUserId: string | null;
   signInGoogle(): TypeSignIn | Promise<void>;
