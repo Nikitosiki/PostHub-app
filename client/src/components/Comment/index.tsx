@@ -115,6 +115,7 @@ const Comment: FC<ICommentProps> = ({ comment, postId, user, children }) => {
                 size="sm"
                 name={comment.author.name}
                 src={nullToUndefined(comment.author.image_url)}
+                imgProps={{referrerPolicy: "no-referrer"}}
               />
             </Link>
             <div

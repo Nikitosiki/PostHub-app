@@ -45,6 +45,7 @@ const Author: FC<TypeAuthorProps> = ({
             isBordered
             src={nullToUndefined(author.image_url)}
             className="mr-2 h-7 w-7 shrink-0 text-tiny ring-primary"
+            imgProps={{referrerPolicy: "no-referrer"}}
             {...rest}
           />
           <div className="flex flex-col flex-nowrap overflow-hidden">

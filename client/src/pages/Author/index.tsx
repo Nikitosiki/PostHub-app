@@ -75,6 +75,7 @@ const Author = () => {
               isBlurred
               radius="full"
               src={author.image_url ?? ""}
+              referrerPolicy="no-referrer"
               alt={(author.name ?? "Author's") + " avatar"}
               classNames={{
                 blurredImg: "m-5",

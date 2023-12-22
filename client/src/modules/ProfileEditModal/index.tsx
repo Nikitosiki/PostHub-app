@@ -121,6 +121,7 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
                     isBordered
                     size="lg"
                     src={verifImageUrl ?? user.image_url ?? ""}
+                    imgProps={{referrerPolicy: "no-referrer"}}
                     className="shrink-0 text-tiny ring-primary"
                   />
                   <div className="flex flex-col flex-nowrap overflow-hidden">
