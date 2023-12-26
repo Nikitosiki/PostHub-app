@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { ProfileSchema, ProfileSchemaType } from "src/validations";
 import { updateUserById } from "src/services/supabase/user";
+import { useReload } from "src/hooks";
 
 type ProfileModalProps = Pick<UseDisclosureReturn, "isOpen" | "onOpenChange">;
 const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
@@ -26,6 +27,7 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useAuth();
+  const { reload } = useReload();
 
   const {
     register,
@@ -94,8 +96,8 @@ const ProfileEditModal: FC<ProfileModalProps> = ({ isOpen, onOpenChange }) => {
     if (!user) return;
     updateUserById(user?.id, submitData.name, verifImageUrl).then((response) => {
       if (response) {
+        reload();
         closeAuthModal();
-        location.reload();
       }
     });
   };

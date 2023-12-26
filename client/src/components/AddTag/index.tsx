@@ -13,7 +13,7 @@ import { ITag } from "src/interfaces";
 
 type TypeAddTagProps = {
   add(tag: ITag | string): void;
-} & Omit<AutocompleteProps, "children">;
+} & Pick<AutocompleteProps, "isDisabled">;
 
 const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -44,7 +44,6 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
           list.setFilterText(val);
           setInputValue(val);
         }}
-        onFocusChange={(isFocused) => console.log(isFocused)}
         scrollShadowProps={{
           isEnabled: false,
         }}
@@ -52,13 +51,9 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
         maxLength={30}
         {...props}
       >
-        {(item) =>
-          "title" in item && typeof item.title === "string" ? (
-            <AutocompleteItem key={item.title}>{item.title}</AutocompleteItem>
-          ) : (
-            <></>
-          )
-        }
+        {(item) => (
+          <AutocompleteItem key={item.id}>{item.title}</AutocompleteItem>
+        )}
       </Autocomplete>
       {inputValue.length > 1 && (
         <motion.div
