@@ -33,6 +33,7 @@ const UserButton = () => {
                 size={"sm"}
                 isBordered={true}
                 color={"primary"}
+                imgProps={{referrerPolicy: "no-referrer"}}
                 className="bg-default"
               />
               <p className="hidden max-w-[20rem] truncate md:block md:max-w-[10rem] md:pl-4">

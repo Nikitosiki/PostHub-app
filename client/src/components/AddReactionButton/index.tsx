@@ -31,7 +31,10 @@ const AddReactionButton: FC<AddReactionProps> = ({ onClick, buttonProps }) => {
         <DropdownTrigger>
           <Button
             size="sm"
-            className={buttonProps?.className ?? "h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm"}
+            className={
+              buttonProps?.className ??
+              "h-7 w-7 min-w-0 rounded-full bg-default-200 text-sm"
+            }
             {...buttonProps}
           >
             {buttonProps?.content ?? "+"}
@@ -46,7 +49,7 @@ const AddReactionButton: FC<AddReactionProps> = ({ onClick, buttonProps }) => {
           selectedKeys={selectedKeys}
           onSelectionChange={setSelectedKeys}
           classNames={{
-            list: "flex-row flex-wrap",
+            list: "flex-row flex-wrap justify-between",
             base: "max-w-[188px]",
           }}
           items={reactions}

@@ -44,6 +44,7 @@ const CardComments: FC<CardCommentsProps> = ({ fatherContent }) => {
               size="sm"
               name={user?.name}
               src={user?.image_url ?? undefined}
+              imgProps={{referrerPolicy: "no-referrer"}}
             />
             <Button
               size="sm"
