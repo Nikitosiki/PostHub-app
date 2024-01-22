@@ -1,6 +1,6 @@
 <div align="center">
   <img width="250" height="250" src="client/public/logo.png">
-  <h1>PostHub</h1>
+  <h1>🚀 Welcome to PostHub</h1>
 </div>
 
 <p align='center'>
@@ -12,8 +12,6 @@
   <img alt="NextUI" src="https://img.shields.io/badge/-NextUI?style=flat&logo=nextui&label=NextUI&labelColor=black&color=black">
   <img alt="Framer-motion" src="https://img.shields.io/badge/-framermotion?logo=framer&label=framer-motion&labelColor=black&color=black">
 </p>
-
-# 🚀 Welcome to our platform
 
 This is a new platform for publishing your amazing posts. Here, you'll find a variety of different topics and interests. You can create whatever you like, generate new posts, engage in discussions in the comments, or simply read the latest updates and react to them. A convenient filtering and posting system will help you browse only the content that interests you, while interactions with other participants will keep things exciting.
 
