@@ -1,8 +1,17 @@
 <div align="center">
   <img width="250" height="250" src="client/public/logo.png">
+  <h1>🚀 Welcome to PostHub</h1>
 </div>
 
-# 🚀 Welcome to our platform, **PostHub**
+<p align='center'>
+  <img alt="GitHub License" src="https://img.shields.io/github/license/Nikitosiki/PostHub-app?labelColor=black&color=38c653&cacheSeconds=50000">
+  <img alt="Static Badge" src="https://img.shields.io/badge/-Typescript?style=flat&logo=typescript&label=Typescript&labelColor=black&color=black">
+  <img alt="React" src="https://img.shields.io/badge/-React?style=flat&logo=react&label=React&labelColor=black&color=black">
+  <img alt="Supabase" src="https://img.shields.io/badge/-Supabase?style=flat&logo=supabase&label=Supabase&labelColor=black&color=black">
+  <img alt="TailwindCSS" src="https://img.shields.io/badge/-TailwindCSS?style=flat&logo=tailwindcss&label=TailwindCSS&labelColor=black&color=black">
+  <img alt="NextUI" src="https://img.shields.io/badge/-NextUI?style=flat&logo=nextui&label=NextUI&labelColor=black&color=black">
+  <img alt="Framer-motion" src="https://img.shields.io/badge/-framermotion?logo=framer&label=framer-motion&labelColor=black&color=black">
+</p>
 
 This is a new platform for publishing your amazing posts. Here, you'll find a variety of different topics and interests. You can create whatever you like, generate new posts, engage in discussions in the comments, or simply read the latest updates and react to them. A convenient filtering and posting system will help you browse only the content that interests you, while interactions with other participants will keep things exciting.
 
@@ -18,17 +27,27 @@ This is a new platform for publishing your amazing posts. Here, you'll find a va
 
 ## 🛠 Development
 
+Environment setup
+
+You need to get the Supabase and TinyMCE keys and create an env file by defining the following variables:
+
+```bash
+VITE_SUPABASE_URL=https://[YOUR_PROJECT_ID].supabase.co
+VITE_SUPABASE_ANON_KEY=******
+VITE_TINYMCE_KEY=******
+```
+
 When developing use:
-- `yarn dev`
+```bash
+yarn dev
+```
 
 A development server will automatically open the project in your browser. Normally here: `http://localhost:8080`.
 
 
 To build the project use:
-- `yarn build`
+```bash
+yarn build
+```
 
 A web ready folder will be created in `/dist/`.
-
-## 📝 License
-
-[MIT](https://choosealicense.com/licenses/mit/)
