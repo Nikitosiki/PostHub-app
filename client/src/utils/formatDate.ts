@@ -6,6 +6,9 @@ export const timeElapsedString = (value: string | Date): string => {
   const minutes: number = Math.floor(seconds / 60);
   const hours: number = Math.floor(minutes / 60);
   const days: number = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
   const data: string = new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
@@ -16,7 +19,10 @@ export const timeElapsedString = (value: string | Date): string => {
       return "yesterday";
     } else if (days < 29) {
       return `${days} days ago`;
-    } else data;
+    } else if (years <= 1) {
+      return data;
+    }
+    else return "long ago";
   } else if (hours > 0) {
     return `${hours} hours ago`;
   } else if (minutes > 0) {
