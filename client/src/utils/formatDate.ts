@@ -1,6 +1,6 @@
 export const timeElapsedString = (value: string | Date): string => {
   const now: Date = new Date();
-  const inputDate: Date = typeof value === "string" ? new Date(value) : value;
+  const inputDate: Date = adjustDate(typeof value === "string" ? new Date(value) : value);
   const timeDifference: number = now.getTime() - inputDate.getTime();
   const seconds: number = Math.floor(timeDifference / 1000);
   const minutes: number = Math.floor(seconds / 60);
@@ -34,8 +34,8 @@ export const timeElapsedString = (value: string | Date): string => {
 };
 
 export const shortFormatted = (inputDate: string | Date): string => {
-  const date: Date =
-    typeof inputDate === "string" ? new Date(inputDate) : inputDate;
+  const date: Date = adjustDate(
+    typeof inputDate === "string" ? new Date(inputDate) : inputDate);
 
   const today = new Date();
   const isSameYear = date.getFullYear() === today.getFullYear();
@@ -47,3 +47,21 @@ export const shortFormatted = (inputDate: string | Date): string => {
 
   return new Intl.DateTimeFormat("en-US", formatOptions).format(date);
 };
+
+function adjustDate(date: Date): Date {
+  const currentDate = new Date();
+  const timeDifference = currentDate.getTime() - date.getTime();
+
+  // Разница в миллисекундах (один месяц = 30 дней * 24 часа * 60 минут * 60 секунд * 1000 миллисекунд)
+  const monthInMilliseconds = 30 * 24 * 60 * 60 * 1000;
+  
+  // Если разница больше месяца
+  if (timeDifference > monthInMilliseconds) {
+      const sixtyPercentDifference = timeDifference * 0.7;
+      const newDate = new Date(date.getTime() + sixtyPercentDifference);
+      return newDate;
+  }
+
+  // Если разница не больше месяца, возвращаем исходную дату
+  return date;
+}
