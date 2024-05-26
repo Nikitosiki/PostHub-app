@@ -9,7 +9,7 @@ const Layout = () => {
         <Header />
         <div className="bg-background-100">
           <div className="container mx-auto max-w-[1024px]">
-            <div className="min-h-[calc(100vh-170px)]">
+            <div className="min-h-[calc(100vh-142px)]">
               <Outlet />
             </div>
             <Footer />

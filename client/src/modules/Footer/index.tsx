@@ -16,7 +16,7 @@ const Footer = () => {
                 </a>
               </p>
 
-              <div className="mt-3 flex flex-wrap justify-center gap-2">
+              {/* <div className="mt-3 flex flex-wrap justify-center gap-2">
                 <a href="/" className="mx-2 text-xs text-primary">
                   PostHub
                 </a>
@@ -32,7 +32,7 @@ const Footer = () => {
                 >
                   GitHub
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
