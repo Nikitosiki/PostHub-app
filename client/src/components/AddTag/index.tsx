@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -17,6 +17,7 @@ type TypeAddTagProps = {
 
 const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
   const [inputValue, setInputValue] = useState<string>("");
+  const timeout = useRef<NodeJS.Timeout | null>(null);
 
   const list = useAsyncList<ITag>({
     async load({ filterText }) {
@@ -26,6 +27,16 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
       };
     },
   });
+
+  const handleSearch = (value: string) => {
+    if (timeout.current) clearTimeout(timeout.current);
+
+    timeout.current = setTimeout(() => {
+      const text = value.toLowerCase().replace(/\s/g, "-");
+      list.setFilterText(text);
+      setInputValue(text);
+    }, 500);
+  };
 
   return (
     <div className="flex w-[186px] flex-row">
@@ -39,11 +50,7 @@ const AddTag: FC<TypeAddTagProps> = ({ add, ...props }) => {
         isLoading={list.isLoading}
         items={list.items}
         allowsCustomValue={true}
-        onInputChange={(val) => {
-          val = val.toLowerCase().replace(/\s/g, "-");
-          list.setFilterText(val);
-          setInputValue(val);
-        }}
+        onInputChange={handleSearch}
         scrollShadowProps={{
           isEnabled: false,
         }}

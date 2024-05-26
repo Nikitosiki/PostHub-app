@@ -48,7 +48,7 @@ const maxHeightContent = (value: IMainProps["contentHeight"]) => {
     : "hidden";
 };
 
-const Post: FC<IMainProps & IActiveParts> = ({
+const Post: FC<PostProps> = ({
   post,
   children,
   cardClassName,
