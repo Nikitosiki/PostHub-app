@@ -16,6 +16,7 @@
     "@react-stately/data": "^3.11.0",
     "@supabase/supabase-js": "^2.38.4",
     "@tinymce/tinymce-react": "^4.3.0",
+    "axios": "^1.7.2",
     "framer-motion": "^10.16.5",
     "material-symbols": "^0.14.0",
     "react": "^18.2.0",
