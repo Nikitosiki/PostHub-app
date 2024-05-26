@@ -61,7 +61,7 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({
         <ModalBody className="py-0 text-default-500">
           <p>Join the PostHub community</p>
         </ModalBody>
-        <ModalBody className="flex flex-row justify-center gap-2 px-6 py-4">
+        {/* <ModalBody className="flex flex-row justify-center gap-2 px-6 py-4">
           <Button
             size="md"
             className="w-full bg-background-100"
@@ -89,9 +89,9 @@ const LoginContent: FC<SwitchSelectedType & CloseAuthModalType> = ({
           >
             <FacebookIcon className="w-6 text-white" />
           </Button>
-        </ModalBody>
+        </ModalBody> */}
 
-        <Divider className="mx-6 w-auto" />
+        {/* <Divider className="mx-6 w-auto" /> */}
 
         <ModalBody className="py-4">
           <Input
